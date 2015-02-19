@@ -1,0 +1,7 @@
+<p>
+  <ul>
+    {% for pano in panoramas %}
+    <li>{{ pano.name }} ({{ pano.latitude}}°, {{ pano.longitude }}°)</li>
+    {% endfor %}
+  </ul>
+</p>
