@@ -71,16 +71,6 @@ class Panorama(Point):
         return os.path.join(settings.MEDIA_URL, settings.PANORAMA_TILES_DIR,
                             str(self.pk))
 
-    def to_dict(self):
-        """Useful to pass information to the javascript code as JSON"""
-        return {"id": self.id,
-                "name": self.name,
-                "loop": self.loop,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "altitude": self.altitude,
-                "tiles_url": self.tiles_url()}
-
     def generate_tiles(self):
         # The trailing slash is necessary for the shell script.
         tiles_dir = self.tiles_dir()  + "/"
@@ -100,14 +90,6 @@ class Panorama(Point):
 class ReferencePoint(Point):
     name = models.CharField(verbose_name="name", max_length=255,
                             help_text="Name of the reference point")
-
-    def to_dict(self):
-        """Useful to pass information to the javascript code as JSON"""
-        return {"id": self.id,
-                "name": self.name,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "altitude": self.altitude}
 
     def to_dict_extended(self, point):
         """Same as above, but also includes information relative
