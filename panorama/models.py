@@ -11,6 +11,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.encoding import python_2_unicode_compatible
 
 
+EARTH_RADIUS = 6371009
+
+
 class Point(models.Model):
     latitude = models.FloatField(verbose_name="latitude", help_text="In degrees",
                                  validators=[MinValueValidator(-90),
@@ -21,34 +24,50 @@ class Point(models.Model):
     altitude = models.FloatField(verbose_name="altitude", help_text="In meters",
                                  validators=[MinValueValidator(0.)])
 
+    @property
+    def latitude_rad(self):
+        return radians(self.latitude)
+
+    @property
+    def longitude_rad(self):
+        return radians(self.longitude)
+
+    @property
+    def altitude_abs(self):
+        """Absolute distance to the center of Earth (in a spherical model)"""
+        return EARTH_RADIUS + self.altitude
+
     def line_distance(self, other):
-        """Distance of the straight line between two points on Earth.
+        """Distance of the straight line between two points on Earth, in meters.
 
         Note that this is only useful because we are considering
         line-of-sight links, where straight-line distance is the relevant
         distance.  For arbitrary points on Earth, great-circle distance
         would most likely be preferred.
         """
-        earth_radius = 6371009
-        lat, lon = radians(self.latitude), radians(self.longitude)
-        alt = earth_radius + self.altitude
-        lat2, lon2 = radians(other.latitude), radians(other.longitude)
-        alt2 = earth_radius + other.altitude
+        delta_lon = other.longitude_rad - self.longitude_rad
         # Cosine of the angle between the two points on their great circle.
-        cos_angle = sin(lat) * sin(lat2) + cos(lat) * cos(lat2) * cos(lon2 - lon)
+        cos_angle = sin(self.latitude_rad) * sin(other.latitude_rad) \
+                    + cos(self.latitude_rad) * cos(other.latitude_rad) * cos(delta_lon)
         # Al-Kashi formula
-        return sqrt(alt ** 2 + alt2 ** 2 - 2 * alt * alt2 * cos_angle)
+        return sqrt(self.altitude_abs ** 2 \
+                    + other.altitude_abs ** 2 \
+                    - 2 * self.altitude_abs * other.altitude_abs * cos_angle)
 
     def bearing(self, other):
         """Bearing, in degrees, between this point and another point."""
-        lat, lon = radians(self.latitude), radians(self.longitude)
-        lat2, lon2 = radians(other.latitude), radians(other.longitude)
-        y = sin(lon2 - lon) * cos(lat2)
-        x = cos(lat) * sin(lat2) - sin(lat) * cos(lat2) * cos(lon2 - lon)
+        delta_lon = other.longitude_rad - self.longitude_rad
+        y = sin(delta_lon) * cos(other.latitude_rad)
+        x = cos(self.latitude_rad) * sin(other.latitude_rad) \
+            - sin(self.latitude_rad) * cos(other.latitude_rad) * cos(delta_lon)
         return degrees(atan2(y, x))
 
     def elevation(self, other):
         """Elevation, in degrees, between this point and another point."""
+        d = self.line_distance(other)
+        sin_elev = (other.altitude_abs ** 2 - self.altitude_abs ** 2 - d ** 2) \
+                   / (2 * self.altitude_abs * d)
+        return degrees(asin(sin_elev))
         
 
     class Meta:
