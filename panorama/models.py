@@ -15,6 +15,7 @@ EARTH_RADIUS = 6371009
 
 
 class Point(models.Model):
+    """Geographical point, with altitude."""
     latitude = models.FloatField(verbose_name="latitude", help_text="In degrees",
                                  validators=[MinValueValidator(-90),
                                              MaxValueValidator(90)])
@@ -74,9 +75,34 @@ class Point(models.Model):
 
 
 @python_2_unicode_compatible
-class Panorama(Point):
+class ReferencePoint(Point):
+    """Reference point, to be used"""
     name = models.CharField(verbose_name="name", max_length=255,
-                            help_text="Name of the panorama")
+                            help_text="Name of the point")
+
+    def to_dict(self):
+        """Useful to pass information to the javascript code as JSON"""
+        return {"id": self.id,
+                "name": self.name,
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "altitude": self.altitude}
+
+    def to_dict_extended(self, point):
+        """Same as above, but also includes information relative
+        to the given point: bearing, azimuth, distance."""
+        d = self.to_dict()
+        d['distance'] = self.line_distance(point)
+        d['bearing'] = point.bearing(self)
+        d['elevation'] = point.elevation(self)
+        return d
+    
+    def __str__(self):
+        return "Reference point : " + self.name
+
+
+@python_2_unicode_compatible
+class Panorama(ReferencePoint):
     loop = models.BooleanField(default=False, verbose_name="360° panorama",
                                help_text="Whether the panorama loops around the edges")
     image = models.ImageField(verbose_name="image", upload_to="pano")
@@ -111,28 +137,4 @@ class Panorama(Point):
         return ret
 
     def __str__(self):
-        return self.name
-
-
-@python_2_unicode_compatible
-class ReferencePoint(Point):
-    name = models.CharField(verbose_name="name", max_length=255,
-                            help_text="Name of the reference point")
-
-    def to_dict(self):
-        """Useful to pass information to the javascript code as JSON"""
-        return {"id": self.id,
-                "name": self.name,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "altitude": self.altitude}
-
-    def to_dict_extended(self, point):
-        """Same as above, but also includes information relative
-        to the given point: bearing, azimuth, distance."""
-        d = self.to_dict()
-        d['distance'] = self.line_distance(point)
-        return d
-    
-    def __str__(self):
-        return self.name
+        return "Panorama : " + self.name
