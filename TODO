@@ -1,0 +1,14 @@
+Basic functionalities:
+
+- get the js to work (JSON, Ajax, etc)
+
+
+New features:
+
+- Add photos, URL, etc to ReferencePoint model (useful to collect
+  information about the reference point: pictures of the building,
+  webpage with description, etc)
+
+- Mini-map on the side of the panorama view, many uses:
+  - see the current direction of the panorama on the map
+  - click on a point on the map to see this point in the panorama
