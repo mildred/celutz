@@ -17,7 +17,9 @@ class PanoramaAdmin(admin.ModelAdmin):
     model = Panorama
     inlines = (ReferenceInline, )
     list_display = ('name', 'latitude', 'longitude', 'altitude', 'loop')
-    fields = ('name', 'image', 'loop', ('latitude', 'longitude'), 'altitude')
+    fields = ('name', ('image', 'image_width', 'image_height'),
+              'loop', ('latitude', 'longitude'), 'altitude')
+    readonly_fields = ('image_width', 'image_height')
 
 
 @admin.register(ReferencePoint)

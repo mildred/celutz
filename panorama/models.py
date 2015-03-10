@@ -106,7 +106,11 @@ class ReferencePoint(Point):
 class Panorama(ReferencePoint):
     loop = models.BooleanField(default=False, verbose_name="360° panorama",
                                help_text="Whether the panorama loops around the edges")
-    image = models.ImageField(verbose_name="image", upload_to="pano")
+    image = models.ImageField(verbose_name="image", upload_to="pano",
+                              width_field="image_width",
+                              height_field="image_height")
+    image_width = models.PositiveIntegerField(default=0)
+    image_height = models.PositiveIntegerField(default=0)
     # Set of references, i.e. reference points with information on how
     # they relate to this panorama.
     references = models.ManyToManyField(ReferencePoint, through='Reference',
@@ -160,8 +164,8 @@ class Reference(models.Model):
         if self.panorama.pk == self.reference_point.pk:
             raise ValidationError("A panorama can't reference itself.")
         # Check than the position is within the bounds of the image.
-        w = self.panorama.image.width
-        h = self.panorama.image.height
+        w = self.panorama.image_width
+        h = self.panorama.image_height
         if self.x >= w or self.y >= h:
             raise ValidationError("Position ({x}, {y}) is outside the bounds "
                                   "of the image ({width}, {height}).".format(
