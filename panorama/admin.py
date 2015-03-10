@@ -3,12 +3,19 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Panorama, ReferencePoint
+from .models import Panorama, ReferencePoint, Reference
+
+
+class ReferenceInline(admin.TabularInline):
+    model = Reference
+    fk_name = "panorama"
+    extra = 1
 
 
 @admin.register(Panorama)
 class PanoramaAdmin(admin.ModelAdmin):
     model = Panorama
+    inlines = (ReferenceInline, )
     list_display = ('name', 'latitude', 'longitude', 'altitude', 'loop')
     fields = ('name', 'image', 'loop', ('latitude', 'longitude'), 'altitude')
 

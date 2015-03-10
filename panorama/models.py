@@ -7,6 +7,7 @@ from math import radians, degrees, sin, cos, asin, atan2, sqrt
 
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -106,6 +107,10 @@ class Panorama(ReferencePoint):
     loop = models.BooleanField(default=False, verbose_name="360° panorama",
                                help_text="Whether the panorama loops around the edges")
     image = models.ImageField(verbose_name="image", upload_to="pano")
+    # Set of references, i.e. reference points with information on how
+    # they relate to this panorama.
+    references = models.ManyToManyField(ReferencePoint, through='Reference',
+                                        related_name="referenced_panorama")
 
     def tiles_dir(self):
         return os.path.join(settings.MEDIA_ROOT, settings.PANORAMA_TILES_DIR,
@@ -128,3 +133,39 @@ class Panorama(ReferencePoint):
 
     def __str__(self):
         return "Panorama : " + self.name
+
+
+class Reference(models.Model):
+    """A reference is made of a Panorama, a Reference Point, and the position
+    (x, y) of the reference point inside the image.  With enough
+    references, the panorama is calibrated.  That is, we can build a
+    mapping between pixels of the image and directions in 3D space, which
+    are represented by (azimuth, elevation) couples."""
+
+    # Components of the ManyToMany relation
+    reference_point = models.ForeignKey(ReferencePoint, related_name="refpoint_references")
+    panorama = models.ForeignKey(Panorama, related_name="panorama_references")
+    # Position of the reference point in the panorama image
+    x = models.PositiveIntegerField()
+    y = models.PositiveIntegerField()
+
+    class Meta:
+        # It makes no sense to have multiple references of the same
+        # reference point on a given panorama.
+        unique_together = (("reference_point", "panorama"),)
+
+    def clean(self):
+        # Check that the reference point and the panorama are different
+        # (remember that panoramas can *also* be seen as reference points)
+        if self.panorama.pk == self.reference_point.pk:
+            raise ValidationError("A panorama can't reference itself.")
+        # Check than the position is within the bounds of the image.
+        w = self.panorama.image.width
+        h = self.panorama.image.height
+        if self.x >= w or self.y >= h:
+            raise ValidationError("Position ({x}, {y}) is outside the bounds "
+                                  "of the image ({width}, {height}).".format(
+                                      x=self.x,
+                                      y=self.y,
+                                      width=w,
+                                      height=h))
