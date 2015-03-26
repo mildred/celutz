@@ -2,20 +2,24 @@ from rest_framework import serializers
 
 from panorama.models import Panorama, ReferencePoint, Reference
 
+
+class ReferencePointSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ReferencePoint
+        fields = ("url", "name",
+                  "latitude", "longitude", "altitude",
+                  "refpoint_references")
+
+
 class PanoramaSerializer(serializers.HyperlinkedModelSerializer):
     # fixme : return absolute URL for tiles_url
     class Meta:
         model = Panorama
-        fields = ("url", "name", "loop",
+        fields = ("url", "name", "loop", "image_width", "image_height",
                   "latitude", "longitude", "altitude",
-                  "tiles_url")
+                  "tiles_url",
+                  "panorama_references")
 
-class ReferencePointSerializer(serializers.HyperlinkedModelSerializer):
-    # fixme : return absolute URL for tiles_url
-    class Meta:
-        model = ReferencePoint
-        fields = ("url", "name",
-                  "latitude", "longitude", "altitude")
 
 class ReferenceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
