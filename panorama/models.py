@@ -81,23 +81,6 @@ class ReferencePoint(Point):
     name = models.CharField(verbose_name="name", max_length=255,
                             help_text="Name of the point")
 
-    def to_dict(self):
-        """Useful to pass information to the javascript code as JSON"""
-        return {"id": self.id,
-                "name": self.name,
-                "latitude": self.latitude,
-                "longitude": self.longitude,
-                "altitude": self.altitude}
-
-    def to_dict_extended(self, point):
-        """Same as above, but also includes information relative
-        to the given point: bearing, azimuth, distance."""
-        d = self.to_dict()
-        d['distance'] = self.line_distance(point)
-        d['bearing'] = point.bearing(self)
-        d['elevation'] = point.elevation(self)
-        return d
-    
     def __str__(self):
         return "Reference point : " + self.name
 
