@@ -1,6 +1,17 @@
 Basic functionalities:
 
-- get the js to work (JSON, Ajax, etc)
+- get the js code to work with DRF (full-AJAX)
+
+- hire a HTML5/CSS designer :-)
+
+
+Background work:
+
+- use Celery for computation-intensive tasks (generating tiles)
+
+- rewrite the tile generation in Python/PIL
+
+- general js code cleanup (tile display, bearing/elevation computation)
 
 
 New features:
