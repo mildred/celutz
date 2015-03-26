@@ -5,6 +5,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'panoramas', views.PanoramaViewSet)
 router.register(r'refpoints', views.ReferencePointViewSet)
+router.register(r'references', views.ReferenceViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

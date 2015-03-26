@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from panorama.models import Panorama, ReferencePoint
+from panorama.models import Panorama, ReferencePoint, Reference
 from .serializers import *
 
 class PanoramaViewSet(viewsets.ModelViewSet):
@@ -12,3 +12,6 @@ class ReferencePointViewSet(viewsets.ModelViewSet):
     serializer_class = ReferencePointSerializer
 
 
+class ReferenceViewSet(viewsets.ModelViewSet):
+    queryset = Reference.objects.all()
+    serializer_class = ReferenceSerializer
