@@ -23,3 +23,6 @@ New features:
 - Mini-map on the side of the panorama view, many uses:
   - see the current direction of the panorama on the map
   - click on a point on the map to see this point in the panorama
+
+- Provide permalink with a given position in an image (to be able to share
+  links like "What do you think <this building> is?")
