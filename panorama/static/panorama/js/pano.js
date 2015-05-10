@@ -278,8 +278,7 @@ function zero_pad(number) {
 }
 
 function get_file_name(x, y, z) { // recherche du fichier correspondant au zoom et à la position
-	//return img_prefix+'/'+zero_pad(z)+'_'+zero_pad(x)+'_'+zero_pad(y)+'.jpg';
-	return img_prefix+'/'+zero_pad(z)+'_'+x+'_'+y+'.jpg';
+	return img_prefix+'/'+zero_pad(z)+'-'+zero_pad(x)+'-'+zero_pad(y)+'.jpg';
 }
 
 function get_base_name() {

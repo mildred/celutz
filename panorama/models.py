@@ -11,6 +11,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.encoding import python_2_unicode_compatible
 
+from .gen_tiles import gen_tiles
+
 
 EARTH_RADIUS = 6371009
 
@@ -129,15 +131,11 @@ class Panorama(ReferencePoint):
                             str(self.pk))
 
     def generate_tiles(self):
-        # The trailing slash is necessary for the shell script.
-        tiles_dir = self.tiles_dir()  + "/"
         try:
-            os.makedirs(tiles_dir)
+            os.makedirs(self.tiles_dir())
         except OSError:
             pass
-        script = os.path.join(settings.BASE_DIR, "panorama", "gen_tiles.sh")
-        ret = subprocess.call([script, "-p", tiles_dir, self.image.path])
-        return ret
+        gen_tiles(self.image.path, self.tiles_dir())
 
     def __str__(self):
         return "Panorama : " + self.name
