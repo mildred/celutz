@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, division, print_function
+
 from rest_framework import viewsets
 from django.conf import settings
 
