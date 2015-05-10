@@ -39,6 +39,27 @@ class Point(models.Model):
         """Absolute distance to the center of Earth (in a spherical model)"""
         return EARTH_RADIUS + self.altitude
 
+    def great_angle(self, other):
+        """Returns the great angle, in radians, between the two given points.  The
+        great angle is the angle formed by the two points when viewed from
+        the center of the Earth.
+        """
+        lon_delta = other.longitude_rad - self.longitude_rad
+        a = (cos(other.latitude_rad) * sin(lon_delta)) ** 2 \
+            + (cos(self.latitude_rad) * sin(other.latitude_rad) \
+               - sin(self.latitude_rad) * cos(other.latitude_rad) * cos(lon_delta)) ** 2
+        b = sin(self.latitude_rad) * sin(other.latitude_rad) \
+            + cos(self.latitude_rad) * cos(other.latitude_rad) * cos(lon_delta)
+        angle = atan2(sqrt(a), b)
+        return angle
+
+    def great_circle_distance(self, other):
+        """Returns the great circle distance between two points, without taking
+        into account their altitude.  Don't use this to compute
+        line-of-sight distance, see [line_distance] instead.
+        """
+        return EARTH_RADIUS * self.great_angle(other)
+
     def line_distance(self, other):
         """Distance of the straight line between two points on Earth, in meters.
 
