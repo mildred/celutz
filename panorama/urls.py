@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls import patterns, include, url
 
-from .views import PanoramaUpload, PanoramaView, pano_json, pano_refpoints, PanoramaList, PanoramaGenTiles
+from .views import PanoramaUpload, PanoramaView, PanoramaList, PanoramaGenTiles
 
 
 urlpatterns = patterns('',
