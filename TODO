@@ -8,8 +8,8 @@ Basic functionalities:
 Background work:
 
 - use Celery for computation-intensive tasks (generating tiles)
-
-- rewrite the tile generation in Python/PIL
+  => in progress.  We should display the progress of tiles generation
+  in the panorama view.
 
 - general js code cleanup (tile display, bearing/elevation computation)
 
