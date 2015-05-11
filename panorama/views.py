@@ -26,10 +26,10 @@ class PanoramaView(DetailView):
 
 class PanoramaGenTiles(RedirectView):
     permanent = False
-    pattern_name = "panorama:list"
+    pattern_name = "panorama:view_pano"
 
     def get_redirect_url(self, *args, **kwargs):
-        pano = get_object_or_404(Panorama, pk=kwargs['id'])
+        pano = get_object_or_404(Panorama, pk=kwargs['pk'])
         pano.generate_tiles()
         return super(PanoramaGenTiles, self).get_redirect_url(*args, **kwargs)
 
