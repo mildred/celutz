@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Given an image, generate a set of tiles at various zoom levels.
 The format of the filename of times is:
@@ -7,6 +9,8 @@ The format of the filename of times is:
 where zoom is 0 for the original size, 1 when the image is downscaled 2
 times, 2 when the image is downscaled 4 times, etc.
 """
+
+from __future__ import unicode_literals, division, print_function
 
 import sys
 import os

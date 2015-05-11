@@ -11,7 +11,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.encoding import python_2_unicode_compatible
 
-from .gen_tiles import gen_tiles
+from .tasks import generate_tiles
 
 
 EARTH_RADIUS = 6371009
@@ -135,7 +135,7 @@ class Panorama(ReferencePoint):
             os.makedirs(self.tiles_dir())
         except OSError:
             pass
-        gen_tiles(self.image.path, self.tiles_dir())
+        generate_tiles.delay(self.image.path, self.tiles_dir())
 
     def __str__(self):
         return "Panorama : " + self.name

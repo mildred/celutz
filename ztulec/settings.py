@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # For Celery
+    'kombu.transport.django',
     'rest_framework',
     'panorama',
     'api'
@@ -96,3 +98,8 @@ PANORAMA_TILES_DIR = "tiles"
 # Max distance around a point at which to consider reference points
 # (in meters)
 PANORAMA_MAX_DISTANCE = 30000
+
+# Celery configuration
+BROKER_URL = 'django://'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
