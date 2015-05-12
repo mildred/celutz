@@ -20,6 +20,14 @@ class PanoramaAdmin(admin.ModelAdmin):
     fields = ('name', ('image', 'image_width', 'image_height'),
               'loop', ('latitude', 'longitude'), 'altitude')
     readonly_fields = ('image_width', 'image_height')
+    actions = ('regenerate_tiles', )
+
+    def regenerate_tiles(self, request, queryset):
+        for pano in queryset:
+            pano.delete_tiles()
+            pano.generate_tiles()
+        self.message_user(request, "Launched tiles regeneration, it may take some time to complete")
+    regenerate_tiles.short_description = "Regenerate tiles for the selected panoramas"
 
 
 @admin.register(ReferencePoint)
