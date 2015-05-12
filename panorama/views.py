@@ -16,7 +16,7 @@ class PanoramaUpload(CreateView):
     template_name = "panorama/new.html"
 
     def get_success_url(self):
-        return reverse_lazy("panorama:gen_tiles", kwargs={"id": self.object.id})
+        return reverse_lazy("panorama:gen_tiles", kwargs={"pk": self.object.id})
 
 class PanoramaView(DetailView):
     model = Panorama
