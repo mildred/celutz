@@ -7,79 +7,29 @@
     <script>
       var title = "{{ panorama.name|escapejs }}";
       var img_prefix = '{{ panorama.tiles_url }}';
-      var image_loop = true;
+      var image_loop = {{ panorama.loop }};
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
     <script>window.onload = load_pano</script>
     <script>
-      zooms[0] = new tzoom(0);
-      zooms[0].ntiles.x = 94;
-      zooms[0].ntiles.y = 7;
-      zooms[0].tile.width = 256;
-      zooms[0].tile.height = 256;
-      zooms[0].last_tile.width = 109;
-      zooms[0].last_tile.height = 5;
-      zooms[1] = new tzoom(1);
-      zooms[1].ntiles.x = 47;
-      zooms[1].ntiles.y = 4;
-      zooms[1].tile.width = 256;
-      zooms[1].tile.height = 256;
-      zooms[1].last_tile.width = 183;
-      zooms[1].last_tile.height = 3;
-      zooms[2] = new tzoom(2);
-      zooms[2].ntiles.x = 24;
-      zooms[2].ntiles.y = 2;
-      zooms[2].tile.width = 256;
-      zooms[2].tile.height = 256;
-      zooms[2].last_tile.width = 91;
-      zooms[2].last_tile.height = 129;
-      zooms[3] = new tzoom(3);
-      zooms[3].ntiles.x = 12;
-      zooms[3].ntiles.y = 1;
-      zooms[3].tile.width = 256;
-      zooms[3].tile.height = 193;
-      zooms[3].last_tile.width = 174;
-      zooms[3].last_tile.height = 193;
-      zooms[4] = new tzoom(4);
-      zooms[4].ntiles.x = 6;
-      zooms[4].ntiles.y = 1;
-      zooms[4].tile.width = 256;
-      zooms[4].tile.height = 96;
-      zooms[4].last_tile.width = 215;
-      zooms[4].last_tile.height = 96;
-      zooms[5] = new tzoom(5);
-      zooms[5].ntiles.x = 3;
-      zooms[5].ntiles.y = 1;
-      zooms[5].tile.width = 256;
-      zooms[5].tile.height = 48;
-      zooms[5].last_tile.width = 234;
-      zooms[5].last_tile.height = 48;
-      zooms[6] = new tzoom(6);
-      zooms[6].ntiles.x = 2;
-      zooms[6].ntiles.y = 1;
-      zooms[6].tile.width = 256;
-      zooms[6].tile.height = 24;
-      zooms[6].last_tile.width = 117;
-      zooms[6].last_tile.height = 24;
-      zooms[7] = new tzoom(7);
-      zooms[7].ntiles.x = 1;
-      zooms[7].ntiles.y = 1;
-      zooms[7].tile.width = 187;
-      zooms[7].tile.height = 12;
-      zooms[7].last_tile.width = 187;
-      zooms[7].last_tile.height = 12;
-      zooms[8] = new tzoom(8);
-      zooms[8].ntiles.x = 1;
-      zooms[8].ntiles.y = 1;
-      zooms[8].tile.width = 93;
-      zooms[8].tile.height = 6;
-      zooms[8].last_tile.width = 93;
-      zooms[8].last_tile.height = 6;
-      point_list[0] = new Array("Tour Part-Dieu (crayon)", 0.714758, 41.956659, 11.233478, "");
-      point_list[1] = new Array("Tour métallique de Fourvière", 2.133944, -66.563873, 4.625330, "");
+      {% for zoom_level, data in panorama.tiles_data.items %}
+      zooms[{{ zoom_level }}] = new tzoom({{ zoom_level }});
+      zooms[{{ zoom_level }}].ntiles.x = {{ data.ntiles_x }};
+      zooms[{{ zoom_level }}].ntiles.y = {{ data.ntiles_y }};
+      zooms[{{ zoom_level }}].tile.width = {{ data.tile_width }};
+      zooms[{{ zoom_level }}].tile.height = {{ data.tile_height }};
+      zooms[{{ zoom_level }}].last_tile.width = {{ data.last_tile_width }};
+      zooms[{{ zoom_level }}].last_tile.height = {{ data.last_tile_height }};
+      {% endfor %}
+
+      {% for id, refpoint in panorama.refpoints_data %}
+      point_list[{{ id }}] = new Array("{{ refpoint.name }}", {{ refpoint.distance }}, {{ refpoint.cap }}, {{ refpoint.elevation }}, "");
+      {% endfor %}
+
       ref_points = new Array();
-      ref_points["Tour Part-Dieu (crayon)"] = {x:0.82724, cap:41.95666, y:0.43590, ele:11.23348};
-      ref_points["Tour métallique de Fourvière"] = {x:0.52327, cap:-66.56387, y:0.13405, ele:4.62533};
+      {% for ref in panorama.references_data %}
+      ref_points["{{ ref.name }}"] = {x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
+      {% endfor %}
     </script>
     <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
     <link rel="stylesheet" media="screen" href="{% static "panorama/css/map.css" %}" />
@@ -97,9 +47,9 @@
     </fieldset>
 
     <div id="params">
-      <p>latitude :   <em><span id="pos_lat">45.75628</span>°</em></p>
-      <p>longitude : <em><span id="pos_lon">4.84759</span>°</em></p>
-      <p>altitude : <em><span id="pos_alt">189</span> m</em></p>
+      <p>latitude :   <em><span id="pos_lat">{{ panorama.latitude }}</span>°</em></p>
+      <p>longitude : <em><span id="pos_lon">{{ panorama.longitude }}</span>°</em></p>
+      <p>altitude : <em><span id="pos_alt">{{ panorama.altitude }}</span> m</em></p>
     </div>
     <img src="{% static "panorama/img/locapoint.svg" %}" id="loca_show" alt="localiser un point" title="pour localiser un point..."/>
     <fieldset id="locadraw"><legend id="loca_hide">Localiser un point</legend>
@@ -115,8 +65,9 @@
       </div>
     </fieldset><p id="info"></p>
     <p id="insert"><select id="sel_point" name="known_points">
-        <option>Tour Part-Dieu (crayon)</option>
-        <option>Tour métallique de Fourvière</option>
+        {% for id, refpoint in panorama.refpoints_data %}
+        <option>{{ refpoint.name }}</option>
+        {% endfor %}
       </select>
       <input type="button" id="do-insert" value="insérer"/>
       <input type="button" id="do-delete" value="suppimer"/>

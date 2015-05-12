@@ -3,7 +3,7 @@ from __future__ import unicode_literals, division, print_function
 
 import subprocess
 import os
-from math import radians, degrees, sin, cos, asin, atan2, sqrt
+from math import radians, degrees, sin, cos, asin, atan2, sqrt, ceil
 
 from django.db import models
 from django.conf import settings
@@ -148,6 +148,43 @@ class Panorama(ReferencePoint):
 
     def get_absolute_url(self):
         return reverse('panorama:view_pano', args=[str(self.pk)])
+
+    def tiles_data(self):
+        """Hack to feed the current js code with tiles data (we should use the
+        JSON API instead, and get rid of this function)"""
+        data = dict()
+        for zoomlevel in range(9):
+            width = self.image_width >> zoomlevel
+            height = self.image_height >> zoomlevel
+            d = dict()
+            d["tile_width"] = d["tile_height"] = 256
+            # Python3-style division
+            d["ntiles_x"] = int(ceil(width / 256))
+            d["ntiles_y"] = int(ceil(height / 256))
+            d["last_tile_width"] = width % 256
+            d["last_tile_height"] = height % 256
+            data[zoomlevel] = d
+        return data
+
+    def refpoints_data(self):
+        """Similar hack, returns all reference points around the panorama."""
+        refpoints = [refpoint for refpoint in ReferencePoint.objects.all()
+                     if self.great_circle_distance(refpoint) <= settings.PANORAMA_MAX_DISTANCE and refpoint.pk != self.pk]
+        return enumerate([{"name": r.name,
+                           "cap": self.bearing(r),
+                           "elevation": self.elevation(r),
+                           "distance": self.line_distance(r) / 1000}
+                          for r in refpoints])
+
+    def references_data(self):
+        """Similar hack, returns all references currently associated to the
+        panorama."""
+        return [{"name": r.reference_point.name,
+                 "x": r.x,
+                 "y": r.y,
+                 "cap": self.bearing(r.reference_point),
+                 "elevation": self.elevation(r.reference_point)}
+                for r in self.panorama_references.all()]
 
     def __str__(self):
         return "Panorama : " + self.name
