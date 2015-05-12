@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import os
+
 from django.contrib import admin
 
 from .models import Panorama, ReferencePoint, Reference
+from .utils import path_exists
 
 
 class ReferenceInline(admin.TabularInline):
@@ -16,11 +19,16 @@ class ReferenceInline(admin.TabularInline):
 class PanoramaAdmin(admin.ModelAdmin):
     model = Panorama
     inlines = (ReferenceInline, )
-    list_display = ('name', 'latitude', 'longitude', 'altitude', 'loop')
+    list_display = ('name', 'has_tiles', 'latitude', 'longitude', 'altitude', 'loop')
     fields = ('name', ('image', 'image_width', 'image_height'),
               'loop', ('latitude', 'longitude'), 'altitude')
     readonly_fields = ('image_width', 'image_height')
     actions = ('regenerate_tiles', )
+
+    def has_tiles(self, obj):
+        return path_exists(obj.tiles_dir()) and len(os.listdir(obj.tiles_dir())) > 0
+    #has_tiles.short_description = 'Name'
+    has_tiles.boolean = True
 
     def regenerate_tiles(self, request, queryset):
         for pano in queryset:
