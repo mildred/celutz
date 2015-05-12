@@ -9,6 +9,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from .tasks import generate_tiles
@@ -136,6 +137,9 @@ class Panorama(ReferencePoint):
         except OSError:
             pass
         generate_tiles.delay(self.image.path, self.tiles_dir())
+
+    def get_absolute_url(self):
+        return reverse('panorama:view_pano', args=[str(self.pk)])
 
     def __str__(self):
         return "Panorama : " + self.name
