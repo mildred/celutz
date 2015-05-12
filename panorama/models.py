@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from .tasks import generate_tiles
+from .utils import makedirs, path_exists
 
 
 EARTH_RADIUS = 6371009
@@ -131,11 +132,18 @@ class Panorama(ReferencePoint):
         return os.path.join(settings.MEDIA_URL, settings.PANORAMA_TILES_DIR,
                             str(self.pk))
 
+    def delete_tiles(self):
+        """Delete all tiles and the tiles dir"""
+        # If the directory doesn't exist, do nothing
+        if not path_exists(self.tiles_dir()):
+            return
+        # Delete all tiles
+        for filename in os.listdir(self.tiles_dir()):
+            os.unlink(os.path.join(self.tiles_dir(), filename))
+        os.rmdir(self.tiles_dir())
+
     def generate_tiles(self):
-        try:
-            os.makedirs(self.tiles_dir())
-        except OSError:
-            pass
+        makedirs(self.tiles_dir(), exist_ok=True)
         generate_tiles.delay(self.image.path, self.tiles_dir())
 
     def get_absolute_url(self):
