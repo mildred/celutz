@@ -7,7 +7,7 @@
     <script>
       var title = "{{ panorama.name|escapejs }}";
       var img_prefix = '{{ panorama.tiles_url }}';
-      var image_loop = {{ panorama.loop }};
+      var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
     <script>window.onload = load_pano</script>
