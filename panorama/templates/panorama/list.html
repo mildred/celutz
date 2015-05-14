@@ -1,7 +1,12 @@
+<h2>Panoramas</h2>
 <p>
   <ul>
     {% for pano in panoramas %}
-    <li>{{ pano.name }} ({{ pano.latitude}}°, {{ pano.longitude }}°)</li>
+    <li>{{ pano.name }} ({{ pano.latitude}}°, {{ pano.longitude }}°, {{ pano.altitude }}m).  Has tiles: {{ pano.has_tiles|yesno }}.  <a href="{% url 'panorama:view_pano' pano.id %}">View panorama</a></li>
     {% endfor %}
   </ul>
 </p>
+
+<h2>New panorama</h2>
+
+<p><a href="{% url 'panorama:new' %}">Add new panorama</a></p>
