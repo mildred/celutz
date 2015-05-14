@@ -25,11 +25,6 @@ class PanoramaAdmin(admin.ModelAdmin):
     readonly_fields = ('image_width', 'image_height')
     actions = ('regenerate_tiles', )
 
-    def has_tiles(self, obj):
-        return path_exists(obj.tiles_dir()) and len(os.listdir(obj.tiles_dir())) > 0
-    #has_tiles.short_description = 'Name'
-    has_tiles.boolean = True
-
     def regenerate_tiles(self, request, queryset):
         for pano in queryset:
             pano.delete_tiles()

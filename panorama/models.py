@@ -132,6 +132,10 @@ class Panorama(ReferencePoint):
         return os.path.join(settings.MEDIA_URL, settings.PANORAMA_TILES_DIR,
                             str(self.pk))
 
+    def has_tiles(self):
+        return path_exists(self.tiles_dir()) and len(os.listdir(self.tiles_dir())) > 0
+    has_tiles.boolean = True
+
     def delete_tiles(self):
         """Delete all tiles and the tiles dir"""
         # If the directory doesn't exist, do nothing
