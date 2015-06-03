@@ -26,3 +26,7 @@ New features:
 
 - Provide permalink with a given position in an image (to be able to share
   links like "What do you think <this building> is?")
+  → already done in the PHP/JS version, actually (to_cap, to_ele)
+
+- Create new reference points directly in the panorama view (right click /
+  new ref point / ask coordinates, name, etc)
