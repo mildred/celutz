@@ -1,6 +1,7 @@
 Basic functionalities:
 
 - get the js code to work with DRF (full-AJAX)
+  → WIP, hackish but works somewhat, coordinate reference is wrong (pixel in backend, x in 0..1 and y in -0.5..0.5 in frontend)
 
 - hire a HTML5/CSS designer :-)
 

@@ -604,6 +604,7 @@ function tzoom(zv) {
 		    var cap = point_list[i][2];
 		    var ele = point_list[i][3];
 		    var lnk = point_list[i][4];
+		    var url = point_list[i][5];
 		    var typ = 'unlocated';
 		    var rxy = this.get_pos_xy(cap, ele);
 		    var is_visible = (
@@ -637,6 +638,7 @@ function tzoom(zv) {
 		    this.pt_list[i]['dist'] = dst;
 		    this.pt_list[i]['label'] = lbl;
 		    this.pt_list[i]['lnk'] = lnk;
+		    this.pt_list[i]['url'] = url;
 		    this.pt_list[i]['xc'] = rxy.x;
 		    this.pt_list[i]['yc'] = Math.floor(this.im.height/2 - rxy.y);
 	    }
@@ -866,13 +868,15 @@ function manage_ref_points(e) {
 }
 
 function insert_ref_point(el, x, y) {
-	var label, posx, posy;
-	el.style.display = 'none';
-	var selected_label = document.getElementById('sel_point').value;
-	var found = false;
+    var label, posx, posy;
+    el.style.display = 'none';
+    var selected_label = document.getElementById('sel_point').value;
+    var found = false;
+    var refpoint_url;
     for(var i = 0; i < zm.pt_list.length; i++) {
 	label = zm.pt_list[i]['label'];
 	if(label == selected_label) {
+	    refpoint_url = zm.pt_list[i]['url'];
 	    posx = nmodulo(last.x + x - canvas.width/2, zm.im.width)/zm.im.width;
 	    posy = 0.5 - (last.y + y - canvas.height/2)/zm.im.height;
 	    var pval = {x:posx, y:posy, cap:zm.pt_list[i]['cap'], ele:zm.pt_list[i]['ele'], label:label};
@@ -892,11 +896,13 @@ function insert_ref_point(el, x, y) {
 	
 	// Then push the modif
 	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "ajax/add_reference.php", true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send("ref_point="+encodeURIComponent(label)
-	         +"&panorama="+encodeURIComponent(get_base_name())
-	         +"&x="+posx+"&y="+posy);
+	xhr.open("POST", "/api/v1/references/", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    alert("x=" + x + " y=" + y + " last.x=" + last.x + " last.y=" + last.y);
+	xhr.send("reference_point=" + refpoint_url
+	         + "&panorama=" + panorama_url
+                 + "&csrfmiddlewaretoken=" + csrf_token
+	         + "&x=" + (last.x + x) + "&y=" + (last.y + y));
 }
 
 function show_result(clear_before) {

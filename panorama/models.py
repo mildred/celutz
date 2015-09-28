@@ -174,7 +174,8 @@ class Panorama(ReferencePoint):
         """Similar hack, returns all reference points around the panorama."""
         refpoints = [refpoint for refpoint in ReferencePoint.objects.all()
                      if self.great_circle_distance(refpoint) <= settings.PANORAMA_MAX_DISTANCE and refpoint.pk != self.pk]
-        return enumerate([{"name": r.name,
+        return enumerate([{"id": r.pk,
+                           "name": r.name,
                            "cap": self.bearing(r),
                            "elevation": self.elevation(r),
                            "distance": self.line_distance(r) / 1000}

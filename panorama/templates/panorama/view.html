@@ -6,8 +6,11 @@
     <title>{{ panorama.name }}</title>
     <script>
       var title = "{{ panorama.name|escapejs }}";
+      var panorama_id = {{ panorama.pk }};
+      var panorama_url = "/api/v1/panoramas/{{ panorama.pk }}/";
       var img_prefix = '{{ panorama.tiles_url }}';
       var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
+      var csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
     <script>window.onload = load_pano</script>
@@ -23,12 +26,12 @@
       {% endfor %}
 
       {% for id, refpoint in panorama.refpoints_data %}
-      point_list[{{ id }}] = new Array("{{ refpoint.name }}", {{ refpoint.distance }}, {{ refpoint.cap }}, {{ refpoint.elevation }}, "");
+      point_list[{{ id }}] = new Array("{{ refpoint.name }}", {{ refpoint.distance }}, {{ refpoint.cap }}, {{ refpoint.elevation }}, "", "/api/v1/refpoints/{{ refpoint.id }}/");
       {% endfor %}
 
       ref_points = new Array();
       {% for ref in panorama.references_data %}
-      ref_points["{{ ref.name }}"] = {x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
+      ref_points["{{ ref.name }}"] = {url: "/api/v1/references/{{ ref.pk }}/", x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
       {% endfor %}
     </script>
     <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
