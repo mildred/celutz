@@ -30,3 +30,8 @@ New features:
 
 - Create new reference points directly in the panorama view (right click /
   new ref point / ask coordinates, name, etc)
+
+- Allow to define a "default" orientation/elevation/zoom when visualising a
+  panorama, so that it's not pointing at the sky or a tree by default...
+
+- Allow to zoom more on tiles, even if this means having a very low quality
