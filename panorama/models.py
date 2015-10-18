@@ -176,6 +176,7 @@ class Panorama(ReferencePoint):
                      if self.great_circle_distance(refpoint) <= settings.PANORAMA_MAX_DISTANCE and refpoint.pk != self.pk]
         return enumerate([{"id": r.pk,
                            "name": r.name,
+                           "url": reverse('panorama:view_pano', args=[str(r.pk)]),
                            "cap": self.bearing(r),
                            "elevation": self.elevation(r),
                            "distance": self.line_distance(r) / 1000}

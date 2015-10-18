@@ -630,7 +630,7 @@ function tzoom(zv) {
 
 		    } else if(is_visible) {
 			    typ = 'pano_point';
-			    lnk += '&to_zoom='+this.value;
+			    lnk += '?to_zoom='+this.value;
 		    }
 		    this.pt_list[i]['type'] = typ;
 		    this.pt_list[i]['cap'] = cap;
