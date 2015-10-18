@@ -184,9 +184,12 @@ class Panorama(ReferencePoint):
     def references_data(self):
         """Similar hack, returns all references currently associated to the
         panorama."""
-        return [{"name": r.reference_point.name,
-                 "x": r.x,
-                 "y": r.y,
+        return [{"id": r.pk,
+                 "name": r.reference_point.name,
+                 # Adapt to js-based coordinates (x between 0 and 1, y
+                 # between -0.5 and 0.5)
+                 "x": r.x / r.panorama.image_width,
+                 "y": (r.y / r.panorama.image_height) - 0.5,
                  "cap": self.bearing(r.reference_point),
                  "elevation": self.elevation(r.reference_point)}
                 for r in self.panorama_references.all()]

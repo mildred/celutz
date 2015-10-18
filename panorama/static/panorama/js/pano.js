@@ -902,7 +902,8 @@ function insert_ref_point(el, x, y) {
 	xhr.send("reference_point=" + refpoint_url
 	         + "&panorama=" + panorama_url
                  + "&csrfmiddlewaretoken=" + csrf_token
-	         + "&x=" + (last.x + x) + "&y=" + (last.y + y));
+	         + "&x=" + Math.floor(posx * image_width)
+                 + "&y=" + Math.floor((posy + 0.5) * image_height));
 }
 
 function show_result(clear_before) {

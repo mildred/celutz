@@ -10,6 +10,8 @@
       var panorama_url = "/api/v1/panoramas/{{ panorama.pk }}/";
       var img_prefix = '{{ panorama.tiles_url }}';
       var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
+      var image_width = {{ panorama.image_width }};
+      var image_height = {{ panorama.image_height }};
       var csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
