@@ -888,8 +888,7 @@ function insert_ref_point(el, x, y) {
 	// Then push the modif
 	var xhr = getXMLHttpRequest();
 	xhr.open("POST", "/api/v1/references/", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    alert("x=" + x + " y=" + y + " last.x=" + last.x + " last.y=" + last.y);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhr.send("reference_point=" + refpoint_url
 	         + "&panorama=" + panorama_url
                  + "&csrfmiddlewaretoken=" + csrf_token
