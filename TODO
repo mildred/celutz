@@ -6,6 +6,16 @@ Basic functionalities:
 - hire a HTML5/CSS designer :-)
 
 
+Bugfix:
+
+- when specifying a given cap and elevation (e.g. "url#zoom=X/cap=42/ele=0"
+  or using the control box), if the image does not loop and the given position
+  is outside the image, it should be cropped to the nearest image boundary.
+
+- when the image does not loop, it should be displayed only once in the
+  interface (right now, it loops, which is ugly and impractical)
+
+
 Background work:
 
 - use Celery for computation-intensive tasks (generating tiles)
@@ -37,8 +47,13 @@ New features:
 
 - Allow to define a "default" orientation/elevation/zoom when visualising a
   panorama, so that it's not pointing at the sky or a tree by default...
+  → it is already better: we point at the middle of the image by default
 
 - Allow to zoom more on tiles, even if this means having a very low quality
 
 - Given a new point (for instance, a new person that wants to be connected),
-  list all nearby panoramas that point in this direction
+  list all nearby panoramas that point in this direction, with links that
+  orient the view automatically towards the target point
+
+- display the current position in the URL, in real-time, exactly like
+  openstreetmap (so that any link is a permalink)
