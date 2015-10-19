@@ -607,7 +607,7 @@ function tzoom(zv) {
 				    && is_located);
 
 		    this.pt_list[i] = new Array();
-		    if (ref_points[lbl] != undefined) {
+		    if (ref_points[lbl] != undefined && lnk == '') {
 			    typ = 'ref_point';
 			    if (!is_located) { 
 				    rxy = {
