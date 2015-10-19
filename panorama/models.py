@@ -175,7 +175,10 @@ class Panorama(ReferencePoint):
         def get_url(refpoint):
             """If the refpoint is also a panorama, returns its canonical URL"""
             if hasattr(refpoint, "panorama"):
-                return refpoint.panorama.get_absolute_url()
+                # Point towards the current panorama
+                end_url = "#zoom=0/cap={}/ele={}".format(refpoint.bearing(self),
+                                                         refpoint.elevation(self))
+                return refpoint.panorama.get_absolute_url() + end_url
             else:
                 return ""
 
