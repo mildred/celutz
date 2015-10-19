@@ -26,7 +26,7 @@ def gen_tiles(image, output_path, min_scale=0, max_scale=8, crop_x=256, crop_y=2
             im = orig_im
         else:
             scaled_size = (orig_im.size[0] >> scale, orig_im.size[1] >> scale)
-            im = orig_im.resize(scaled_size)
+            im = orig_im.resize(scaled_size, resample=PIL.Image.BILINEAR)
         for x in range(0, im.size[0], crop_x):
             for y in range(0, im.size[1], crop_y):
                 geom = (x, y, min(im.size[0], x + crop_x),
