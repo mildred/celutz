@@ -1,8 +1,5 @@
 if (img_prefix == undefined) var img_prefix = 'http://pano.tetaneutral.net/data/tsf2/vpongnian/tiles/ttn_mediatheque/mediatheque_70';
 if (title == undefined) var title = 'point non défini';
-if (to_cap == undefined) var to_cap = 0;
-if (to_ele == undefined) var to_ele = 0;
-if (to_zoom == undefined) var to_zoom = 0;
 if (cap == undefined) var cap = 0;
 if (cap_min == undefined) var cap_min = cap;
 if (cap_max == undefined) var cap_max = cap_min+360;
@@ -982,9 +979,42 @@ function paramOut(e) {
 
 }
 
+/* Parse initial orientation from URL, either:
+   #zoom=A/x=B/y=C
+   #zoom=A/cap=B/elev=C
+   In the first case, (x, y) is an image coordinate in pixels, where (0, 0)
+   is the lower left corner.
+   In the second case, point to the given cap and elevation, assuming the
+   current panorama is already calibrated.
+*/
+function get_orientation_from_url() {
+    // Parse window.location.hash to get either x/y or cap/ele
+    var regexp1 = /^#zoom=(\d)\/cap=(-?\d+|-?\d+\.\d+)\/ele=(-?\d+|-?\d+\.\d+)$/;
+    var regexp2 = /^#zoom=(\d)\/x=(\d+)\/y=(\d+)$/;
+    var res = window.location.hash.match(regexp1);
+    if (res) {
+        return { zoom: parseInt(res[1], 10),
+                 cap: parseFloat(res[2]),
+                 elevation: parseFloat(res[3]) };
+    }
+    else {
+        res = window.location.hash.match(regexp2);
+        if (res) {
+        return { zoom: parseInt(res[1], 10),
+                 x: parseInt(res[2], 10),
+                 y: parseInt(res[3], 10) };
+        }
+        else {
+            /* By default, center the view */
+            return { zoom: 2, x: image_width / 2, y: image_height / 2 };
+        }
+    }
+}
+
+var initial_orientation;
 
 function load_pano() {
-	localisation = document.getElementById("locadraw");
+    localisation = document.getElementById("locadraw");
     adding = document.getElementById("adding");
     canvas = document.getElementById("mon-canvas");
     cntext = canvas.getContext("2d");
@@ -994,6 +1024,9 @@ function load_pano() {
     canvas.oncontextmenu = manage_ref_points;
     canvas.addEventListener("mouseout" , clean_canvas_events, false);
     show_links();
+
+    initial_orientation = get_orientation_from_url();
+    var to_zoom = initial_orientation.zoom;
 
     var max_zoom = zooms.length - 1;
     zoom_control = document.getElementById("zoom_ctrl");
@@ -1008,12 +1041,20 @@ function load_pano() {
     tile = zm.tile;
     ntiles = zm.ntiles;
 
+    if (!("cap" in initial_orientation)) {
+        /* Compute cap and elevation from (x, y) coordinates */
+        var res = zm.get_cap_ele(initial_orientation.x >> zoom,
+                                 (initial_orientation.y - image_height / 2) >> zoom);
+        initial_orientation.cap = res.cap;
+        initial_orientation.elevation = res.ele;
+    }
+
     angle_control = document.getElementById("angle_ctrl");
-    angle_control.value = to_cap;
+    angle_control.value = initial_orientation.cap;
     angle_control.onchange = change_angle;
     angle_control.onclick = change_angle;
     elvtn_control = document.getElementById("elvtn_ctrl");
-    elvtn_control.value = to_ele;
+    elvtn_control.value = initial_orientation.elevation;
     elvtn_control.onchange = change_angle;
     elvtn_control.onclick = change_angle;
 
