@@ -172,11 +172,18 @@ class Panorama(ReferencePoint):
 
     def refpoints_data(self):
         """Similar hack, returns all reference points around the panorama."""
+        def get_url(refpoint):
+            """If the refpoint is also a panorama, returns its canonical URL"""
+            if hasattr(refpoint, "panorama"):
+                return refpoint.panorama.get_absolute_url()
+            else:
+                return ""
+
         refpoints = [refpoint for refpoint in ReferencePoint.objects.all()
                      if self.great_circle_distance(refpoint) <= settings.PANORAMA_MAX_DISTANCE and refpoint.pk != self.pk]
         return enumerate([{"id": r.pk,
                            "name": r.name,
-                           "url": reverse('panorama:view_pano', args=[str(r.pk)]),
+                           "url": get_url(r),
                            "cap": self.bearing(r),
                            "elevation": self.elevation(r),
                            "distance": self.line_distance(r) / 1000}
