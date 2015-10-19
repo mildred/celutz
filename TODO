@@ -57,3 +57,6 @@ New features:
 
 - display the current position in the URL, in real-time, exactly like
   openstreetmap (so that any link is a permalink)
+
+- ability to click and drag a reference point in the UI when it is not
+  at the right place
