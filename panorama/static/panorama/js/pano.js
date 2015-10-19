@@ -1,8 +1,3 @@
-if (img_prefix == undefined) var img_prefix = 'http://pano.tetaneutral.net/data/tsf2/vpongnian/tiles/ttn_mediatheque/mediatheque_70';
-if (title == undefined) var title = 'point non défini';
-if (cap == undefined) var cap = 0;
-if (cap_min == undefined) var cap_min = cap;
-if (cap_max == undefined) var cap_max = cap_min+360;
 if (ref_points == undefined) var ref_points = new Array();
 if (image_loop == undefined) var image_loop = false;
 
