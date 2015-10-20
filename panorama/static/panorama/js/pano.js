@@ -140,6 +140,7 @@ function draw_image(ox, oy) {
     var cap_ele = zm.get_cap_ele(last.x, zm.im.height/2-last.y);
     angle_control.value = cap_ele.cap.toFixed(2);
     elvtn_control.value = cap_ele.ele.toFixed(2);
+    update_url();
 }
 
 function draw_tile_del(ref, idx, tx, ty, ox, oy, twidth, theight) {
@@ -725,6 +726,7 @@ function change_zoom(shx, shy) {
 	    zoom = zm.value;
 	    tile = zm.tile;
 	    ntiles = zm.ntiles;
+            update_url();
 	    putImage(px, py);
 	} else {
 	    zm = prev_zm;
@@ -1002,6 +1004,14 @@ function get_orientation_from_url() {
             return { zoom: 2, x: image_width / 2, y: image_height / 2 };
         }
     }
+}
+
+/* Update the URL to reflect the current zoom/orientation, so that it acts
+ * as a permalink. */
+function update_url() {
+    var x = last.x << zm.value;
+    var y = image_height - (last.y << zm.value);
+    window.location.hash = "#zoom=" + zm.value + "/x=" + x + "/y=" + y;
 }
 
 function load_pano() {
