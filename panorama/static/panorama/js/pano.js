@@ -1004,8 +1004,6 @@ function get_orientation_from_url() {
     }
 }
 
-var initial_orientation;
-
 function load_pano() {
     localisation = document.getElementById("locadraw");
     adding = document.getElementById("adding");
@@ -1018,7 +1016,7 @@ function load_pano() {
     canvas.addEventListener("mouseout" , clean_canvas_events, false);
     show_links();
 
-    initial_orientation = get_orientation_from_url();
+    var initial_orientation = get_orientation_from_url();
     var to_zoom = initial_orientation.zoom;
 
     var max_zoom = zooms.length - 1;
