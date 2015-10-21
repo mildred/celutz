@@ -910,19 +910,19 @@ function show_result(clear_before) {
 }
 
 function delete_ref_point(el) {
-	var ref_name = document.getElementById('sel_point').value;
+    var ref_name = document.getElementById('sel_point').value;
     el.style.display = 'none';
+    var url = ref_points[ref_name].url;
     delete ref_points[ref_name];
     reset_zooms();
     putImage(last.x, last.y);
-	show_result(true);
-	
-	// Then push the modif
-	var xhr = getXMLHttpRequest();
-	xhr.open("POST", "ajax/rm_reference.php", true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send("ref_point="+encodeURIComponent(ref_name)
-	         +"&panorama="+encodeURIComponent(get_base_name()));
+    show_result(true);
+
+    // Then push the modif
+    var xhr = getXMLHttpRequest();
+    xhr.open("DELETE", url, true);
+    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+    xhr.send();
 }
 
 function clean_canvas_events(e) {
