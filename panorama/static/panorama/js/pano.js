@@ -1011,7 +1011,9 @@ function get_orientation_from_url() {
 function update_url() {
     var x = last.x << zm.value;
     var y = image_height - (last.y << zm.value);
-    window.location.hash = "#zoom=" + zm.value + "/x=" + x + "/y=" + y;
+    // Important: don't set window.location.hash directly, because it
+    // records a new entry in the browser history...
+    window.location.replace("#zoom=" + zm.value + "/x=" + x + "/y=" + y);
 }
 
 function load_pano() {
