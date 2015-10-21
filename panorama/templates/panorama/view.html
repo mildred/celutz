@@ -33,7 +33,7 @@
 
       ref_points = new Array();
       {% for ref in panorama.references_data %}
-      ref_points["{{ ref.name }}"] = {url: "/api/v1/references/{{ ref.pk }}/", x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
+      ref_points["{{ ref.name }}"] = {url: "/api/v1/references/{{ ref.id }}/", x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
       {% endfor %}
     </script>
     <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
