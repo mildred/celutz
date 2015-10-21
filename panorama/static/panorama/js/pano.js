@@ -891,9 +891,9 @@ function insert_ref_point(el, x, y) {
 	var xhr = getXMLHttpRequest();
 	xhr.open("POST", "/api/v1/references/", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-CSRFToken", csrf_token);
 	xhr.send("reference_point=" + refpoint_url
 	         + "&panorama=" + panorama_url
-                 + "&csrfmiddlewaretoken=" + csrf_token
 	         + "&x=" + Math.floor(posx * image_width)
                  + "&y=" + Math.floor((posy + 0.5) * image_height));
 }
