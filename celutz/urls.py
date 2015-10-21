@@ -5,7 +5,7 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'ztulec.views.home', name='home'),
+    # url(r'^$', 'celutz.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('panorama.urls', namespace="panorama")),
     url(r'^api/v1/', include('api.urls')),

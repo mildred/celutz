@@ -5,11 +5,11 @@ import os
 from celery import Celery
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ztulec.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celutz.settings')
 
 from django.conf import settings
 
-app = Celery('ztulec')
+app = Celery('celutz')
 
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.
