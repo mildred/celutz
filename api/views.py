@@ -25,10 +25,10 @@ class ReferencePointViewSet(viewsets.ModelViewSet):
         kilometers.
         """
         queryset = ReferencePoint.objects.all()
-        lat = self.request.QUERY_PARAMS.get('lat', None)
-        lon = self.request.QUERY_PARAMS.get('lon', None)
+        lat = self.request.query_params.get('lat', None)
+        lon = self.request.query_params.get('lon', None)
         # In meters
-        distance = self.request.QUERY_PARAMS.get('dist', None)
+        distance = self.request.query_params.get('dist', None)
         if distance is not None:
             distance = int(distance)
         else:
