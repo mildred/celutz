@@ -32,7 +32,6 @@ var point_colors = {
 	'temporary'  : '255,255,128', // yellow
 	'unlocated'  : '255,255,255'  // white
 };
-var test = {x:0, y:0, i:100};
 
 
 function getXMLHttpRequest() {
@@ -298,17 +297,6 @@ function keys(key) {
 //    alert(key);
 //    if (!evt.shiftKey) return;
     switch (key.which) {
-    /*case 66: // b
-	alert(key.pageX);
-	test.x=tile.width*(ntiles.x-3);
-	test.y=0;
-	putImage(test.x, test.y);
-	return;
-    case 67: // c
-	test.x=0;
-	test.y=tile.height*(ntiles.y-3);
-	putImage(test.x, test.y);
-	return;*/
     case 36: // home
     case 35: // end
         angle_control = document.getElementById('angle_ctrl');
