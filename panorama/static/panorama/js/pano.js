@@ -14,6 +14,8 @@ var ntiles = {x:228, y:9};
 var border_width = 2;
 var imageObj = new Array();
 
+// minimum and maximum azimuth
+var alpha_domain = {start:0, end:360};
 
 var fingr = 0;  // mémorisation de lécart entre doigts;
 var last  = {x:0,y:0};
@@ -505,7 +507,7 @@ function tzoom(zv) {
 	                  || image_loop && (ord_pts.length > 0);
 
 
-	    var alpha_domain = {start:0, end:360};
+	    alpha_domain = {start:0, end:360};
 	    this.pixel_y_ratio = this.im.width/360;
 	    if (is_located) {
 		    this.ref_pixels = new Array;
@@ -670,7 +672,18 @@ function tzoom(zv) {
 		    var px = this.ref_pixels[i].x + this.ref_pixels[i].ratio_x*fmodulo(cap - this.ref_pixels[i].cap, 360);
 		    var dpix = px-this.ref_pixels[i].x;
 		    var py = this.pixel_y_ratio*ele - this.ref_pixels[i].shift_y - this.ref_pixels[i].dshft_y*dpix;
-		    return {x:px, y:py};
+                    if (dcap < fmodulo(alpha_domain.end - alpha_domain.start, 360))
+                        // Position is inside the view
+		        return {x: px, y: py};
+                    else {
+                        // Position is outside the view, find out which edge is closest
+                        if (fmodulo(alpha_domain.start - cap, 360) < fmodulo(cap - alpha_domain.end, 360))
+                            // Left edge
+                            return {x: 0, y: py};
+                        else
+                            // Right edge
+                            return {x: image_width - 1, y: py};
+                    }
 		}
 	    }
 	} else {
