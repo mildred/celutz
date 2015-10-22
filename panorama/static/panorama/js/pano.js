@@ -310,10 +310,10 @@ function keys(key) {
 	putImage(test.x, test.y);
 	return;*/
     case 36: // home
-	putImage(0, zm.im.height/2);
-	return;
     case 35: // end
-	putImage(last.x+zm.im.width/2, last.y);
+        angle_control = document.getElementById('angle_ctrl');
+        angle_control.value = parseFloat(angle_control.value) + 180;
+        change_angle();
 	return;
     case 39: // left
 	putImage(last.x+40, last.y);
