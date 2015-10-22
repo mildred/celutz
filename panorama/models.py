@@ -184,6 +184,7 @@ class Panorama(ReferencePoint):
 
         refpoints = [refpoint for refpoint in ReferencePoint.objects.all()
                      if self.great_circle_distance(refpoint) <= settings.PANORAMA_MAX_DISTANCE and refpoint.pk != self.pk]
+        refpoints.sort(key=lambda r: self.line_distance(r))
         return enumerate([{"id": r.pk,
                            "name": r.name,
                            "url": get_url(r),
