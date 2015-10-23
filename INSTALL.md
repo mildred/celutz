@@ -12,7 +12,11 @@ System requirements
   another computer, then you need much less, probably as little as 512 MB of
   RAM.  Celutz is a quite simple Django application.
 - a fast CPU, again for tile generation.  Having multiple CPU will not be useful
-  in most cases.
+  in most cases, because tile generation is single-threaded.
+
+For reference, generating tiles for a quite large panorama (30000x3487 pixels,
+amounting to 105 Mpixels, storing in JPEG) took 855 MB of RAM using Python 3.5
+with Pillow 3.0.0 on a x86_64 Linux system.
 
 Installation
 ------------
