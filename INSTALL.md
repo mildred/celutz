@@ -59,3 +59,9 @@ The default parameters use the Django database as a message queue, to ask
 a celery woker to generate tiles for a panorama.  This is far from efficient,
 but since there are very few messages, it is not worth the trouble to configure
 a real message queue such as RabbitMQ.
+
+Upgrading from the PHP version of celutz
+----------------------------------------
+
+Where you previously using the PHP version of celutz?  You can import all your
+old data!  See `UPGRADE.md`.
