@@ -660,7 +660,7 @@ function tzoom(zv) {
 		    var px = this.ref_pixels[i].x + this.ref_pixels[i].ratio_x*fmodulo(cap - this.ref_pixels[i].cap, 360);
 		    var dpix = px-this.ref_pixels[i].x;
 		    var py = this.pixel_y_ratio*ele - this.ref_pixels[i].shift_y - this.ref_pixels[i].dshft_y*dpix;
-                    if (dcap < fmodulo(alpha_domain.end - alpha_domain.start, 360))
+                    if (image_loop || (dcap < fmodulo(alpha_domain.end - alpha_domain.start, 360)))
                         // Position is inside the view
 		        return {x: px, y: py};
                     else {
