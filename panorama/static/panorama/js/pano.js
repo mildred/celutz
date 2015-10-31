@@ -849,6 +849,7 @@ function manage_ref_points(e) {
 		    }
 		do_delete.onclick = function() {delete_ref_point(insrt)};
 		do_insert.onclick = function() {insert_ref_point(insrt, e.pageX-canvas_pos.x, e.pageY-canvas_pos.y)};
+		// TODO: adapt to the new backend
 		show_cap.onclick = function() {
 			window.open('show_capline.php?title='+encodeURIComponent(btoa(title))+'&cap='+res.cap+'&org_lat='+pt_lat+'&org_lon='+pt_lon+'&dist=120000');
 		};
