@@ -23,7 +23,8 @@ Features
   reference points, and calibrate orientation of panoramas by visually pointing
   at these reference points;
 * **visualize a point** by its lat/lon/altitude on your panorama;
-* **see other panoramas** locations to evaluate the lines-of-sight.
+* **see other panoramas** locations to evaluate the lines-of-sight;
+* **locate a point** on all panoramas simultaneously.
 
 Getting started: basic usage of celutz
 --------------------------------------
@@ -107,6 +108,15 @@ In a calibrated panorama, you should see colored circles:
 * `←`/`↑`/`↓`/`→`: pan the image
 * `Home`/`End`: turn backwards (180°)
 
+Locating a point
+----------------
+
+You can use the "Locate a point" feature from the homepage.  It allows you
+to locate a point (given its GPS coordinates) on all panoramas at the same time.
+
+For each panorama that can "see" the target point, a direct link is provided to
+orient the view to the estimated position.  This allows you to quickly ascertain
+whether the target point is actually visible from at least one existing location.
 
 Installing celutz
 -----------------
