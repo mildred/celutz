@@ -215,6 +215,8 @@ class Panorama(ReferencePoint):
 
     def is_visible(self, point):
         """Return True if the Panorama can see the point."""
+        if self.loop:
+            return True
         cap = self.bearing(point) % 360
         cap_min = self.cap_min()
         cap_max = self.cap_max()
