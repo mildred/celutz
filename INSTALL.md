@@ -48,7 +48,7 @@ Tile generation uses Celery, because it is quite a heavy task CPU-wise.
 
 To launch a celery worker while developping, run this in your virtualenv:
 
-    celery -c 1 -A ztulec.celery worker --loglevel=info
+    celery -c 1 -A celutz.celery worker --loglevel=info
 
 This tells celery to handle at most one task at a time: `-c 1`.  Indeed,
 generating tiles for a single panorama can take quite a lot of RAM.
