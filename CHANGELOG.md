@@ -14,6 +14,8 @@ celutz-2.0.0 (unreleased)
   * Existing panoramas can be used as reference points as well.
   * Tile generation is now done in pure Python, instead of the existing shell
     script that used Imagemagick's `convert` tool.
+  * "Locate a point" feature, allowing to quickly locate a point on all
+    relevant panoramas simultaneously.
 
 The map (and related features) are not yet integrated in this new version.
 
