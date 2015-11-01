@@ -107,7 +107,7 @@ class ReferencePoint(Point):
                             help_text="Name of the point")
 
     def __str__(self):
-        return "Reference point : " + self.name
+        return self.name
 
 
 @python_2_unicode_compatible
@@ -266,9 +266,6 @@ class Panorama(ReferencePoint):
         target_cap =  cap1 + (target_x - ref1.x) * (cap2 - cap1) / \
                 (ref2.x - ref1.x)
         return target_cap % 360
-
-    def __str__(self):
-        return "Panorama : " + self.name
 
 
 @python_2_unicode_compatible
