@@ -215,6 +215,8 @@ class Panorama(ReferencePoint):
 
     def is_visible(self, point):
         """Return True if the Panorama can see the point."""
+        if self.great_circle_distance(point) > settings.PANORAMA_MAX_DISTANCE:
+            return False
         if self.loop:
             return True
         cap = self.bearing(point) % 360
