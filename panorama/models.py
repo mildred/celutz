@@ -213,6 +213,17 @@ class Panorama(ReferencePoint):
                  "elevation": self.elevation(r.reference_point)}
                 for r in self.panorama_references.all()]
 
+    def is_visible(self, point):
+        """Return True if the Panorama can see the point."""
+        cap = self.bearing(point) % 360
+        cap_min = self.cap_min()
+        cap_max = self.cap_max()
+        if cap_min < cap_max:
+            # Nominal case
+            return cap_min <= cap <= cap_max
+        else:
+            return cap_min <= cap or cap <= cap_max
+
     def cap_min(self):
         return self._cap_minmax(True)
 
