@@ -32,6 +32,9 @@ should look like this:
     python manage.py migrate
     python manage.py createsuperuser
 
+Production
+----------
+
 One specific information for production usage: you **really** want to serve
 the `media/` directory with a real webserver, and **not** with Django itself.
 Hundreds of tiles (small image files) will be served from this directory each
@@ -59,6 +62,16 @@ The default parameters use the Django database as a message queue, to ask
 a celery woker to generate tiles for a panorama.  This is far from efficient,
 but since there are very few messages, it is not worth the trouble to configure
 a real message queue such as RabbitMQ.
+
+Importing reference points
+--------------------------
+
+Gathering reference points can be a bit of a hassle.
+
+Some reference points are provided alongside celutz, in `panorama/fixtures`.
+To import one set of reference points into the database, run:
+
+    python manage.py loaddata refpoints_mycity
 
 Upgrading from the PHP version of celutz
 ----------------------------------------
