@@ -263,8 +263,10 @@ class Panorama(ReferencePoint):
         target_x = 0 if ismin else self.image_width
 
         # For circulary issues
-        if cap2 < cap1:
+        if ismin and cap2 < cap1:
             cap2 += 360
+        if (not ismin) and cap1 < cap2:
+            cap1 += 360
 
         target_cap =  cap1 + (target_x - ref1.x) * (cap2 - cap1) / \
                 (ref2.x - ref1.x)
