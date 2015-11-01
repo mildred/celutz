@@ -1,0 +1,65 @@
+[
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.18494,
+    "name": "Tour Perret",
+    "altitude": 300.0,
+    "longitude": 5.73541
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.18706,
+    "name": "Basilique Saint-Joseph",
+    "altitude": 261.0,
+    "longitude": 5.73002
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.19414,
+    "name": "Tour Vercors",
+    "altitude": 316.0,
+    "longitude": 5.73609
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.19279,
+    "name": "Tour Mont-Blanc",
+    "altitude": 316.0,
+    "longitude": 5.73741
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.19168,
+    "name": "Tour Belledonne",
+    "altitude": 316.0,
+    "longitude": 5.7385
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.20689,
+    "name": "Pont Oxford",
+    "altitude": 247.0,
+    "longitude": 5.70174
+  }
+},
+{
+  "model": "panorama.referencepoint",
+  "fields": {
+    "latitude": 45.18699,
+    "name": "Eglise Saint Bruno",
+    "altitude": 280.0,
+    "longitude": 5.71403
+  }
+}
+]
