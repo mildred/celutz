@@ -828,7 +828,7 @@ function manage_ref_points(e) {
     var do_insert = document.getElementById('do-insert');
 	var do_delete = document.getElementById('do-delete');
 	var do_cancel = document.getElementById('do-cancel');
-	var show_cap = document.getElementById('show-cap');
+	//var show_cap = document.getElementById('show-cap');
 	var insrt = document.getElementById('insert');
 
     var pos_x = nmodulo(last.x + e.pageX - canvas_pos.x - canvas.width/2, zm.im.width);
@@ -850,9 +850,9 @@ function manage_ref_points(e) {
 		do_delete.onclick = function() {delete_ref_point(insrt)};
 		do_insert.onclick = function() {insert_ref_point(insrt, e.pageX-canvas_pos.x, e.pageY-canvas_pos.y)};
 		// TODO: adapt to the new backend
-		show_cap.onclick = function() {
-			window.open('show_capline.php?title='+encodeURIComponent(btoa(title))+'&cap='+res.cap+'&org_lat='+pt_lat+'&org_lon='+pt_lon+'&dist=120000');
-		};
+		//show_cap.onclick = function() {
+		//	window.open('show_capline.php?title='+encodeURIComponent(btoa(title))+'&cap='+res.cap+'&org_lat='+pt_lat+'&org_lon='+pt_lon+'&dist=120000');
+		//};
 	}
 
 	do_cancel.onclick = hide_contextmenu;
