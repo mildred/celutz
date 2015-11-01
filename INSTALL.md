@@ -22,8 +22,8 @@ Installation
 ------------
 
 Celutz is a fairly standard Django application: refer to the Django
-documentation for deployment methods.  The initial installation should
-look like this:
+documentation for deployment methods.  The initial installation for development
+should look like this:
 
     virtualenv ~/mycelutzvenv
     . ~/mycelutzvenv/bin/activate
@@ -32,10 +32,10 @@ look like this:
     python manage.py migrate
     python manage.py createsuperuser
 
-One specific information: you **really** want to serve the `media/` directory
-with a real webserver, and **not** with Django itself.  Hundreds of tiles
-(small image files) will be served from this directory each time a client
-visualises a panorama.
+One specific information for production usage: you **really** want to serve
+the `media/` directory with a real webserver, and **not** with Django itself.
+Hundreds of tiles (small image files) will be served from this directory each
+time a client visualises a panorama.
 
 You probably also want to configure your webserver to allow to send very large
 files in a POST request.  An upper limit of 200 MB should be enough, even for
