@@ -150,8 +150,16 @@ class Panorama(ReferencePoint):
         makedirs(self.tiles_dir(), exist_ok=True)
         generate_tiles.delay(self.image.path, self.tiles_dir())
 
-    def get_absolute_url(self):
-        return reverse('panorama:view_pano', args=[str(self.pk)])
+    def get_absolute_url(self, cap=None, ele=None, zoom=None):
+        base_url = reverse('panorama:view_pano', args=[str(self.pk)])
+        # Add parameters to point to the given direction, interpreted by
+        # the js frontend
+        if zoom == None:
+            zoom = 0
+        if not None in (zoom, cap, ele):
+            return base_url + "#zoom={}/cap={}/ele={}".format(zoom, cap, ele)
+        else:
+            return base_url
 
     def tiles_data(self):
         """Hack to feed the current js code with tiles data (we should use the
@@ -176,9 +184,8 @@ class Panorama(ReferencePoint):
             """If the refpoint is also a panorama, returns its canonical URL"""
             if hasattr(refpoint, "panorama"):
                 # Point towards the current panorama
-                end_url = "#zoom=0/cap={}/ele={}".format(refpoint.bearing(self),
-                                                         refpoint.elevation(self))
-                return refpoint.panorama.get_absolute_url() + end_url
+                return refpoint.panorama.get_absolute_url(refpoint.bearing(self),
+                                                          refpoint.elevation(self))
             else:
                 return ""
 
