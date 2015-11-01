@@ -217,6 +217,7 @@ class Panorama(ReferencePoint):
         return "Panorama : " + self.name
 
 
+@python_2_unicode_compatible
 class Reference(models.Model):
     """A reference is made of a Panorama, a Reference Point, and the position
     (x, y) of the reference point inside the image.  With enough
@@ -251,3 +252,10 @@ class Reference(models.Model):
                                       y=self.y,
                                       width=w,
                                       height=h))
+
+    def __str__(self):
+        return '{ref}: at {xy} in {pano}'.format(
+                pano=self.panorama.name,
+                xy=(self.x, self.y),
+                ref=self.reference_point.name,
+                )
