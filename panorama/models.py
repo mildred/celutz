@@ -213,6 +213,45 @@ class Panorama(ReferencePoint):
                  "elevation": self.elevation(r.reference_point)}
                 for r in self.panorama_references.all()]
 
+    def cap_min(self):
+        return self._cap_minmax(True)
+
+    def cap_max(self):
+        return self._cap_minmax(False)
+
+    def _cap_minmax(self, ismin=True):
+        """Return the cap on the border of the image.
+
+        :param ismin: True if the min cap should be processed False if it is the
+        max.
+
+        @return None if the image is looping or if the image have less than two
+        references.
+        """
+        if self.loop:
+            return None
+
+        it = self.panorama_references.order_by(
+                'x' if ismin else '-x').iterator()
+
+        try:
+            ref1 = next(it)
+            ref2 = next(it)
+        except StopIteration:
+            return None
+
+        cap1 = self.bearing(ref1.reference_point)
+        cap2 = self.bearing(ref2.reference_point)
+        target_x = 0 if ismin else self.image_width
+
+        # For circulary issues
+        if cap2 < cap1:
+            cap2 += 360
+
+        target_cap =  cap1 + (target_x - ref1.x) * (cap2 - cap1) / \
+                (ref2.x - ref1.x)
+        return target_cap % 360
+
     def __str__(self):
         return "Panorama : " + self.name
 
