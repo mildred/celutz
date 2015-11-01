@@ -222,6 +222,9 @@ class Panorama(ReferencePoint):
         cap = self.bearing(point) % 360
         cap_min = self.cap_min()
         cap_max = self.cap_max()
+        # Not enough references
+        if cap_min == None or cap_max == None:
+            return False
         if cap_min < cap_max:
             # Nominal case
             return cap_min <= cap <= cap_max
