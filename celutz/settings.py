@@ -97,7 +97,7 @@ PANORAMA_TILES_DIR = "tiles"
 
 # Max distance around a point at which to consider reference points
 # (in meters)
-PANORAMA_MAX_DISTANCE = 30000
+PANORAMA_MAX_DISTANCE = 50000
 
 # Celery configuration
 BROKER_URL = 'django://'
