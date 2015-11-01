@@ -1,0 +1,46 @@
+{% load panorama_url %}
+{% load distance_filter %}
+
+<h1>Locate a point</h1>
+
+{% if panoramas %}
+
+<h2>Result</h2>
+
+<p>Panoramas that see the point
+  <strong>{% if point_name %}{{ point_name }}{% else %}{{ point_lat }}°, {{ point_lon }}°{% endif %}</strong>:
+</p>
+
+<p>
+<ul>
+{% for panorama, distance, bearing, elevation in panoramas %}
+<li><a href="{% panorama_url panorama bearing elevation %}">{{ panorama.name }}</a> at {{ distance|distance }} (click to visualise)</li>
+{% endfor %}
+</ul>
+</p>
+
+{% endif %}
+
+<h2>How it works</h2>
+
+<p>
+  <ol>
+    <li>Select an existing point, or enter a custom point by its coordinates;</li>
+    <li>You obtain a list of panoramas that can see the point;</li>
+    <li>Click on a panorama to visualise exactly the point you asked for!</li>
+  </ol>
+</p>
+
+<h2>Locate!</h2>
+
+<form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+  {{ refpoints_form.as_p }}
+  <input type="submit" value="Locate" />
+</form>
+
+<p><strong>OR</strong></p>
+
+<form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+  {{ custom_point_form.as_p }}
+  <input type="submit" value="Locate" />
+</form>
