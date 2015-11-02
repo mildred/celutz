@@ -154,7 +154,7 @@ class Panorama(ReferencePoint):
         base_url = reverse('panorama:view_pano', args=[str(self.pk)])
         # Add parameters to point to the given direction, interpreted by
         # the js frontend
-        if zoom == None:
+        if zoom is None:
             zoom = 0
         if not None in (zoom, cap, ele):
             return base_url + "#zoom={}/cap={}/ele={}".format(zoom, cap, ele)
@@ -223,7 +223,7 @@ class Panorama(ReferencePoint):
         cap_min = self.cap_min()
         cap_max = self.cap_max()
         # Not enough references
-        if cap_min == None or cap_max == None:
+        if cap_min is None or cap_max is None:
             return False
         if cap_min < cap_max:
             # Nominal case
