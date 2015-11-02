@@ -110,7 +110,6 @@ class ReferencePoint(Point):
         return self.name
 
 
-@python_2_unicode_compatible
 class Panorama(ReferencePoint):
     loop = models.BooleanField(default=False, verbose_name="360° panorama",
                                help_text="Whether the panorama loops around the edges")
