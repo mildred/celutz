@@ -78,3 +78,24 @@ in the dropdown list of actions.
 
 This will take a few minutes to complete, you can follow the progress by
 reloading the admin page (look at the "Has tiles" column).
+
+Manually importing a panorama
+-----------------------------
+
+Sometimes, things are not that simple, and you need to "manually" import a
+panorama.  For instance, if the panorama image is at an unusual place or
+has an unusual name.
+
+In this case, you can use the two scripts `upgrade/export_single_pano.php`
+and `./manage.py import_single_pano` to manually export and import a
+panorama.  Usage:
+
+    php upgrade/export_single_pano.php /path/to/site.params | ./manage.py import_single_pano /path/to/panorama.tif
+
+The PHP script will convert the parameters file to a JSON representation,
+which is then passed to a Django command (along with the actual panorama
+image) for importing into the databse.  A copy of the image file will be
+put into the `media/pano` directory, meaning you can remove the original
+image file once you ensured that the import process went smoothly.
+
+Then, you need to regenerate tiles for the imported panorama (see above).
