@@ -69,12 +69,6 @@ If all commands run without error, you're probably all good.  If the first
 import command complains about missing images, make sure they are available
 in the `media/pano/` directory, under the expected file name.
 
-The final step is to fix the name of reference points, because characters
-such as "'" are known to cause issue in the frontend code:
-
-    # Remove special characters from reference point names
-    python manage.py fix_refpoints_name
-
 Regenerate all tiles
 --------------------
 
