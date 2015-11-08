@@ -23,6 +23,7 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
+from django.core.exceptions import ObjectDoesNotExist
 
 from panorama.models import Panorama, ReferencePoint, Reference
 
@@ -52,7 +53,11 @@ class Command(BaseCommand):
             xy = xy.split(",")
             x = float(xy[0])
             y = float(xy[1])
-            refpoint = ReferencePoint.objects.get(name=refname)
+            try:
+                refpoint = ReferencePoint.objects.get(name=refname)
+            except ObjectDoesNotExist:
+                self.stderr.write('WARNING: reference point "%s" not found. Continuing anyway, please check the result!' % refname)
+                continue
             r = Reference(reference_point=refpoint, panorama=p,
                           x=int(x * p.image_width),
                           y=int((y + 0.5) * p.image_height))
