@@ -25,7 +25,9 @@ Celutz is a fairly standard Django application: refer to the Django
 documentation for deployment methods.  The initial installation for development
 should look like this:
 
-    virtualenv ~/mycelutzvenv
+    # Debian jessie with python3, adapt to your OS
+    apt install build-essential python3-dev libjpeg-dev libtiff5-dev zlib1g-dev libopenjp2-7-dev
+    virtualenv -p /usr/bin/python3 ~/mycelutzvenv
     . ~/mycelutzvenv/bin/activate
     pip install -r requirements.txt
     # Configure database if needed
