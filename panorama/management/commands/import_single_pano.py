@@ -48,6 +48,8 @@ class Command(BaseCommand):
             p.image.save(os.path.basename(args[0]), File(f), save=False)
             self.stdout.write("Saving panorama to database...")
             p.save()
+        self.stdout.write("Launching tile generation...")
+        p.generate_tiles()
         self.stdout.write("Saving references to database...")
         for refname, xy in data["reference"].items():
             xy = xy.split(",")
