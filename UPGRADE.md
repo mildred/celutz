@@ -98,4 +98,7 @@ image) for importing into the databse.  A copy of the image file will be
 put into the `media/pano` directory, meaning you can remove the original
 image file once you ensured that the import process went smoothly.
 
+For convenience, a simple shell script that does exactly the above is provided:
+`upgrade/import_single_pano.sh`.
+
 Then, you need to regenerate tiles for the imported panorama (see above).
