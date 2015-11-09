@@ -56,15 +56,30 @@ Lastly, you should collect static files to serve them:
 
     python manage.py collectstatic
 
+Development
+-----------
+
+Just run the builtin Django server:
+
+    ./manage.py runserver
+
+Alternatively, you can use gunicorn exactly like in production.
+
+You also need to launch a celery worker (see below).
+
 Production
 ----------
 
-One specific information for production usage: you **really** want to serve
-the `media/` directory with a real webserver, and **not** with Django itself.
-Hundreds of tiles (small image files) will be served from this directory each
-time a client visualises a panorama.
+To run the WSGI server, for instance gunicorn:
 
-You probably also want to configure your webserver to allow to send very large
+    gunicorn celutz.wsgi:application
+
+Internally, `dj_static` is used to serve static and media files (including tiles).
+
+As an alternative, you may wish to serve media files (everything in `media/`)
+with your web server directly.
+
+You probably also need to configure your webserver to allow to send very large
 files in a POST request.  An upper limit of 200 MB should be enough, even for
 very large pictures in raw format.
 
@@ -73,7 +88,7 @@ Tile generation
 
 Tile generation uses Celery, because it is quite a heavy task CPU-wise.
 
-To launch a celery worker while developping, run this in your virtualenv:
+To launch a celery worker, run this in your virtualenv:
 
     celery -c 1 -A celutz.celery worker --loglevel=info
 
