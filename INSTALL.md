@@ -30,8 +30,26 @@ should look like this:
     virtualenv -p /usr/bin/python3 ~/mycelutzvenv
     . ~/mycelutzvenv/bin/activate
     pip install -r requirements.txt
-    # Configure database if needed
+
+Configuration
+-------------
+
+To configure the application, don't edit `celutz/settings.py` directly, but
+instead create a file `celutz/local_settings.py` with your local modifications.
+
+Some things you should (must?) configure:
+
+- `SECRET_KEY`
+- `ALLOWED_HOSTS`
+- `DEBUG`
+- database configuration
+
+Then run the migrations:
+
     python manage.py migrate
+
+And create a superuser:
+
     python manage.py createsuperuser
 
 Production

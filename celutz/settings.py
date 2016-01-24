@@ -103,3 +103,10 @@ PANORAMA_MAX_DISTANCE = 50000
 BROKER_URL = 'django://'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
+
+# Local settings overriding
+try:
+    from celutz.local_settings import *
+except ImportError:
+    pass
+
