@@ -52,6 +52,10 @@ And create a superuser:
 
     python manage.py createsuperuser
 
+Lastly, you should collect static files to serve them:
+
+    python manage.py collectstatic
+
 Production
 ----------
 
