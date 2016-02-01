@@ -100,5 +100,5 @@ To import one set of reference points into the database, run:
 Upgrading from the PHP version of celutz
 ----------------------------------------
 
-Where you previously using the PHP version of celutz?  You can import all your
+Were you previously using the PHP version of celutz?  You can import all your
 old data!  See `UPGRADE.md`.
