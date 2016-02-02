@@ -89,6 +89,10 @@ STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 
+# Is it required to login to use celutz?
+LOGIN_REQUIRED = False
+
+
 # For uploaded panorama
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

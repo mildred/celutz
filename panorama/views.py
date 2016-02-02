@@ -6,12 +6,28 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, DetailView, RedirectView, ListView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Point, Panorama, ReferencePoint
 from .forms import SelectReferencePointForm, CustomPointForm
 
 
-class PanoramaUpload(CreateView):
+class CelutzLoginMixin(LoginRequiredMixin):
+    """Mixin that acts like LoginRequiredMixin if settings.LOGIN_REQUIRED is
+    True, and does nothing otherwise.  It allows to choose whether
+    accessing celutz requires an account or is open to anybody.
+    """
+    login_url = '/admin/login/'
+
+    def dispatch(self, request, *args, **kwargs):
+        """Small hack: either call our parent (LoginRequiredMixin) or bypass it"""
+        if settings.LOGIN_REQUIRED:
+            return super(CelutzLoginMixin, self).dispatch(request, *args, **kwargs)
+        else:
+            return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class PanoramaUpload(CelutzLoginMixin, CreateView):
     model = Panorama
     fields = ('name', 'image', 'loop', 'latitude', 'longitude', 'altitude')
     template_name = "panorama/new.html"
@@ -19,13 +35,14 @@ class PanoramaUpload(CreateView):
     def get_success_url(self):
         return reverse_lazy("panorama:gen_tiles", kwargs={"pk": self.object.id})
 
-class PanoramaView(DetailView):
+
+class PanoramaView(CelutzLoginMixin, DetailView):
     model = Panorama
     template_name = "panorama/view.html"
     context_object_name = "panorama"
 
 
-class PanoramaGenTiles(RedirectView):
+class PanoramaGenTiles(CelutzLoginMixin, RedirectView):
     permanent = False
     pattern_name = "panorama:view_pano"
 
@@ -35,13 +52,13 @@ class PanoramaGenTiles(RedirectView):
         return super(PanoramaGenTiles, self).get_redirect_url(*args, **kwargs)
 
 
-class PanoramaList(ListView):
+class PanoramaList(CelutzLoginMixin, ListView):
     model = Panorama
     template_name = "panorama/list.html"
     context_object_name = "panoramas"
 
 
-class LocatePointView(TemplateView):
+class LocatePointView(CelutzLoginMixin, TemplateView):
     """View to choose a point to locate (either an existing reference point,
     or from GPS coordinates)"""
     template_name = 'panorama/locate_point.html'
