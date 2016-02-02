@@ -2,13 +2,45 @@
 from __future__ import unicode_literals, division, print_function
 
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.conf import settings
 
 from panorama.models import Point, Panorama, ReferencePoint, Reference
 from .serializers import *
 
 
-class ReferencePointViewSet(viewsets.ModelViewSet):
+class CelutzApiLoginMixin(object):
+    """Mixin that requires logging in to access the API if
+    settings.LOGIN_REQUIRED is True, and does nothing otherwise.  It
+    allows to choose whether using celutz requires an account or is open
+    to anybody.
+
+    The standard way of specifying authentication and permission is to
+    override the variable self.authentication_classes and
+    self.permission_classes:
+    http://www.django-rest-framework.org/api-guide/authentication/
+    http://www.django-rest-framework.org/api-guide/permissions/
+
+    However, since we want to configure this dynamically based on the
+    settings, we directly override the internal methods.  This means that
+    upgrading Django-Rest-Framework might break this Mixin.
+    """
+
+    def get_authenticators(self):
+        if settings.LOGIN_REQUIRED:
+            return [SessionAuthentication()]
+        else:
+            return []
+
+    def get_permissions(self):
+        if settings.LOGIN_REQUIRED:
+            return [IsAuthenticated()]
+        else:
+            return [AllowAny()]
+
+
+class ReferencePointViewSet(CelutzApiLoginMixin, viewsets.ModelViewSet):
     queryset = ReferencePoint.objects.all()
     serializer_class = ReferencePointSerializer
 
@@ -44,11 +76,11 @@ class ReferencePointViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class PanoramaViewSet(viewsets.ModelViewSet):
+class PanoramaViewSet(CelutzApiLoginMixin, viewsets.ModelViewSet):
     queryset = Panorama.objects.all()
     serializer_class = PanoramaSerializer
 
 
-class ReferenceViewSet(viewsets.ModelViewSet):
+class ReferenceViewSet(CelutzApiLoginMixin, viewsets.ModelViewSet):
     queryset = Reference.objects.all()
     serializer_class = ReferenceSerializer
