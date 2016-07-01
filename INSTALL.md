@@ -37,12 +37,18 @@ Configuration
 To configure the application, don't edit `celutz/settings.py` directly, but
 instead create a file `celutz/local_settings.py` with your local modifications.
 
-Some things you should (must?) configure:
+Some Django things you should really configure:
 
 - `SECRET_KEY`
 - `ALLOWED_HOSTS`
 - `DEBUG`
 - database configuration
+
+There are also celutz-specific settings:
+
+- `LOGIN_REQUIRED`: is celutz public or are users required to login first?
+- `PANORAMA_TILES_DIR`: where the tiles are, relatively to `MEDIA_ROOT` and `MEDIA_URL`
+- `PANORAMA_MAX_DISTANCE`: maximum distance (in meters) after which reference points are considered to be too far away
 
 Then run the migrations:
 
