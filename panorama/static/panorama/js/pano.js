@@ -694,10 +694,12 @@ function wheel_zoom (event) {
 	zshift.y = event.pageY-canvas.height/2-canvas_pos.y;
     }
     //event.preventDefault();
-    if (event.wheelDelta < 0 && zoom_control.value < zoom_control.max) {
+
+    var delta = (event.wheelDelta || -event.detail);
+    if (delta < 0 && zoom_control.value < zoom_control.max) {
 	zoom_control.value++;
 	change_zoom(zshift.x, zshift.y);
-    } else if (event.wheelDelta > 0 && zoom_control.value > zoom_control.min) {
+    } else if (delta > 0 && zoom_control.value > zoom_control.min) {
 	zoom_control.value--;
 	change_zoom(zshift.x, zshift.y);
     }
@@ -1080,6 +1082,7 @@ function load_pano() {
     canvas.addEventListener('touchstart', onImageClick, false);
     document.addEventListener('keydown', keys, false);
     canvas.addEventListener('mousewheel', wheel_zoom, false);
+    canvas.addEventListener('DOMMouseScroll', wheel_zoom, false);
     window.onresize = canvas_resize;
     if (adding) {
 	document.getElementById("paramFormHide").onclick = hideForm;
