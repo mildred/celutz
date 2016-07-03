@@ -33,6 +33,60 @@
 
 <h2>Locate!</h2>
 
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+ <div id="map" style="height: 400px; "></div>
+<style>
+body{overflow : scroll;}
+</style>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<script>
+  var map;
+  var ajaxRequest;
+  var plotlist;
+  var plotlayers=[];
+
+  function initmap() {
+    // set up the map
+    map = new L.Map('map');
+
+    // create the tile layer with correct attribution
+    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+    // start the map in Grenoble
+    map.setView(new L.LatLng(45.1842, 5.7218),13);
+    map.addLayer(osm);
+
+    // Add in a crosshair for the map
+    var crosshairIcon = L.icon({
+        iconUrl: 'images/crosshair.png',
+        iconSize:     [20, 20], // size of the icon
+        iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+      });
+    crosshair = new L.marker(map.getCenter(), {clickable:false});
+    crosshair.addTo(map);
+
+    // Move the crosshair to the center of the map when the user pans
+    map.on('move', function(e) {
+        crosshair.setLatLng(map.getCenter());
+      });
+
+    map.on('moveend', function(e) {
+        var lat = map.getCenter().lat;
+        var lng = map.getCenter().lng;
+        $('#id_latitude').val(lat);
+        $('#id_longitude').val(lng);
+        $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
+            function(data) {
+                $('#id_altitude').val(parseInt(data));
+                });
+        });
+  }
+  initmap();
+</script>
+
 <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
   {{ refpoints_form.as_p }}
   <input type="submit" value="Locate" />
