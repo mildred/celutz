@@ -26,8 +26,9 @@ body {
 
 #insert {
     display:none;
-    background-color:#000;
-    border:1px black solid;
+    background-color:#555;
+    border:2px black solid;
+    padding-left: 5px;
     position:absolute;
 }
 
