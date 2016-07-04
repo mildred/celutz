@@ -1,9 +1,9 @@
+{% extends "panorama/base.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <title>{{ panorama.name }}</title>
+
+{% block title %}{{ panorama.name }}{% endblock title %}
+
+{% block js %}
     <script>
       var title = "{{ panorama.name|escapejs }}";
       var panorama_id = {{ panorama.pk }};
@@ -36,10 +36,7 @@
       ref_points["{{ ref.name|escapejs }}"] = {url: "/api/v1/references/{{ ref.id }}/", x: {{ ref.x }}, y: {{ ref.y }}, cap: {{ ref.cap }}, ele: {{ ref.elevation }}};
       {% endfor %}
     </script>
-    <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
-    <link rel="stylesheet" media="screen" href="{% static "panorama/css/map.css" %}" />
     <script src="{% static "panorama/js/hide_n_showForm.js" %}"></script>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script>
@@ -77,9 +74,14 @@
 
       });
     </script>
+{% endblock js %}
 
-  </head>
-  <body>
+{% block css %}
+    <link rel="stylesheet" media="screen" href="{% static "panorama/css/map.css" %}" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+{% endblock css %}
+
+{% block content %}
     <canvas id="mon-canvas">
       Ce message indique que ce navigateur est vétuste car il ne supporte pas <samp>canvas</samp> (IE6, IE7, IE8, ...)
     </canvas>
@@ -120,5 +122,4 @@
     <p id="res"></p>
 
     <div id="mapid"></div>
-  </body>
-</html>
+{% endblock content %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+{# TODO: change lang? #}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <title>{% block title %}{% endblock title %}</title>
+    <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
+    <link rel="stylesheet" media="screen" href="{% static "panorama/css/base.css" %}" />
+    {% block css %}{% endblock css %}
+  </head>
+
+  <body>
+    {# Add base structure here, menu, etc... #}
+
+    {% block content %}{% endblock content %}
+
+    {% block js %}{% endblock js %}
+  </body>
+</html>
