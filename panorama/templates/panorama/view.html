@@ -52,8 +52,6 @@
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
-	// start the map in Grenoble
-	map.setView(new L.LatLng(45.1842, 5.7218),13);
 	map.addLayer(osm);
 
 	L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}]).addTo(map);
