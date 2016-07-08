@@ -3,7 +3,7 @@
 
 <h1>Locate a point</h1>
 
-{% if panoramas %}
+{% if panoramas != None %}
 
 <h2>Result</h2>
 
@@ -11,6 +11,9 @@
   <strong>{% if point_name %}{{ point_name }}{% else %}{{ point_lat }}°, {{ point_lon }}°{% endif %}</strong>:
 </p>
 
+{% if panoramas|length == 0 %}
+<p><strong>No panorama seeing this point!</strong></p>
+{% else %}
 <p>
 <ul>
 {% for panorama, distance, bearing, elevation in panoramas %}
@@ -18,6 +21,7 @@
 {% endfor %}
 </ul>
 </p>
+{% endif %}
 
 {% endif %}
 
