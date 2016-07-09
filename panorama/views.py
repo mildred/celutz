@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, RedirectView, ListView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Point, Panorama, ReferencePoint
-from .forms import SelectReferencePointForm, CustomPointForm
+from .forms import SelectReferencePointForm, CustomPointForm, PanoramaForm
 
 
 class CelutzLoginMixin(LoginRequiredMixin):
@@ -59,6 +59,7 @@ class MainView(CelutzLoginMixin, TemplateView):
         context = super(MainView, self).get_context_data(**kwargs)
         context['refpoints_form'] = SelectReferencePointForm
         context['custom_point_form'] = CustomPointForm
+        context['newpanorama_form'] = PanoramaForm
         context['panoramas'] = Panorama.objects.all()
         return context
 

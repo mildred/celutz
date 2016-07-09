@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django import forms
 
-from .models import Point, ReferencePoint
+from .models import Point, ReferencePoint, Panorama
 
 
 class SelectReferencePointForm(forms.Form):
@@ -18,3 +18,10 @@ class CustomPointForm(forms.ModelForm):
     class Meta:
         model = Point
         fields = ['latitude', 'longitude', 'altitude']
+
+class PanoramaForm(forms.ModelForm):
+    """Form to insert a new panorama."""
+
+    class Meta:
+        model = Panorama
+        fields = ['name', 'image', 'loop', 'latitude', 'longitude', 'altitude']
