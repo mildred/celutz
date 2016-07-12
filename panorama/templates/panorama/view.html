@@ -1,5 +1,6 @@
 {% extends "panorama/base.html" %}
 {% load staticfiles %}
+{% load distance_filter %}
 
 {% block title %}{{ panorama.name }}{% endblock title %}
 
@@ -8,24 +9,11 @@
 {% endblock %}
 
 {% block top-menu-items %}
-<ul class="nav navbar-right top-nav">
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i>  Controls<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i>  Params<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                <fieldset id="control"><legend>contrôle</legend>
-                  <label>Zoom : <input type="range" min="0" max="2" value="2" id="zoom_ctrl"/></label>
-                  <label>Cap : <input type="number" min="0" max="360" step="10" value="0" autofocus="" id="angle_ctrl"/></label>
-                  <label>Élévation : <input type="number" min="-90" max="90" step="1" value="0" autofocus="" id="elvtn_ctrl"/></label>
-                </fieldset>
-            </li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i>  Params<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <div id="params">
+                <div>
                   <p>latitude :   <em><span id="pos_lat">{{ panorama.latitude }}</span>°</em></p>
                   <p>longitude : <em><span id="pos_lon">{{ panorama.longitude }}</span>°</em></p>
                   <p>altitude : <em><span id="pos_alt">{{ panorama.altitude }}</span> m</em></p>
@@ -34,10 +22,19 @@
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i>  Localiser<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>  Controls<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                <fieldset id="control"><legend>Localiser un point</legend>
+                  <label>Zoom : <input type="range" min="0" max="2" value="2" id="zoom_ctrl"/></label>
+                  <label>Cap : <input type="number" min="0" max="360" step="10" value="0" autofocus="" id="angle_ctrl"/></label>
+                  <label>Élévation : <input type="number" min="-90" max="90" step="1" value="0" autofocus="" id="elvtn_ctrl"/></label>
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>  Localiser<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li>
                   <label class="form_col" title="La latitude ϵ [-90°, 90°]. Ex: 12.55257">Latitude :
                     <input  name="loca_latitude" type="number" min="-90" max="90"  id="loca_latitude"/></label>
                   <label class="form_col" title="La longitude ϵ [-180°, 180°]. Ex: 144.14723">Longitude :
@@ -48,12 +45,11 @@
                     <input type="button" value="Localiser" id="loca_button"/>
                     <input type="button" value="Effacer" id="loca_erase"/>
                   </div>
-                </fieldset><p id="info"></p>
             </li>
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i>  à propos<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info-circle"></i>  à propos<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
                <p>Celutz is a tool for managing and referencing panoramic photos.
@@ -61,9 +57,21 @@
             </li>
         </ul>
     </li>
-</ul>
 {% endblock %}
 
+{% block sidebar %}
+{% endblock %}
+
+{% block wrapper-style %}
+style="padding-left:0px"
+{% endblock %}
+
+{% block content %}
+{% endblock content %}
+
+{% block css %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+{% endblock css %}
 
 {% block js %}
     <script>
@@ -138,14 +146,6 @@
     </script>
 {% endblock js %}
 
-{% block css %}
-    <link rel="stylesheet" media="screen" href="{% static "panorama/css/bootstrap.css" %}" />
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-{% endblock css %}
-
-{% block content %}
-{% endblock content %}
-
 {% block pano %}
     <canvas id="mon-canvas">
       Ce message indique que ce navigateur est vétuste car il ne supporte pas <samp>canvas</samp> (IE6, IE7, IE8, ...)
@@ -161,6 +161,5 @@
     </p>
     <p id="res"></p>
     <div id="mapid"></div>
-
 {% endblock pano %}
 
