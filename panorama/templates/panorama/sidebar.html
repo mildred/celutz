@@ -4,7 +4,7 @@
             <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> Map</a>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-circle-thin"></i> Panoramas<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> Panoramas<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="panos" class="collapse">
               {% for pano in panoramas %}
               <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
@@ -23,7 +23,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-magic"></i> Locate GPS point<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> Locate GPS point<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-gps" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
