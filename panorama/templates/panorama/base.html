@@ -22,7 +22,6 @@
 
   <body>
     {# Add base structure here, menu, etc... #}
-
    <div id="wrapper" {% block wrapper-style %}{% endblock wrapper-style %}>
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -48,23 +47,11 @@
         <div id="page-wrapper">
         {% block content %}{% endblock content %}
         </div>
-        <!-- /#page-wrapper -->
     </div>
-    <!-- /#wrapper -->
-
     {% block js %}
     {% endblock js %}
 
-
     <script src="{% static "panorama/js/jquery.js" %}"></script>
     <script src="{% static "panorama/js/bootstrap.min.js" %}"></script>
-<!--
-<script>
-$( document ).ready(function() {
-    $("#wrapper").css("padding-left","0px");
-});
-</script>
--->
-
   </body>
 </html>
