@@ -4,8 +4,6 @@
 
 {% block title %}{{ panorama.name }}{% endblock title %}
 
-
-
 {% block js %}
     <script>
       var title = "{{ panorama.name|escapejs }}";
@@ -80,6 +78,7 @@
 {% endblock js %}
 
 {% block top-menu-title %}
+    <a class="navbar-brand" href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i></a>
     <a class="navbar-brand" href="">{{panorama.name}}</a>
 {% endblock %}
 
