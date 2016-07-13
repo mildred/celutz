@@ -787,13 +787,17 @@ function display_links(e) {
     info.innerHTML = 'élévation : '+res.ele.toFixed(2)+'<br/>cap : '+res.cap.toFixed(2);
     info.style.top = index.y+'px';
     info.style.left = index.x+'px';
-    info.style.backgroundColor = '#FFC';
+    info.style.backgroundColor = '#222';
+    info.style.opacity = '0.6'
+    info.style.color = 'white'
     info.style.display = 'block';
     canvas.style.cursor='crosshair';
     for(var i = 0; i < zm.pt_list.length; i++) {
 	if (is_located || zm.pt_list[i]['type'] == 'ref_point') {
 	    if (check_prox(zm.pt_list[i]['xc']-pos_x, zm.pt_list[i]['yc']-pos_y, 20)) {
 		info.innerHTML = zm.pt_list[i]['label'];
+                info.style.opacity = '0.8'
+                info.style.color = 'black'
 		if (zm.pt_list[i]['dist'] < 10) var dst = Math.round(zm.pt_list[i]['dist']*1000)+' m';
 		else var dst = zm.pt_list[i]['dist'].toFixed(1)+' kms';
 		info.innerHTML += '<br/> à ' + dst;

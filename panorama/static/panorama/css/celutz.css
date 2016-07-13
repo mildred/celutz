@@ -115,11 +115,11 @@ body {
 #info {
     display:none;
     background-color:#000;
-    border:1px black solid;
+    border:none;
     position:absolute;
     margin:1em;
     padding:0.2em 0.5em;
-    border-radius:0.5em;
+    border-radius:0.4em;
 }
 
 #insert {
