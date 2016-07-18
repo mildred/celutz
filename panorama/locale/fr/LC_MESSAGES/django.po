@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-17 22:04-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: models.py:25 templates/panorama/view.html:92
+msgid "latitude"
+msgstr ""
+
+#: models.py:25 models.py:28
+msgid "In degrees"
+msgstr "En degrés"
+
+#: models.py:28 templates/panorama/view.html:93
+msgid "longitude"
+msgstr ""
+
+#: models.py:31 templates/panorama/view.html:94
+msgid "altitude"
+msgstr ""
+
+#: models.py:31
+msgid "In meters"
+msgstr "En mètres"
+
+#: models.py:107
+msgid "name"
+msgstr "nom"
+
+#: models.py:108
+msgid "Name of the point"
+msgstr "Nom du point"
+
+#: models.py:115 templates/panorama/sidebar.html:47
+msgid "360° panorama"
+msgstr "Panorama de 360°"
+
+#: models.py:116
+msgid "Whether the panorama loops around the edges"
+msgstr "Si le panorama boucle sur ses côtés"
+
+#: models.py:117
+msgid "image"
+msgstr ""
+
+#: templates/panorama/main.html:6
+msgid "Celutz, a panorama viewer"
+msgstr "Celutz, un visualisateur de panoramas"
+
+#: templates/panorama/main.html:15 templates/panorama/view.html:127
+msgid "About"
+msgstr "À propos"
+
+#: templates/panorama/main.html:18 templates/panorama/view.html:130
+msgid "Celutz is a tool for managing and referencing panoramic photos"
+msgstr "Celutz est un outil pour gérer et référencer des photos panoramiques"
+
+#: templates/panorama/main.html:19 templates/panorama/view.html:131
+msgid "Project homepage"
+msgstr "Page du projet"
+
+#: templates/panorama/sidebar.html:5
+msgid "Map"
+msgstr "Carte"
+
+#: templates/panorama/sidebar.html:8
+msgid "Panoramas"
+msgstr ""
+
+#: templates/panorama/sidebar.html:16
+msgid "Locate existing point"
+msgstr "Localiser un point"
+
+#: templates/panorama/sidebar.html:21 templates/panorama/sidebar.html:35
+msgid "Locate"
+msgstr "Localiser"
+
+#: templates/panorama/sidebar.html:27
+msgid "Locate GPS point"
+msgstr "Localiser par GPS"
+
+#: templates/panorama/sidebar.html:41
+msgid "Add new panorama"
+msgstr "Ajouter un panorama"
+
+#: templates/panorama/sidebar.html:51
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/panorama/view.html:88
+msgid "Parameters"
+msgstr "Paramètres"
+
+#: templates/panorama/view.html:100
+msgid "Controls"
+msgstr "Contrôles"
+
+#: templates/panorama/view.html:103
+msgid "Zoom"
+msgstr ""
+
+#: templates/panorama/view.html:104
+msgid "Cap"
+msgstr ""
+
+#: templates/panorama/view.html:105
+msgid "Élévation"
+msgstr ""
+
+#: templates/panorama/view.html:110
+msgid "Localize"
+msgstr "Localiser"
+
+#: templates/panorama/view.html:113
+msgid "Latitude"
+msgstr ""
+
+#: templates/panorama/view.html:115
+msgid "Longitude"
+msgstr ""
+
+#: templates/panorama/view.html:117
+msgid "Altitude"
+msgstr ""
+
+#: templates/panorama/view.html:161
+msgid "insert"
+msgstr "insérer"
+
+#: templates/panorama/view.html:162
+msgid "delete"
+msgstr "supprimer"
+
+#: templates/panorama/view.html:163
+msgid "cancel"
+msgstr "annuler"
