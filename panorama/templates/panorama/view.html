@@ -1,6 +1,7 @@
 {% extends "panorama/base.html" %}
 {% load staticfiles %}
 {% load distance_filter %}
+{% load i18n %}
 
 {% block title %}{{ panorama.name }}{% endblock title %}
 
@@ -84,36 +85,36 @@
 
 {% block top-menu-items %}
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i>  Params<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i>  {% trans "Parameters" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
                 <div>
-                  <p>latitude :   <em><span id="pos_lat">{{ panorama.latitude }}</span>°</em></p>
-                  <p>longitude : <em><span id="pos_lon">{{ panorama.longitude }}</span>°</em></p>
-                  <p>altitude : <em><span id="pos_alt">{{ panorama.altitude }}</span> m</em></p>
+                  <p>{% trans "latitude" %} :   <em><span id="pos_lat">{{ panorama.latitude }}</span>°</em></p>
+                  <p>{% trans "longitude" %} : <em><span id="pos_lon">{{ panorama.longitude }}</span>°</em></p>
+                  <p>{% trans "altitude" %} : <em><span id="pos_alt">{{ panorama.altitude }}</span> m</em></p>
                 </div>
             </li>
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>  Controls<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>  {% trans "Controls" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                  <label>Zoom : <input type="range" min="0" max="2" value="2" id="zoom_ctrl"/></label>
-                  <label>Cap : <input type="number" min="0" max="360" step="10" value="0" autofocus="" id="angle_ctrl"/></label>
-                  <label>Élévation : <input type="number" min="-90" max="90" step="1" value="0" autofocus="" id="elvtn_ctrl"/></label>
+                  <label>{% trans "Zoom" %} : <input type="range" min="0" max="2" value="2" id="zoom_ctrl"/></label>
+                  <label>{% trans "Cap" %} : <input type="number" min="0" max="360" step="10" value="0" autofocus="" id="angle_ctrl"/></label>
+                  <label>{% trans "Élévation" %} : <input type="number" min="-90" max="90" step="1" value="0" autofocus="" id="elvtn_ctrl"/></label>
             </li>
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>  Localiser<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>  {% trans "Localize" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                  <label class="form_col" title="La latitude ϵ [-90°, 90°]. Ex: 12.55257">Latitude :
+                  <label class="form_col" title="La latitude ϵ [-90°, 90°]. Ex: 12.55257">{% trans "Latitude" %} :
                     <input  name="loca_latitude" type="number" min="-90" max="90"  id="loca_latitude"/></label>
-                  <label class="form_col" title="La longitude ϵ [-180°, 180°]. Ex: 144.14723">Longitude :
+                  <label class="form_col" title="La longitude ϵ [-180°, 180°]. Ex: 144.14723">{% trans "Longitude" %} :
                     <input name="loca_longitude" type="number" min="-180" max="180" id="loca_longitude"/></label>
-                  <label class="form_col" title="L'altitude positive Ex: 170">Altitude :
+                  <label class="form_col" title="L'altitude positive Ex: 170">{% trans "Altitude" %} :
                     <input  name="loca_altitude" type="number" min="-400" id="loca_altitude"/></label>
                   <div class="answer">
                     <input type="button" value="Localiser" id="loca_button"/>
@@ -123,11 +124,11 @@
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info-circle"></i>  à propos<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info-circle"></i>  {% trans "About" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-               <p>Celutz is a tool for managing and referencing panoramic photos.
-               <a href="https://code.ffdn.org/FFDN/celutz/">Project homepage</a>
+               <p>{% blocktrans %}Celutz is a tool for managing and referencing panoramic photos{% endblocktrans %}.
+               <a href="https://code.ffdn.org/FFDN/celutz/">{% trans "Project homepage" %}</a>
             </li>
         </ul>
     </li>
@@ -157,9 +158,9 @@ style="padding-left:0px"
         <option>{{ refpoint.name }}</option>
         {% endfor %}
       </select>
-      <input type="button" id="do-insert" value="insérer"/>
-      <input type="button" id="do-delete" value="supprimer"/>
-      <input type="button" id="do-cancel" value="annuler"/>
+      <input type="button" id="do-insert" value={% trans "insert" %}/>
+      <input type="button" id="do-delete" value={% trans "delete" %}/>
+      <input type="button" id="do-cancel" value={% trans "cancel" %}/>
     </p>
     <p id="res"></p>
     <div id="mapid"></div>

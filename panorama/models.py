@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext as _
 
 from .tasks import generate_tiles
 from .utils import makedirs, path_exists
@@ -21,13 +22,13 @@ EARTH_RADIUS = 6371009
 
 class Point(models.Model):
     """Geographical point, with altitude."""
-    latitude = models.FloatField(verbose_name="latitude", help_text="In degrees",
+    latitude = models.FloatField(verbose_name=_("latitude"), help_text=_("In degrees"),
                                  validators=[MinValueValidator(-90),
                                              MaxValueValidator(90)])
-    longitude = models.FloatField(verbose_name="longitude", help_text="In degrees",
+    longitude = models.FloatField(verbose_name=_("longitude"), help_text=_("In degrees"),
                                  validators=[MinValueValidator(-180),
                                              MaxValueValidator(180)])
-    altitude = models.FloatField(verbose_name="altitude", help_text="In meters",
+    altitude = models.FloatField(verbose_name=_("altitude"), help_text=_("In meters"),
                                  validators=[MinValueValidator(0.)])
 
     @property
@@ -103,17 +104,17 @@ class Point(models.Model):
 @python_2_unicode_compatible
 class ReferencePoint(Point):
     """Reference point, to be used"""
-    name = models.CharField(verbose_name="name", max_length=255,
-                            help_text="Name of the point")
+    name = models.CharField(verbose_name=_("name"), max_length=255,
+                            help_text=_("Name of the point"))
 
     def __str__(self):
         return self.name
 
 
 class Panorama(ReferencePoint):
-    loop = models.BooleanField(default=False, verbose_name="360° panorama",
-                               help_text="Whether the panorama loops around the edges")
-    image = models.ImageField(verbose_name="image", upload_to="pano",
+    loop = models.BooleanField(default=False, verbose_name=_("360° panorama"),
+                               help_text=_("Whether the panorama loops around the edges"))
+    image = models.ImageField(verbose_name=_("image"), upload_to="pano",
                               width_field="image_width",
                               height_field="image_height")
     image_width = models.PositiveIntegerField(default=0)

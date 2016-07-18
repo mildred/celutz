@@ -1,10 +1,11 @@
+{% load i18n %}
 <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
         <li>
-            <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> Map</a>
+            <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> {% trans "Map" %}</a>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> Panoramas<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> {% trans "Panoramas" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="panos" class="collapse">
               {% for pano in panoramas %}
               <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
@@ -12,18 +13,18 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-location-arrow"></i> Locate existing point<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-location-arrow"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-existing" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                       {{ refpoints_form.as_p }}
-                      <input type="submit" value="Locate" />
+                      <input type="submit" value={% trans "Locate" %} />
                     </form>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> Locate GPS point<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-gps" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
@@ -31,23 +32,23 @@
                         {{ custom_point_form.longitude.label_tag }}{{ custom_point_form.longitude }}
                         {{ custom_point_form.altitude.label_tag }}{{ custom_point_form.altitude }}
                         </br>
-                        <input type="submit" value="Locate" />
+                        <input type="submit" value={% trans "Locate" %} />
                     </form>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> Add new panorama<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="new-pano" class="collapse">
                 <li>
                     <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ newpanorama_form.name.label_tag }}{{ newpanorama_form.name }}
                         {{ newpanorama_form.image.label_tag }}{{ newpanorama_form.image }}
-                        <label for="{{ newpanorama_form.loop.id_for_label }}">{{ newpanorama_form.loop }} 360° panorama</label>
+                        <label for="{{ newpanorama_form.loop.id_for_label }}">{{ newpanorama_form.loop }} {% trans "360° panorama" %}</label>
                         {{ newpanorama_form.latitude.label_tag }}{{ newpanorama_form.latitude }}
                         {{ newpanorama_form.longitude.label_tag }}{{ newpanorama_form.longitude }}
                         {{ newpanorama_form.altitude.label_tag }}{{ newpanorama_form.altitude }}
-                        <input type="submit" value="Add" />
+                        <input type="submit" value={% trans "Add" %} />
                     </form>
                 </li>
             </ul>
