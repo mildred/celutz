@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django import forms
+from django.utils.translation import ugettext as _
 
 from .models import Point, ReferencePoint, Panorama
 
@@ -9,7 +10,7 @@ from .models import Point, ReferencePoint, Panorama
 class SelectReferencePointForm(forms.Form):
     """Form to select an existing reference point"""
     q = ReferencePoint.objects.order_by("name")
-    reference_point = forms.ModelChoiceField(queryset=q)
+    reference_point = forms.ModelChoiceField(queryset=q,label=_("Reference point"))
 
 
 class CustomPointForm(forms.ModelForm):
