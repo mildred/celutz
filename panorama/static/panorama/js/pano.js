@@ -784,7 +784,7 @@ function display_links(e) {
     //var cap = ((pos_x/zm.im.width)*360).toFixed(2);
     var res = zm.get_cap_ele(pos_x, zm.im.height/2 - pos_y);
     //var ele = ((zm.im.height/2 - pos_y)/zm.im.width)*360;
-    info.innerHTML = 'élévation : '+res.ele.toFixed(2)+'<br/>cap : '+res.cap.toFixed(2);
+    info.innerHTML = 'élévation : '+res.ele.toFixed(2)+'&#176;<br/>cap : '+res.cap.toFixed(2)+'&#176;';
     info.style.top = index.y+'px';
     info.style.left = index.x+'px';
     info.style.backgroundColor = '#222';
