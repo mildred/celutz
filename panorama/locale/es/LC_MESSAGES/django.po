@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-20 12:32-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: panorama/forms.py:13
+msgid "Reference point"
+msgstr "Punto de referencia"
+
+#: panorama/models.py:25 panorama/templates/panorama/view.html:92
+msgid "latitude"
+msgstr ""
+
+#: panorama/models.py:25 panorama/models.py:28
+msgid "In degrees"
+msgstr "En grados"
+
+#: panorama/models.py:28 panorama/templates/panorama/view.html:93
+msgid "longitude"
+msgstr ""
+
+#: panorama/models.py:31 panorama/templates/panorama/view.html:94
+msgid "altitude"
+msgstr ""
+
+#: panorama/models.py:31
+msgid "In meters"
+msgstr "En metros"
+
+#: panorama/models.py:107
+msgid "name"
+msgstr "nombre"
+
+#: panorama/models.py:108
+msgid "Name of the point"
+msgstr "Nombre del punto"
+
+#: panorama/models.py:115 panorama/templates/panorama/sidebar.html:47
+msgid "360° panorama"
+msgstr "Panorama de 360°"
+
+#: panorama/models.py:116
+msgid "Whether the panorama loops around the edges"
+msgstr "Si el panorama vuelta en los bordes"
+
+#: panorama/models.py:117
+msgid "image"
+msgstr "imagen"
+
+#: panorama/templates/panorama/main.html:6
+msgid "Celutz, a panorama viewer"
+msgstr "Celutz, un visualisador de panorama"
+
+#: panorama/templates/panorama/main.html:15
+#: panorama/templates/panorama/view.html:127
+msgid "About"
+msgstr "Acerca de"
+
+#: panorama/templates/panorama/main.html:18
+#: panorama/templates/panorama/view.html:130
+msgid "Celutz is a tool for managing and referencing panoramic photos"
+msgstr "Celutz es una heramienta para gestionar y referenciar fotos panoramicas"
+
+#: panorama/templates/panorama/main.html:19
+#: panorama/templates/panorama/view.html:131
+msgid "Project homepage"
+msgstr "Pagina del projecto"
+
+#: panorama/templates/panorama/sidebar.html:5
+msgid "Map"
+msgstr "Mapa"
+
+#: panorama/templates/panorama/sidebar.html:8
+msgid "Panoramas"
+msgstr ""
+
+#: panorama/templates/panorama/sidebar.html:16
+msgid "Locate existing point"
+msgstr "Localizar un punto"
+
+#: panorama/templates/panorama/sidebar.html:21
+#: panorama/templates/panorama/sidebar.html:35
+msgid "Locate"
+msgstr "Localizar"
+
+#: panorama/templates/panorama/sidebar.html:27
+msgid "Locate GPS point"
+msgstr "Localizar por GPS"
+
+#: panorama/templates/panorama/sidebar.html:41
+msgid "Add new panorama"
+msgstr "Añadir un panorama"
+
+#: panorama/templates/panorama/sidebar.html:51
+msgid "Add"
+msgstr "Añadir"
+
+#: panorama/templates/panorama/view.html:88
+msgid "Parameters"
+msgstr "Parámetro"
+
+#: panorama/templates/panorama/view.html:100
+msgid "Controls"
+msgstr "Control"
+
+#: panorama/templates/panorama/view.html:103
+msgid "Zoom"
+msgstr ""
+
+#: panorama/templates/panorama/view.html:104
+msgid "Cap"
+msgstr ""
+
+#: panorama/templates/panorama/view.html:105
+msgid "Élévation"
+msgstr "Elevación"
+
+#: panorama/templates/panorama/view.html:110
+msgid "Localize"
+msgstr "Localizar"
+
+#: panorama/templates/panorama/view.html:113
+msgid "Latitude"
+msgstr ""
+
+#: panorama/templates/panorama/view.html:115
+msgid "Longitude"
+msgstr ""
+
+#: panorama/templates/panorama/view.html:117
+msgid "Altitude"
+msgstr ""
+
+#: panorama/templates/panorama/view.html:161
+msgid "insert"
+msgstr "insertar"
+
+#: panorama/templates/panorama/view.html:162
+msgid "delete"
+msgstr "borrar"
+
+#: panorama/templates/panorama/view.html:163
+msgid "cancel"
+msgstr "cancelar"
