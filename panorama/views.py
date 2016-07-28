@@ -52,21 +52,14 @@ class PanoramaGenTiles(CelutzLoginMixin, RedirectView):
         return super(PanoramaGenTiles, self).get_redirect_url(*args, **kwargs)
 
 
-class PanoramaList(CelutzLoginMixin, ListView):
-    model = Panorama
-    template_name = "panorama/list.html"
-    context_object_name = "panoramas"
-
-
-class LocatePointView(CelutzLoginMixin, TemplateView):
-    """View to choose a point to locate (either an existing reference point,
-    or from GPS coordinates)"""
-    template_name = 'panorama/locate_point.html'
+class MainView(CelutzLoginMixin, TemplateView):
+    template_name = "panorama/main.html"
 
     def get_context_data(self, **kwargs):
-        context = super(LocatePointView, self).get_context_data(**kwargs)
+        context = super(MainView, self).get_context_data(**kwargs)
         context['refpoints_form'] = SelectReferencePointForm
         context['custom_point_form'] = CustomPointForm
+        context['panoramas'] = Panorama.objects.all()
         return context
 
     def compute_interesting_panoramas(self, point):
@@ -84,30 +77,30 @@ class LocatePointView(CelutzLoginMixin, TemplateView):
         return sorted(l, key=lambda x: x[1])
 
 
-class LocateReferencePointView(LocatePointView):
-    """Subclass that handles locating a reference point"""
+class LocateReferencePointView(MainView):
+    """Displays a located reference point"""
+    template_name = 'panorama/locate_point.html'
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
         form = SelectReferencePointForm(request.POST)
-        context['refpoints_form'] = form
         if form.is_valid():
             point = form.cleaned_data['reference_point']
-            context['panoramas'] = self.compute_interesting_panoramas(point)
-            context['point_name'] = point.name
+            context['located_panoramas'] = self.compute_interesting_panoramas(point)
+            context['located_point_name'] = point.name
         return super(LocateReferencePointView, self).render_to_response(context)
 
 
-class LocateCustomPointView(LocatePointView):
-    """Subclass that handles locating a custom point"""
+class LocateCustomPointView(MainView):
+    """Displays a located custom GPS point"""
+    template_name = 'panorama/locate_point.html'
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
         form = CustomPointForm(request.POST)
-        context['custom_point_form'] = form
         if form.is_valid():
             point = Point(**form.cleaned_data)
-            context['panoramas'] = self.compute_interesting_panoramas(point)
-            context['point_lat'] = point.latitude
-            context['point_lon'] = point.longitude
+            context['located_panoramas'] = self.compute_interesting_panoramas(point)
+            context['located_point_lat'] = point.latitude
+            context['located_point_lon'] = point.longitude
         return super(LocateCustomPointView, self).render_to_response(context)

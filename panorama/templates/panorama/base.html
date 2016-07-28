@@ -5,17 +5,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}Celutz, a panorama viewer{% endblock title %}</title>
+
     <link type="image/x-icon" rel="shortcut icon" href="{% static "panorama/img/tsf.png" %}"/>
-    <link rel="stylesheet" media="screen" href="{% static "panorama/css/base.css" %}" />
+
+    <link href="{% static "panorama/css/bootstrap.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "panorama/css/sb-admin.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "panorama/css/plugins/morris.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "panorama/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" media="screen" href="{% static "panorama/css/celutz.css" %}" />
     {% block css %}{% endblock css %}
+
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   </head>
 
   <body>
     {# Add base structure here, menu, etc... #}
 
-    {% block content %}{% endblock content %}
+   <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% block top-menu-title %}
+                {% endblock top-menu-title %}
+            </div>
+            {% block top-menu-items %}
+            {% endblock top-menu-items %}
+            {% block sidebar %}
+            {% endblock sidebar %}
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper">
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+            <style>
+            body{overflow : scroll;}
+            </style>
+          {% block content %}{% endblock content %}
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
 
     {% block js %}{% endblock js %}
+
+{% block pano %}{% endblock pano %}
+
+    <script src="{% static "panorama/js/jquery.js" %}"></script>
+    <script src="{% static "panorama/js/bootstrap.min.js" %}"></script>
+
   </body>
 </html>

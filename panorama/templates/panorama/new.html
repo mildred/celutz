@@ -1,4 +1,6 @@
 {% extends "panorama/base.html" %}
+{% load panorama_url %}
+{% load distance_filter %}
 
 {% block content %}
 <form action="" enctype="multipart/form-data" method="post">{% csrf_token %}

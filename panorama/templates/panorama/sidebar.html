@@ -1,0 +1,50 @@
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li>
+            <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> Map</a>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-arrows-v"></i> Panoramas<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="panos" class="collapse">
+              {% for pano in panoramas %}
+              <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
+              {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-arrows-v"></i> Locate existing point<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="locate-existing" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                      {{ refpoints_form.as_p }}
+                      <input type="submit" value="Locate" />
+                    </form>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-arrows-v"></i> Locate GPS point<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="locate-gps" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                      {{ custom_point_form.as_p }}
+                      <input type="submit" value="Locate" />
+                    </form>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-edit"></i> Add new panorama<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="new-pano" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                      {{ newpanorama_form.as_p }}
+                      <input type="submit" value="Submit" />
+                    </form>
+                </li>
+            </ul>
+
+        </li>
+    </ul>
+</div>
+

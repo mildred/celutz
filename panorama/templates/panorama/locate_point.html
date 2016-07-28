@@ -1,104 +1,21 @@
+{% extends "panorama/main.html" %}
 {% load panorama_url %}
 {% load distance_filter %}
 
-<h1>Locate a point</h1>
+{% block content %}
 
-{% if panoramas != None %}
-
-<h2>Result</h2>
-
-<p>Panoramas that see the point
-  <strong>{% if point_name %}{{ point_name }}{% else %}{{ point_lat }}°, {{ point_lon }}°{% endif %}</strong>:
-</p>
-
-{% if panoramas|length == 0 %}
-<p><strong>No panorama seeing this point!</strong></p>
-{% else %}
-<p>
-<ul>
-{% for panorama, distance, bearing, elevation in panoramas %}
-<li><a href="{% panorama_url panorama bearing elevation %}">{{ panorama.name }}</a> at {{ distance|distance }} (click to visualise)</li>
-{% endfor %}
-</ul>
-</p>
-{% endif %}
-
-{% endif %}
-
-<h2>How it works</h2>
-
-<p>
-  <ol>
-    <li>Select an existing point, or enter a custom point by its coordinates;</li>
-    <li>You obtain a list of panoramas that can see the point;</li>
-    <li>Click on a panorama to visualise exactly the point you asked for!</li>
-  </ol>
-</p>
-
-<h2>Locate!</h2>
-
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
- <div id="map" style="height: 400px; "></div>
-<style>
-body{overflow : scroll;}
-</style>
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-
-<script>
-  var map;
-  var ajaxRequest;
-  var plotlist;
-  var plotlayers=[];
-
-  function initmap() {
-    // set up the map
-    map = new L.Map('map');
-
-    // create the tile layer with correct attribution
-    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-    var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
-    // start the map in Grenoble
-    map.setView(new L.LatLng(45.1842, 5.7218),13);
-    map.addLayer(osm);
-
-    // Add in a crosshair for the map
-    var crosshairIcon = L.icon({
-        iconUrl: 'images/crosshair.png',
-        iconSize:     [20, 20], // size of the icon
-        iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-      });
-    crosshair = new L.marker(map.getCenter(), {clickable:false});
-    crosshair.addTo(map);
-
-    // Move the crosshair to the center of the map when the user pans
-    map.on('move', function(e) {
-        crosshair.setLatLng(map.getCenter());
-      });
-
-    map.on('moveend', function(e) {
-        var lat = map.getCenter().lat;
-        var lng = map.getCenter().lng;
-        $('#id_latitude').val(lat);
-        $('#id_longitude').val(lng);
-        $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
-            function(data) {
-                $('#id_altitude').val(parseInt(data));
-                });
-        });
-  }
-  initmap();
-</script>
-
-<form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
-  {{ refpoints_form.as_p }}
-  <input type="submit" value="Locate" />
-</form>
-
-<p><strong>OR</strong></p>
-
-<form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
-  {{ custom_point_form.as_p }}
-  <input type="submit" value="Locate" />
-</form>
+  {% if located_panoramas != None %}
+    <div id="location-result"></div>
+    {% if located_panoramas|length == 0 %}
+      <p><strong>No panorama seeing this point!</strong></p>
+    {% else %}
+      <p>
+        <ul>
+          {% for panorama, distance, bearing, elevation in located_panoramas %}
+            <li><a href="{% panorama_url panorama bearing elevation %}">{{ panorama.name }}</a> at {{ distance|distance }} (click to visualise)</li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+  {% endif %}
+{% endblock content %}
