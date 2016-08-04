@@ -904,6 +904,13 @@ function insert_ref_point(el, x, y) {
 	         + "&panorama=" + panorama_url
 	         + "&x=" + Math.floor(posx * image_width)
                  + "&y=" + Math.floor((posy + 0.5) * image_height));
+
+    // update the course of the panorama boundaries
+    // (update cap_min/cap_max of the panorama object)
+	var xhr = getXMLHttpRequest();
+	xhr.open("POST", "/api/v1/panoramas/", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("X-CSRFToken", csrf_token);
 }
 
 function show_result(clear_before) {
@@ -1148,9 +1155,10 @@ function load_pano() {
 
 	  return {lat: toDeg(lat2), lng: lon1 + toDeg(Lo)};
 	};
+    /*
 	function getCone(lat, lng, bearing, angle, distance){
-	  /* Returns a polygon to be drawn to the map to show the current visual field
-	   */
+	  // Returns a polygon to be drawn to the map to show the current visual field
+	  //
 	  var conepoints = [];
 	  // by default, points are drawn every 5°, but if the angle to draw is
 	  // smaller than 5°, we draw no intermediary points
@@ -1171,3 +1179,57 @@ function load_pano() {
 	  });
 	  return p;
 	};
+    */
+    function getCone(lat, lng, bearing, cap, distance){
+	  /* Returns a polygon to be drawn to the map to show the current visual field
+	   */
+	  var conepoints = [];
+	  // by default, points are drawn every 5°, plus the end-point.
+	  var delta = 5;
+
+      var total_angle = cap.cap_max - cap.cap_min;
+      if (cap.cap_max<cap.cap_min){total_angle+=360}
+
+	  conepoints.push ([lat,lng]);
+      for (i=0; i<=total_angle; i+=delta){
+        angle = cap.cap_min+i;
+        if (angle > 360){angle-=360}
+        conepoints.push([destVincenty(lat, lng, angle, distance).lat,
+        destVincenty(lat, lng, angle, distance).lng])
+      }
+      // add extrem point
+      conepoints.push([destVincenty(lat, lng, cap.cap_max, distance).lat,
+              destVincenty(lat, lng, cap.cap_max, distance).lng])
+
+	  var p = L.polygon(conepoints, {
+	      color: 'grey',
+	      fillColor: 'grey',
+	      fillOpacity: 0.5
+	  });
+	  return p;
+	};
+    function getCapMinMaxVisible(nb_tiles, last_tile_x, image_width, image_cap_max, image_cap_min){
+        /* Return the minimun and maximum cap visible
+        */
+        var canvas_width = document.getElementById('mon-canvas').width;
+        var initial_orientation = get_orientation_from_url();
+        var x = initial_orientation.x ;
+
+        var x_min = x - (canvas_width+last_tile_x)/2 * (image_width/(nb_tiles*256)) ;
+        if (x_min < 0){ x_min = 0 };
+        var x_max = x + (canvas_width+last_tile_x)/2 * (image_width/(nb_tiles*256)) ;
+        if (x_max > image_width) {x_max = image_width};
+
+        var proportion_visible = (x_max-x_min) / image_width;
+        var total_angle = 360-(image_cap_min - image_cap_max);
+        var angle_visible = Math.round(total_angle * proportion_visible);
+
+        var cap_min = image_cap_min + (total_angle * x_min) / image_width;
+        var cap_max = image_cap_min + (total_angle * x_max) / image_width;
+        if (cap_min>360){cap_min-=360};
+        if (cap_max>360){cap_max-=360};
+        /* There is an offset both for min and max... Maybe due to last_tile_x.
+        */
+        return {cap_min: cap_min, cap_max : cap_max}
+    }
+    
