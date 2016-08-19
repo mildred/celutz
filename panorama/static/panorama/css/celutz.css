@@ -278,3 +278,14 @@ fieldset#adding {
     margin: 2px;
     right: 0;
 }
+
+/* menu items on pano viewer */
+@media (min-width: 768px) {
+  .navbar-left {
+    float: left !important;
+  }
+  .navbar-pano {
+    float: left !important;
+    margin: 0px auto;
+  }
+}
