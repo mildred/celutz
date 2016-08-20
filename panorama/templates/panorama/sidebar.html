@@ -18,7 +18,7 @@
                 <li>
                     <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                       {{ refpoints_form.as_p }}
-                      <input type="submit" value={% trans "Locate" %} />
+                      <input type="submit" class="btn btn-primary btn-sm" value={% trans "Locate" %} />
                     </form>
                 </li>
             </ul>
@@ -31,8 +31,7 @@
                         {{ custom_point_form.latitude.label_tag }}{{ custom_point_form.latitude }}
                         {{ custom_point_form.longitude.label_tag }}{{ custom_point_form.longitude }}
                         {{ custom_point_form.altitude.label_tag }}{{ custom_point_form.altitude }}
-                        </br>
-                        <input type="submit" value={% trans "Locate" %} />
+                        <input type="submit" class="btn btn-primary btn-sm" value={% trans "Locate" %} />
                     </form>
                 </li>
             </ul>
@@ -48,7 +47,7 @@
                         {{ newpanorama_form.latitude.label_tag }}{{ newpanorama_form.latitude }}
                         {{ newpanorama_form.longitude.label_tag }}{{ newpanorama_form.longitude }}
                         {{ newpanorama_form.altitude.label_tag }}{{ newpanorama_form.altitude }}
-                        <input type="submit" value={% trans "Add" %} />
+                        <input type="submit" class="btn btn-primary btn-sm" value={% trans "Add" %} />
                     </form>
                 </li>
             </ul>

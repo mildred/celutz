@@ -119,9 +119,9 @@
                     <input name="loca_longitude" type="number" min="-180" max="180" id="loca_longitude"/></label>
                   <label class="form_col" title="L'altitude positive Ex: 170">{% trans "Altitude" %} :
                     <input  name="loca_altitude" type="number" min="-400" id="loca_altitude"/></label>
-                  <div class="answer">
-                    <input type="button" value="{% trans "Localize" %}" id="loca_button"/>
-                    <input type="button" value="{% trans "Delete" %}" id="loca_erase"/>
+                  <div class="loca_buttons">
+                    <input type="button" class="btn btn-info btn-sm" value="{% trans "Localize" %}" id="loca_button"/>
+                    <input type="button" class="btn btn-danger btn-sm" value="{% trans "Delete" %}" id="loca_erase"/>
                   </div>
             </li>
         </ul>
