@@ -37,9 +37,24 @@
                 {% block top-menu-title %}
                 {% endblock top-menu-title %}
             </div>
+            <ul class="nav navbar-pano top-nav">
+                {% block top-menu-pano-items %}
+                {% endblock top-menu-pano-items %}
+            </ul>
             <ul class="nav navbar-right top-nav">
-            {% block top-menu-items %}
-            {% endblock top-menu-items %}
+
+                <li>
+                    <a href="/admin"><i class="fa fa-pencil-square-o"></i>  {% trans "Admin" %}</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info-circle"></i>  {% trans "About" %}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                           <p>{% blocktrans %}Celutz is a tool for managing and referencing panoramic photos{% endblocktrans %}.
+                           <a href="https://code.ffdn.org/FFDN/celutz/">{% trans "Project homepage" %}</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             {% block sidebar %}
             {% endblock sidebar %}
