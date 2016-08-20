@@ -56,22 +56,25 @@
 	L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}]).addTo(map);
 
 	var bearing = $('#angle_ctrl').val();
-        var lat = {{panorama.latitude}};
-        var lng = {{panorama.longitude}};
-
-	viewField = getCone({{panorama.latitude}},{{panorama.longitude}},bearing,90,5000);
-        viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
-        viewDirection.addTo(map);
+    var lat = {{panorama.latitude}};
+    var lng = {{panorama.longitude}};
+    
+    var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
+	viewField = getCone({{panorama.latitude}},{{panorama.longitude}},bearing,cap,5000);
+    viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
+    viewDirection.addTo(map);
 	viewField.addTo(map);
 
-	$('#mon-canvas').on('mouseup', function(e) {
+	$('#mon-canvas').on('mousemove DOMMouseScroll', function(e) {
 	    bearing = $('#angle_ctrl').val();
 	    map.removeLayer(viewField);
-            map.removeLayer(viewDirection);
-	    viewField = getCone(lat,lng,bearing,90,5000);
+        map.removeLayer(viewDirection);
+
+        var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
+	    viewField = getCone(lat,lng,bearing,cap,5000);
 	    viewField.addTo(map);
-            viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
-            viewDirection.addTo(map);
+        viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
+        viewDirection.addTo(map);
 	    });
 
       });
