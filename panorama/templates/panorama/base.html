@@ -60,7 +60,7 @@
             {% endblock sidebar %}
         </nav>
         {% block pano %}{% endblock pano %}
-        <div id="page-wrapper">
+        <div id="page-wrapper" {% block page-wrapper-style %}{% endblock page-wrapper-style %}>
         {% block content %}{% endblock content %}
         </div>
     </div>
