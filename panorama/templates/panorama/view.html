@@ -14,8 +14,6 @@
       var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
       var image_width = {{ panorama.image_width }};
       var image_height = {{ panorama.image_height }};
-      var image_cap_min = {{ panorama.cap_min }};
-      var image_cap_max = {{ panorama.cap_max}};
       var csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
@@ -61,22 +59,18 @@
     var lat = {{panorama.latitude}};
     var lng = {{panorama.longitude}};
     
-    var nb_tiles = zooms[$('#zoom_ctrl').val()].ntiles.x ;
-    var last_tile_x = zooms[$('#zoom_ctrl').val()].last_tile.width ;
-    var cap = getCapMinMaxVisible(nb_tiles, last_tile_x, image_width, image_cap_max, image_cap_min);
+    var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
 	viewField = getCone({{panorama.latitude}},{{panorama.longitude}},bearing,cap,5000);
     viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
     viewDirection.addTo(map);
 	viewField.addTo(map);
 
-	$('#mon-canvas').on('mouseup', function(e) {
+	$('#mon-canvas').on('mousemove DOMMouseScroll', function(e) {
 	    bearing = $('#angle_ctrl').val();
 	    map.removeLayer(viewField);
         map.removeLayer(viewDirection);
 
-        var nb_tiles = zooms[$('#zoom_ctrl').val()].ntiles.x ;
-        var last_tile_x = zooms[$('#zoom_ctrl').val()].last_tile.width ;
-        var cap = getCapMinMaxVisible(nb_tiles, last_tile_x, image_width, image_cap_max, image_cap_min);
+        var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
 	    viewField = getCone(lat,lng,bearing,cap,5000);
 	    viewField.addTo(map);
         viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);

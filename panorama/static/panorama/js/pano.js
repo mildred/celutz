@@ -1102,134 +1102,141 @@ function load_pano() {
 	adding.addEventListener('mouseout', paramOut, false);
     }
 };
-	function toRad(n) {
-	  return n * Math.PI / 180;
-	}
-	function toDeg(n) {
-	  return n * 180 / Math.PI;
-	}
-	function destVincenty(lat1, lon1, brng, dist) {
-	  /* JavaScript function to calculate the destination point given start point
-	   * latitude / longitude (numeric degrees), bearing (numeric degrees) and
-	   * distance (in m).
-	   * Original scripts by Chris Veness
-	   * Taken from http://movable-type.co.uk/scripts/latlong-vincenty-direct.html
-	   * and optimized / cleaned up by Mathias Bynens <http://mathiasbynens.be/>
-	   *
-	   * Based on the Vincenty direct formula by T. Vincenty, “Direct and Inverse
-	   * Solutions of Geodesics on the Ellipsoid with application of nested
-	   * equations”, Survey Review, vol XXII no 176, 1975
-	   * <http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf>
-	   */
-	  var a = 6378137,
-	      b = 6356752.3142,
-	      f = 1 / 298.257223563, // WGS-84 ellipsiod
-	      s = dist,
-	      alpha1 = toRad(brng),
-	      sinAlpha1 = Math.sin(alpha1),
-	      cosAlpha1 = Math.cos(alpha1),
-	      tanU1 = (1 - f) * Math.tan(toRad(lat1)),
-	      cosU1 = 1 / Math.sqrt((1 + tanU1 * tanU1)), sinU1 = tanU1 * cosU1,
-	      sigma1 = Math.atan2(tanU1, cosAlpha1),
-	      sinAlpha = cosU1 * sinAlpha1,
-	      cosSqAlpha = 1 - sinAlpha * sinAlpha,
-	      uSq = cosSqAlpha * (a * a - b * b) / (b * b),
-	      A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq))),
-	      B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq))),
-	      sigma = s / (b * A),
-	      sigmaP = 2 * Math.PI;
-	  while (Math.abs(sigma - sigmaP) > 1e-12) {
+function toRad(n) {
+    return n * Math.PI / 180;
+}
+function toDeg(n) {
+    return n * 180 / Math.PI;
+}
+function destVincenty(lat1, lon1, brng, dist) {
+	/* JavaScript function to calculate the destination point given start point
+    * latitude / longitude (numeric degrees), bearing (numeric degrees) and
+    * distance (in m).
+    * Original scripts by Chris Veness
+    * Taken from http://movable-type.co.uk/scripts/latlong-vincenty-direct.html
+    * and optimized / cleaned up by Mathias Bynens <http://mathiasbynens.be/>
+    *
+    * Based on the Vincenty direct formula by T. Vincenty, “Direct and Inverse
+    * Solutions of Geodesics on the Ellipsoid with application of nested
+    * equations”, Survey Review, vol XXII no 176, 1975
+    * <http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf>
+    */
+	var a = 6378137,
+		b = 6356752.3142,
+		f = 1 / 298.257223563, // WGS-84 ellipsiod
+		s = dist,
+		alpha1 = toRad(brng),
+		sinAlpha1 = Math.sin(alpha1),
+		cosAlpha1 = Math.cos(alpha1),
+		tanU1 = (1 - f) * Math.tan(toRad(lat1)),
+		cosU1 = 1 / Math.sqrt((1 + tanU1 * tanU1)), sinU1 = tanU1 * cosU1,
+		sigma1 = Math.atan2(tanU1, cosAlpha1),
+		sinAlpha = cosU1 * sinAlpha1,
+		cosSqAlpha = 1 - sinAlpha * sinAlpha,
+		uSq = cosSqAlpha * (a * a - b * b) / (b * b),
+		A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq))),
+		B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq))),
+		sigma = s / (b * A),
+		sigmaP = 2 * Math.PI;
+    while (Math.abs(sigma - sigmaP) > 1e-12) {
 	    var cos2SigmaM = Math.cos(2 * sigma1 + sigma),
-		sinSigma = Math.sin(sigma),
-		cosSigma = Math.cos(sigma),
-		deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
-	    sigmaP = sigma;
-	    sigma = s / (b * A) + deltaSigma;
-	  };
-	  var tmp = sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1,
-	      lat2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1 - f) * Math.sqrt(sinAlpha * sinAlpha + tmp * tmp)),
-	      lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1),
-	      C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha)),
-	      Lo = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM))),
-	      revAz = Math.atan2(sinAlpha, -tmp); // final bearing	
-
-	  return {lat: toDeg(lat2), lng: lon1 + toDeg(Lo)};
+		    sinSigma = Math.sin(sigma),
+		    cosSigma = Math.cos(sigma),
+		    deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
+	        sigmaP = sigma;
+	        sigma = s / (b * A) + deltaSigma;
 	};
-    /*
-	function getCone(lat, lng, bearing, angle, distance){
-	  // Returns a polygon to be drawn to the map to show the current visual field
-	  //
-	  var conepoints = [];
-	  // by default, points are drawn every 5°, but if the angle to draw is
-	  // smaller than 5°, we draw no intermediary points
-	  var delta = 5;
-	  if (angle < 5){delta=angle};
+	var tmp = sinU1 * sinSigma - cosU1 * cosSigma * cosAlpha1,
+	    lat2 = Math.atan2(sinU1 * cosSigma + cosU1 * sinSigma * cosAlpha1, (1 - f) * Math.sqrt(sinAlpha * sinAlpha + tmp * tmp)),
+	    lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1),
+	    C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha)),
+	    Lo = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM))),
+	    revAz = Math.atan2(sinAlpha, -tmp); // final bearing	
 
-	  conepoints.push ([lat,lng]);
+	return {lat: toDeg(lat2), lng: lon1 + toDeg(Lo)};
+};
+/*
+function getCone(lat, lng, bearing, angle, distance){
+	// Returns a polygon to be drawn to the map to show the current visual field
+	//
+	var conepoints = [];
+	// by default, points are drawn every 5°, but if the angle to draw is
+	// smaller than 5°, we draw no intermediary points
+	var delta = 5;
+	if (angle < 5){delta=angle};
 
-	  for (i=0; i<=angle; i+=delta){
+	conepoints.push ([lat,lng]);
+
+	for (i=0; i<=angle; i+=delta){
 	    conepoints.push([destVincenty(lat, lng, bearing-(angle/2.0)+i, distance).lat,
 		destVincenty(lat, lng, bearing-(angle/2.0)+i, distance).lng]);
-	  }
+	}
 
-	  var p = L.polygon(conepoints, {
-	      color: 'grey',
-	      fillColor: 'grey',
-	      fillOpacity: 0.5
-	  });
-	  return p;
-	};
-    */
-    function getCone(lat, lng, bearing, cap, distance){
-	  /* Returns a polygon to be drawn to the map to show the current visual field
-	   */
-	  var conepoints = [];
-	  // by default, points are drawn every 5°, plus the end-point.
-	  var delta = 5;
+	var p = L.polygon(conepoints, {
+	    color: 'grey',
+	    fillColor: 'grey',
+	    fillOpacity: 0.5
+	});
+	return p;
+};
+*/
+function getCone(lat, lng, bearing, cap, distance){
+	/* Returns a polygon to be drawn to the map to show the current visual field
+	*/
+	var conepoints = [];
+	// by default, points are drawn every 5°, plus the end-point.
+	var delta = 5;
 
-      var total_angle = cap.cap_max - cap.cap_min;
-      if (cap.cap_max<cap.cap_min){total_angle+=360}
+    var total_angle = cap.cap_max - cap.cap_min;
+    if (cap.cap_max<cap.cap_min){total_angle+=360}
 
-	  conepoints.push ([lat,lng]);
-      for (i=0; i<=total_angle; i+=delta){
+	conepoints.push ([lat,lng]);
+    for (i=0; i<=total_angle; i+=delta){
         angle = cap.cap_min+i;
         if (angle > 360){angle-=360}
         conepoints.push([destVincenty(lat, lng, angle, distance).lat,
-        destVincenty(lat, lng, angle, distance).lng])
-      }
-      // add extrem point
-      conepoints.push([destVincenty(lat, lng, cap.cap_max, distance).lat,
-              destVincenty(lat, lng, cap.cap_max, distance).lng])
-
-	  var p = L.polygon(conepoints, {
-	      color: 'grey',
-	      fillColor: 'grey',
-	      fillOpacity: 0.5
-	  });
-	  return p;
-	};
-    function getCapMinMaxVisible(nb_tiles, last_tile_x, image_width, image_cap_max, image_cap_min){
-        /* Return the minimun and maximum cap visible
-        */
-        var canvas_width = document.getElementById('mon-canvas').width;
-        var initial_orientation = get_orientation_from_url();
-        var x = initial_orientation.x ;
-
-        var x_min = x - (canvas_width+last_tile_x)/2 * (image_width/(nb_tiles*256)) ;
-        if (x_min < 0){ x_min = 0 };
-        var x_max = x + (canvas_width+last_tile_x)/2 * (image_width/(nb_tiles*256)) ;
-        if (x_max > image_width) {x_max = image_width};
-
-        var proportion_visible = (x_max-x_min) / image_width;
-        var total_angle = 360-(image_cap_min - image_cap_max);
-        var angle_visible = Math.round(total_angle * proportion_visible);
-
-        var cap_min = image_cap_min + (total_angle * x_min) / image_width;
-        var cap_max = image_cap_min + (total_angle * x_max) / image_width;
-        if (cap_min>360){cap_min-=360};
-        if (cap_max>360){cap_max-=360};
-        /* There is an offset both for min and max... Maybe due to last_tile_x.
-        */
-        return {cap_min: cap_min, cap_max : cap_max}
+            destVincenty(lat, lng, angle, distance).lng])
     }
+    // add extrem point
+    conepoints.push([destVincenty(lat, lng, cap.cap_max, distance).lat,
+        destVincenty(lat, lng, cap.cap_max, distance).lng])
+
+	var p = L.polygon(conepoints, {
+	    color: 'grey',
+	    fillColor: 'grey',
+	    fillOpacity: 0.5
+	    });
+	return p;
+};
+
+function getCapMinMaxVisible(image_width, image_cap_min, image_cap_max){
+    /* Return the minimun and maximum cap visible
+    */
+    var cw = canvas.width;
+
+    var initial_orientation = get_orientation_from_url();
+    var x = initial_orientation.x ;
+    var to_zoom = initial_orientation.zoom ;
     
+    zm = zooms[to_zoom];
+
+    // x min and max visible in the screen
+    // 1 pixel_screen = X pixel_photo = pixel_photo / ((nb_tiles-1) * pixel_tile + pixel_last_tile)
+    // (nb_tiles-1)*pixel_tile + pixel_last_tile = zm.im.visible_width
+    var half_width = (cw - 2*border_width) * ( image_width / (zm.im.visible_width)) / 2 ;
+    var x_min = x - half_width ;
+    var x_max = x + half_width ; 
+    // Check outside borders
+    if (x_min < 0){ x_min = 0 };
+    if (x_max > image_width) {x_max = image_width};
+    
+    var total_angle = fmodulo(image_cap_max - image_cap_min, 360); // panorama total angle
+
+    // min and max visible cap
+    var cap_min = image_cap_min + total_angle * (x_min / image_width);
+    var cap_max = image_cap_min + total_angle * (x_max / image_width);
+    if (cap_min>360){cap_min-=360};
+    if (cap_max>360){cap_max-=360};
+
+    return {cap_min: cap_min, cap_max : cap_max}
+}
