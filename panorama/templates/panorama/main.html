@@ -67,17 +67,33 @@ style="padding:0px"
         map.on('move', function(e) {
             crosshair.setLatLng(map.getCenter());
         });
-
+        document.getElementById('id_latitude').setAttribute("name","custompoint_lat");
+        document.getElementById('id_longitude').setAttribute("name","custompoint_long");
+        document.getElementById('id_altitude').setAttribute("name","custompoint_alt");
         map.on('moveend', function(e) {
-            var lat = map.getCenter().lat;
-            var lng = map.getCenter().lng;
+            var lat = map.getCenter().lat.toFixed(5);
+            var lng = map.getCenter().lng.toFixed(5);
             $('#id_latitude').val(lat);
+            document.getElementsByName("latitude")[0].value = lat;
             $('#id_longitude').val(lng);
+            document.getElementsByName("longitude")[0].value = lng;
             $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
                 function(data) {
                     $('#id_altitude').val(parseInt(data));
+                    document.getElementsByName("altitude")[0].value = parseInt(data);
                 });
         });
+/*
+map.on('moveend', function(e) {
+            var lat = map.getCenter().lat;
+            var lng = map.getCenter().lng;
+var formsList = document.getElementById( 'id_latitude' );
+for ( i = 0; i < formsList.length; i++ ) {
+    formsList[i].val(lat);
+};
+});
+*/
+
     var panoIcon = L.icon({
         iconUrl: '{% static "panorama/img/marker-red.png" %}',
         iconSize: [22, 35],
