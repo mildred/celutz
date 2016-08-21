@@ -11,7 +11,7 @@ form {
 input[type="number"], 
 input[type="text"] {
   display: block;
-  width: 100%;
+  width: 95%;
   height: 32px;
   padding: 6px 12px;
   margin-bottom: 12px;
@@ -54,7 +54,7 @@ input[type="text"]:focus {
 #loca_altitude,
 #loca_latitude,
 #loca_longitude {
-  padding: 0px;
+  padding: 0 0 0 5px;
 }
 
 #id_image {
