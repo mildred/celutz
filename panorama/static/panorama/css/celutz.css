@@ -326,6 +326,7 @@ select {
     width:0px;
     height:0px;
 }
-#sel_point option {
-    padding: 0px 5px;
+#sel_point option,
+#id_reference_point option {
+    padding: 0px 4px;
 }
