@@ -800,7 +800,7 @@ function display_links(e) {
                 info.style.color = 'black'
 		if (zm.pt_list[i]['dist'] < 10) var dst = Math.round(zm.pt_list[i]['dist']*1000)+' m';
 		else var dst = zm.pt_list[i]['dist'].toFixed(1)+' kms';
-		info.innerHTML += '<br/> à ' + dst;
+		info.innerHTML += '<br/>(' + dst + ')';
 		info.style.backgroundColor = 'rgb('+point_colors[zm.pt_list[i]['type']]+')';
 		canvas.style.cursor='auto';
 		break;
