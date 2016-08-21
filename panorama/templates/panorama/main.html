@@ -1,5 +1,6 @@
 {% extends "panorama/base.html" %}
 {% load panorama_url %}
+{% load static %}
 {% load distance_filter %}
 {% load i18n %}
 
@@ -34,7 +35,7 @@ style="padding:0px"
 
 {% block js %}
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js}"></script>
 <script>
     var map;
     var ajaxRequest;
@@ -77,7 +78,20 @@ style="padding:0px"
                     $('#id_altitude').val(parseInt(data));
                 });
         });
+    var panoIcon = L.icon({
+        iconUrl: '{% static "panorama/img/marker-red.png" %}',
+        iconSize: [22, 35],
+        iconAnchor: [13, 42],
+        popupAnchor: [0,-50],
+    });
+    {% for pano in panoramas %}
+    var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
+    marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
+    marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
+    marker.addTo(map);
+    {% endfor %}
     }
+
     initmap();
 </script>
 {% endblock js %}
