@@ -124,10 +124,11 @@ body {
 
 #insert {
     display:none;
-    background-color:#555;
-    border:2px black solid;
-    padding-left: 5px;
+    background-color:rgba(34,34,34,0.6);
+    border:0.1em #222 solid;
     position:absolute;
+    border-radius:0.4em;
+    padding: 6px 10px;
 }
 
 label {
@@ -325,5 +326,6 @@ select {
     width:0px;
     height:0px;
 }
-
-
+#sel_point option {
+    padding: 0px 5px;
+}

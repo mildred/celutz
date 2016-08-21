@@ -152,9 +152,9 @@ style="padding-left:0px"
         <option>{{ refpoint.name }}</option>
         {% endfor %}
       </select>
-      <input type="button" id="do-insert" value={% trans "insert" %}/>
-      <input type="button" id="do-delete" value={% trans "delete" %}/>
-      <input type="button" id="do-cancel" value={% trans "cancel" %}/>
+      <input type="button" id="do-insert" class="btn btn-primary btn-sm" value={% trans "insert" %} />
+      <input type="button" id="do-delete" class="btn btn-danger btn-sm" value={% trans "delete" %} />
+      <input type="button" id="do-cancel" class="btn btn-warning btn-sm" value={% trans "cancel" %} />
     </p>
     <p id="res"></p>
     <div id="mapid"></div>
