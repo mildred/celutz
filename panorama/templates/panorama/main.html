@@ -85,13 +85,12 @@ style="padding:0px"
         popupAnchor: [0,-50],
     });
     {% for pano in panoramas %}
-    var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
-    marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
-    marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
-    marker.addTo(map);
+        var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
+        marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
+        marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
+        marker.addTo(map);
     {% endfor %}
     }
-
     initmap();
 </script>
 {% endblock js %}

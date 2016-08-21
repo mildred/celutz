@@ -1,21 +1,104 @@
 {% extends "panorama/main.html" %}
 {% load panorama_url %}
+{% load static %}
 {% load distance_filter %}
+{% load i18n %}
+
+{% block title %}{% trans "Celutz, a panorama viewer"%}{% endblock title %}
+
+{% block top-menu-title %}
+    <a class="navbar-brand" href="{% url 'panorama:main' %}">Celutz</a>
+{% endblock %}
+
+{% block top-menu-items %}
+{% endblock %}
+
+{% block sidebar %}
+  {% include "panorama/sidebar.html" %}
+{% endblock %}
+
+{% block wrapper-style %}
+{% endblock %}
+
+{% block page-wrapper-style %}
+style="padding:0px"
+{% endblock %}
 
 {% block content %}
-
   {% if located_panoramas != None %}
     <div id="location-result"></div>
     {% if located_panoramas|length == 0 %}
       <p><strong>No panorama seeing this point!</strong></p>
     {% else %}
-      <p>
-        <ul>
-          {% for panorama, distance, bearing, elevation in located_panoramas %}
-            <li><a href="{% panorama_url panorama bearing elevation %}">{{ panorama.name }}</a> at {{ distance|distance }} (click to visualise)</li>
-          {% endfor %}
-        </ul>
-      </p>
+      <div id="map"></div>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     {% endif %}
   {% endif %}
 {% endblock content %}
+
+{% block css %}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+{% endblock css %}
+
+{% block js %}
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js}"></script>
+<script>
+    var map;
+    var ajaxRequest;
+    var plotlist;
+    var plotlayers=[];
+
+    function initmap() {
+        // set up the map
+        map = new L.Map('map');
+
+        // create the tile layer with correct attribution
+        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+        var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+        // start the map in Grenoble
+//TODO : remplacer ce marqueur par celui du point recherché --> les variables point_lat et point_lat ne fonctionnent pas !
+        map.setView(new L.LatLng(45.1842, 5.7218),13);
+        map.addLayer(osm);
+
+        // Add in a crosshair for the map
+        var crosshairIcon = L.icon({
+            iconUrl: 'images/crosshair.png',
+            iconSize:     [20, 20], // size of the icon
+            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+        });
+        crosshair = new L.marker(map.getCenter(), {clickable:false});
+        crosshair.addTo(map);
+
+        // Move the crosshair to the center of the map when the user pans
+        map.on('move', function(e) {
+            crosshair.setLatLng(map.getCenter());
+        });
+
+        map.on('moveend', function(e) {
+            var lat = map.getCenter().lat;
+            var lng = map.getCenter().lng;
+            $('#id_latitude').val(lat);
+            $('#id_longitude').val(lng);
+            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
+                function(data) {
+                    $('#id_altitude').val(parseInt(data));
+                });
+        });
+    var panoIcon = L.icon({
+        iconUrl: '{% static "panorama/img/marker-red.png" %}',
+        iconSize: [22, 35],
+        iconAnchor: [13, 42],
+        popupAnchor: [0,-50],
+    });
+    {% for panorama, distance, bearing, elevation in located_panoramas %}
+    var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
+    marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
+    marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
+    marker.addTo(map);
+    {% endfor %}
+    }
+    initmap();
+</script>
+{% endblock js %}
