@@ -296,37 +296,41 @@ function keys(key) {
     }
 //    alert(key);
 //    if (!evt.shiftKey) return;
+    
+
     switch (key.which) {
     case 36: // home
     case 35: // end
         angle_control = document.getElementById('angle_ctrl');
         angle_control.value = parseFloat(angle_control.value) + 180;
         change_angle();
-	return;
     case 39: // left
 	putImage(last.x+40, last.y);
-	return;
+	break;
     case 40: // up
 	putImage(last.x, last.y+20);
-	return;
+	break;
     case 37: // right
 	putImage(last.x-40, last.y);
-	return;
+	break;
     case 38: // down
 	putImage(last.x, last.y-20);
-	return;
+	break;
     case 33: // pageup
 	zoom_control.value--;
 	change_zoom()
-	return;
+	break;
     case 34: // pagedown
 	zoom_control.value++;
 	change_zoom()
-	return;
+	break;
     default:
 //	alert(key.which)
-	return;
+	break;
     }
+    // Always update map when a key is pressed
+    update_map();
+
 }
 
 function onImageClick(e) {
@@ -1094,6 +1098,11 @@ function load_pano() {
     document.addEventListener('keydown', keys, false);
     canvas.addEventListener('mousewheel', wheel_zoom, false);
     canvas.addEventListener('DOMMouseScroll', wheel_zoom, false);
+    //map events
+    canvas.addEventListener('mousewheel', update_map, false);
+    canvas.addEventListener('DOMMouseScroll', update_map, false);
+    canvas.addEventListener('mousedown', update_map, false);
+    //
     window.onresize = canvas_resize;
     if (adding) {
 	document.getElementById("paramFormHide").onclick = hideForm;
@@ -1239,4 +1248,47 @@ function getCapMinMaxVisible(){
     if (cap_max>360){cap_max-=360};
 
     return {cap_min: cap_min, cap_max : cap_max}
+};
+
+function load_map(){
+    /* Create the map object with the view cone and bearing object 
+    */
+	
+    // initialize the map object (global, to be view from update_map())
+    map = L.map('mapid').setView([panorama_lat, panorama_lng], 13);
+
+    // create the tile layer with correct attribution
+	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
+	map.addLayer(osm);
+
+	L.marker([panorama_lat, panorama_lng]).addTo(map);
+
+	var bearing = $('#angle_ctrl').val();
+    
+    var cap = getCapMinMaxVisible();
+    // viewField and viewDirection must be global in order to be view from update_map()
+    viewField = getCone(panorama_lat, panorama_lng,bearing,cap,5000);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
+    viewDirection.addTo(map);
+	viewField.addTo(map);
+
+};
+
+function update_map(){
+    /* Update the map: view cone and bearing 
+    */
+    map.removeLayer(viewField);
+    map.removeLayer(viewDirection);
+
+    var bearing = $('#angle_ctrl').val();
+    var cap = getCapMinMaxVisible();
+
+	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,5000);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
+    
+    viewField.addTo(map);
+    viewDirection.addTo(map);
+	    
 }
