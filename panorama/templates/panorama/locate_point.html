@@ -65,23 +65,17 @@ style="padding:0px"
         var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
         // start the map in Grenoble
-//TODO : remplacer ce marqueur par celui du point recherché --> les variables point_lat et point_lat ne fonctionnent pas !
         map.setView(new L.LatLng(45.1842, 5.7218),13);
         map.addLayer(osm);
 
-        // Add in a crosshair for the map
-        var crosshairIcon = L.icon({
-            iconUrl: 'images/crosshair.png',
-            iconSize:     [20, 20], // size of the icon
-            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+        // Marker for the point being located
+        var locatedIcon = L.icon({
+            iconUrl: '{% static "panorama/img/marker-red.png" %}',
+            iconSize: [22, 35],
+            iconAnchor: [13, 42],
         });
-        crosshair = new L.marker(map.getCenter(), {clickable:false});
-        crosshair.addTo(map);
-
-        // Move the crosshair to the center of the map when the user pans
-        map.on('move', function(e) {
-            crosshair.setLatLng(map.getCenter());
-        });
+        located = new L.marker([{{ located_point_lat }}, {{ located_point_lon }}], {icon: locatedIcon});
+        located.addTo(map);
 
         map.on('moveend', function(e) {
             var lat = map.getCenter().lat;
