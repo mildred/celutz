@@ -333,3 +333,14 @@ select {
 #id_reference_point option {
     padding: 0px 4px;
 }
+.pano-result-list {
+    padding: 5px 15px 5px 38px !important;
+}
+.pano-result-list p {
+    margin: 0 0 0 10px;
+    padding-left: 10px;
+    font-size: 11px;
+}
+.fa-map-marker::before {
+    font-size: 20px;
+}

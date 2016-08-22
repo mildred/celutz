@@ -11,7 +11,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-location-arrow"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-existing" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
@@ -22,7 +22,7 @@
             </ul>
         </li>
         <li>
-            <a id="locate-gps-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="locate-gps-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-map-marker"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-gps" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}

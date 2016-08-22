@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load panorama_url %}
+{% load distance_filter %}
         <li>
             <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> {% trans "Map" %}</a>
         </li>
@@ -7,6 +9,25 @@
             <ul id="panos" class="collapse">
               {% for pano in panoramas %}
               <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
+              {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="locate-existing" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                      {{ refpoints_form.as_p }}
+                      <input type="submit" class="btn btn-primary btn-sm" value={% trans "Locate" %} />
+                    </form>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-fw fa-eye"></i> {% trans "Panoramas seeing this point" %}</a>
+            <ul>
+              {% for panorama, distance, bearing, elevation in located_panoramas %}
+              <li><a href="{% panorama_url panorama bearing elevation %}" class="pano-result-list"><i class="fa fa-fw fa-map-marker"></i> {{ panorama.name }}<p>({% trans "at" %} {{ distance|distance }})</p></a></li>
               {% endfor %}
             </ul>
         </li>
