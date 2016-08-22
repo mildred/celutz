@@ -32,7 +32,9 @@ var point_colors = {
 	'temporary'  : '255,255,128', // yellow
 	'unlocated'  : '255,255,255'  // white
 };
-
+var map; // minimap object
+var viewField; // cone drawn on the minimap
+var viewDirection; // blue line drawn on the minimap
 
 function getXMLHttpRequest() {
 	var xhr = null;
@@ -964,6 +966,7 @@ canvas_set_size = function() {
 canvas_resize = function() {
     canvas_set_size();
     putImage(last.x, last.y);
+    update_map();
 }
 
 function paramIn(e) {
@@ -1267,11 +1270,11 @@ function load_map(){
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
 
-	var bearing = $('#angle_ctrl').val();
-    
+    var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
+
     // viewField and viewDirection must be global in order to be view from update_map()
-    viewField = getCone(panorama_lat, panorama_lng,bearing,cap,5000);
+    viewField = getCone(panorama_lat, panorama_lng,bearing,cap,7000);
     viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
     viewDirection.addTo(map);
 	viewField.addTo(map);
@@ -1287,7 +1290,7 @@ function update_map(){
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
-	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,5000);
+	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
     viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
     
     viewField.addTo(map);
