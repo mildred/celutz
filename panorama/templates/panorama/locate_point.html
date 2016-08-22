@@ -31,23 +31,30 @@ style="padding:0px"
       <p><strong>No panorama seeing this point!</strong></p>
     {% else %}
       <div id="map"></div>
-      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     {% endif %}
   {% endif %}
 {% endblock content %}
 
 {% block css %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 {% endblock css %}
 
 {% block js %}
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="https://code.jquery.com/jquery-3.0.0.min.js}"></script>
+<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
 <script>
     var map;
     var ajaxRequest;
     var plotlist;
     var plotlayers=[];
+    var markerClusters = L.markerClusterGroup({
+    spiderfyOnMaxZoom: false,
+    showCoverageOnHover: false,
+    maxClusterRadius: 20
+    });
 
     function initmap() {
         // set up the map
@@ -93,11 +100,12 @@ style="padding:0px"
         popupAnchor: [0,-50],
     });
     {% for panorama, distance, bearing, elevation in located_panoramas %}
-    var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
-    marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
-    marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
-    marker.addTo(map);
+        var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
+        marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
+        marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
+        markerClusters.addLayer( marker );
     {% endfor %}
+    map.addLayer( markerClusters );
     }
     initmap();
 </script>

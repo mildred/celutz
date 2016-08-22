@@ -31,16 +31,24 @@ style="padding:0px"
 
 {% block css %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 {% endblock css %}
 
 {% block js %}
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="https://code.jquery.com/jquery-3.0.0.min.js}"></script>
+<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
 <script>
     var map;
     var ajaxRequest;
     var plotlist;
     var plotlayers=[];
+    var markerClusters = L.markerClusterGroup({
+    spiderfyOnMaxZoom: false,
+    showCoverageOnHover: false,
+    maxClusterRadius: 20
+    });
 
     function initmap() {
         // set up the map
@@ -83,17 +91,6 @@ style="padding:0px"
                     document.getElementsByName("altitude")[0].value = parseInt(data);
                 });
         });
-/*
-map.on('moveend', function(e) {
-            var lat = map.getCenter().lat;
-            var lng = map.getCenter().lng;
-var formsList = document.getElementById( 'id_latitude' );
-for ( i = 0; i < formsList.length; i++ ) {
-    formsList[i].val(lat);
-};
-});
-*/
-
     var panoIcon = L.icon({
         iconUrl: '{% static "panorama/img/marker-red.png" %}',
         iconSize: [22, 35],
@@ -104,8 +101,9 @@ for ( i = 0; i < formsList.length; i++ ) {
         var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
         marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
         marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
-        marker.addTo(map);
+        markerClusters.addLayer( marker );
     {% endfor %}
+    map.addLayer( markerClusters );
     }
     initmap();
 </script>
