@@ -32,7 +32,7 @@ var point_colors = {
 	'temporary'  : '255,255,128', // yellow
 	'unlocated'  : '255,255,255'  // white
 };
-
+var map_never_drawn = true;
 
 function getXMLHttpRequest() {
 	var xhr = null;
@@ -748,6 +748,7 @@ function change_angle() {
     var pos_x = resxy.x;
     var pos_y = Math.floor(zm.im.height/2 - resxy.y);
     putImage(pos_x, pos_y);
+    //update_map(); // Doesn't work on first load...
 }
 
 function check_prox(x, y, r) {   //verification si un point de coordonnées x, y est bien dans un cercle de rayon r centré en X,Y.
@@ -962,6 +963,7 @@ canvas_set_size = function() {
 canvas_resize = function() {
     canvas_set_size();
     putImage(last.x, last.y);
+    update_map();
 }
 
 function paramIn(e) {
@@ -1265,28 +1267,25 @@ function load_map(){
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
 
-	var bearing = $('#angle_ctrl').val();
-    
-    var cap = getCapMinMaxVisible();
-    // viewField and viewDirection must be global in order to be view from update_map()
-    viewField = getCone(panorama_lat, panorama_lng,bearing,cap,5000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
-    viewDirection.addTo(map);
-	viewField.addTo(map);
+    update_map();
 
 };
 
 function update_map(){
     /* Update the map: view cone and bearing 
     */
-    map.removeLayer(viewField);
-    map.removeLayer(viewDirection);
-
+    if (map_never_drawn){
+        map_never_drawn = false;
+    } else {
+        map.removeLayer(viewField);
+        map.removeLayer(viewDirection);
+    };
+        
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
 	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,5000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 5000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 5000).lng]]);
     
     viewField.addTo(map);
     viewDirection.addTo(map);
