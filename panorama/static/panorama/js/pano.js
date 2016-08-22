@@ -1101,7 +1101,7 @@ function load_pano() {
     canvas.addEventListener('mousewheel', update_map, false);
     canvas.addEventListener('DOMMouseScroll', update_map, false);
     canvas.addEventListener('mousedown', update_map, false);
-    canvas.addEventListener('keydown', update_map, false);
+    canvas.addEventListener('mouseup', update_map, false);
     //
     window.onresize = canvas_resize;
     if (adding) {
