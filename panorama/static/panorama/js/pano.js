@@ -32,7 +32,10 @@ var point_colors = {
 	'temporary'  : '255,255,128', // yellow
 	'unlocated'  : '255,255,255'  // white
 };
-var map_never_drawn = true;
+var map_never_drawn = true; //Pour empecher d'enlever des Layers inexistants
+var map; // minimap object
+var viewField; // cone drawn on the minimap
+var viewDirection; // blue line drawn on the minimap
 
 function getXMLHttpRequest() {
 	var xhr = null;
@@ -156,7 +159,7 @@ function draw_tile(idx, ox, oy) {
     cntext.drawImage(img, ox, oy);
 }
 
-/** Draws the colored circles
+/** Draws the colored circles and the central line
  */
 function drawDecorations(ox, oy, tx, ty, twidth, theight) {
     if (twidth) {
@@ -168,11 +171,15 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
     var wgrd = zm.im.width/360;
     var od = ((ox+canvas.width/2)/wgrd)%360;
     var el = (zm.im.height/2 - (oy+canvas.height/2))/wgrd;
-    cntext.fillStyle = "rgba(0,128,128,0.9)";
+
+    // draw a vertical blue line with the central dot
+    // the dot is centered on (ox, oy) = (canvas.width/2, canvas.width/2)
+    var line_width = 6;
+    cntext.fillStyle = "rgba(0,0,255,0.5)";
     cntext.strokeStyle = "rgb(255,255,255)";
     cntext.lineWidth = 1;
-    cntext.fillRect(canvas.width/2-5, canvas.height/2-5, 10, 10);
-    cntext.strokeRect(canvas.width/2-5, canvas.height/2-5, 10, 10);
+    cntext.fillRect(canvas.width/2-line_width/2, 0, line_width, canvas.height);
+    cntext.strokeRect(canvas.width/2-line_width/2, canvas.height/2-line_width, line_width, line_width);
     for(var i = 0; i < zm.pt_list.length; i++) {
       if (zm.pt_list[i]['type'] != 'unlocated') {
 	    cntext.fillStyle = 'rgba('+point_colors[zm.pt_list[i]['type']]+',0.5)';
@@ -181,13 +188,11 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
 	    cntext.beginPath();
 	    cntext.arc(cx, cy, 20, 0, 2*Math.PI, true);
 	    cntext.fill();
-	}
+        }
     }
-
     if (twidth) {
 	cntext.restore();
     }
-
 }
 
 function insert_drawn_point(lat, lon, alt) {
@@ -1284,8 +1289,8 @@ function update_map(){
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
-	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,5000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 5000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 5000).lng]]);
+	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
     
     viewField.addTo(map);
     viewDirection.addTo(map);
