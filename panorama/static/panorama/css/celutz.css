@@ -46,9 +46,12 @@ input[type="text"]:focus {
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
 
-#id_altitude,
-#id_longitude,
-#id_latitude ,
+#id_newpano-altitude,
+#id_newpano-longitude,
+#id_newpano-latitude ,
+#id_custompoint-altitude,
+#id_custompoint-longitude,
+#id_custompoint-latitude ,
 #angle_ctrl,
 #elvtr_ctrl,
 #loca_altitude,
@@ -57,7 +60,7 @@ input[type="text"]:focus {
   padding: 0 0 0 5px;
 }
 
-#id_image {
+#id_newpano-image {
   color: #999;
   font-size: 11px;
   display: block;
