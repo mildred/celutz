@@ -272,7 +272,7 @@ function zero_pad(number) {
 }
 
 function get_file_name(x, y, z) { // recherche du fichier correspondant au zoom et à la position
-	return img_prefix+'/'+zero_pad(z)+'-'+zero_pad(x)+'-'+zero_pad(y)+'.jpg';
+    return img_prefix+'/'+zero_pad(z)+'-'+zero_pad(x)+'-'+zero_pad(y)+'.jpg';
 }
 
 function get_base_name() {
@@ -285,7 +285,6 @@ function get_base_name() {
 
 
 function keys(key) {
-
     hide_links();
     evt = key || event;
     //evt.preventDefault();
@@ -294,10 +293,9 @@ function keys(key) {
 	key = window.event;
 	key.which = key.keyCode;
     }
-//    alert(key);
-//    if (!evt.shiftKey) return;
+    //alert(key);
+    //if (!evt.shiftKey) return;
     
-
     switch (key.which) {
     case 36: // home
     case 35: // end
@@ -325,7 +323,7 @@ function keys(key) {
         change_zoom()
         break;
     default:
-//	alert(key.which)
+    //	alert(key.which)
         break;
     }
     // Always update map when a key is pressed
@@ -1103,6 +1101,7 @@ function load_pano() {
     canvas.addEventListener('mousewheel', update_map, false);
     canvas.addEventListener('DOMMouseScroll', update_map, false);
     canvas.addEventListener('mousedown', update_map, false);
+    canvas.addEventListener('keydown', update_map, false);
     //
     window.onresize = canvas_resize;
     if (adding) {
@@ -1254,7 +1253,7 @@ function getCapMinMaxVisible(){
 function load_map(){
     /* Create the map object with the view cone and bearing object 
     */
-	
+    
     // initialize the map object (global, to be view from update_map())
     map = L.map('mapid').setView([panorama_lat, panorama_lng], 13);
 
