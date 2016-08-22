@@ -89,6 +89,8 @@ class LocateReferencePointView(MainView):
             point = form.cleaned_data['reference_point']
             context['located_panoramas'] = self.compute_interesting_panoramas(point)
             context['located_point_name'] = point.name
+            context['located_point_lat'] = point.latitude
+            context['located_point_lon'] = point.longitude
         return super(LocateReferencePointView, self).render_to_response(context)
 
 
