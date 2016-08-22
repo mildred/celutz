@@ -14,7 +14,11 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include "panorama/sidebar.html" %}
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+    {% include "panorama/sidebar-all.html" %}
+    </ul>
+</div>
 {% endblock %}
 
 {% block wrapper-style %}
