@@ -15,6 +15,7 @@ class SelectReferencePointForm(forms.Form):
 
 class CustomPointForm(forms.ModelForm):
     """Form to use a custom point as input."""
+    prefix = 'custompoint'
 
     class Meta:
         model = Point
@@ -22,6 +23,7 @@ class CustomPointForm(forms.ModelForm):
 
 class PanoramaForm(forms.ModelForm):
     """Form to insert a new panorama."""
+    prefix = 'newpano'
 
     class Meta:
         model = Panorama
