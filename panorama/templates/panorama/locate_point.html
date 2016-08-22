@@ -14,7 +14,11 @@
 {% endblock %}
 
 {% block sidebar %}
-  {% include "panorama/sidebar.html" %}
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+    {% include "panorama/sidebar-simple.html" %}
+    </ul>
+</div>
 {% endblock %}
 
 {% block wrapper-style %}
@@ -70,9 +74,9 @@ style="padding:0px"
 
         // Marker for the point being located
         var locatedIcon = L.icon({
-            iconUrl: '{% static "panorama/img/marker-red.png" %}',
+            iconUrl: '{% static "panorama/img/marker-deep-blue.png" %}',
             iconSize: [22, 35],
-            iconAnchor: [13, 42],
+            iconAnchor: [11, 35],
         });
         located = new L.marker([{{ located_point_lat }}, {{ located_point_lon }}], {icon: locatedIcon});
         located.addTo(map);
@@ -90,7 +94,7 @@ style="padding:0px"
     var panoIcon = L.icon({
         iconUrl: '{% static "panorama/img/marker-red.png" %}',
         iconSize: [22, 35],
-        iconAnchor: [13, 42],
+        iconAnchor: [11, 35],
         popupAnchor: [0,-50],
     });
     {% for panorama, distance, bearing, elevation in located_panoramas %}
@@ -98,6 +102,7 @@ style="padding:0px"
         marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
         marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
         markerClusters.addLayer( marker );
+        L.polyline([[{{ located_point_lat }}, {{ located_point_lon }}],[{{ panorama.latitude }}, {{ panorama.longitude }}]], {color: '#2636ca', opacity: 0.8, weight: 2, dashArray: "5, 6"}).addTo(map);
     {% endfor %}
     map.addLayer( markerClusters );
     }
