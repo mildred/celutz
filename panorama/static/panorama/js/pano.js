@@ -305,28 +305,28 @@ function keys(key) {
         angle_control.value = parseFloat(angle_control.value) + 180;
         change_angle();
     case 39: // left
-	putImage(last.x+40, last.y);
-	break;
+	    putImage(last.x+40, last.y);
+	    break;
     case 40: // up
-	putImage(last.x, last.y+20);
-	break;
+	    putImage(last.x, last.y+20);
+	    break;
     case 37: // right
-	putImage(last.x-40, last.y);
-	break;
+	    putImage(last.x-40, last.y);
+	    break;
     case 38: // down
-	putImage(last.x, last.y-20);
-	break;
+	    putImage(last.x, last.y-20);
+	    break;
     case 33: // pageup
-	zoom_control.value--;
-	change_zoom()
-	break;
+	    zoom_control.value--;
+	    change_zoom()
+	    break;
     case 34: // pagedown
-	zoom_control.value++;
-	change_zoom()
-	break;
+        zoom_control.value++;
+        change_zoom()
+        break;
     default:
 //	alert(key.which)
-	break;
+        break;
     }
     // Always update map when a key is pressed
     update_map();
