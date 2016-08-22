@@ -50,6 +50,19 @@ style="padding:0px"
     maxClusterRadius: 20
     });
 
+    function fillcoord() {
+            var lat = map.getCenter().lat.toFixed(5);
+            var lng = map.getCenter().lng.toFixed(5);
+            $('#id_custompoint-latitude').val(lat);
+            $('#id_newpano-latitude').val(lat);
+            $('#id_custompoint-longitude').val(lng);
+            $('#id_newpano-longitude').val(lng);
+            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
+                function(data) {
+                    $('#id_custompoint-altitude').val(parseInt(data));
+                    $('#id_newpano-altitude').val(parseInt(data));
+                });
+    }
     function initmap() {
         // set up the map
         map = new L.Map('map');
@@ -66,7 +79,7 @@ style="padding:0px"
         var crosshairIcon = L.icon({
             iconUrl: 'images/crosshair.png',
             iconSize:     [20, 20], // size of the icon
-            iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+            iconAnchor:   [10, 10] // point of the icon which will correspond to marker's location
         });
         crosshair = new L.marker(map.getCenter(), {clickable:false});
         crosshair.addTo(map);
@@ -76,17 +89,13 @@ style="padding:0px"
             crosshair.setLatLng(map.getCenter());
         });
         map.on('moveend', function(e) {
-            var lat = map.getCenter().lat.toFixed(5);
-            var lng = map.getCenter().lng.toFixed(5);
-            $('#id_custompoint-latitude').val(lat);
-            $('#id_newpano-latitude').val(lat);
-            $('#id_custompoint-longitude').val(lng);
-            $('#id_newpano-longitude').val(lng);
-            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
-                function(data) {
-                    $('#id_custompoint-altitude').val(parseInt(data));
-                    $('#id_newpano-altitude').val(parseInt(data));
-                });
+            if ($("#locate-gps,#new-pano").hasClass("collapse in")){
+                fillcoord();
+            }
+        });
+        $('#locate-gps-btn, #new-pano-btn').on('click', function(e) {
+            console.log('test');
+            fillcoord();
         });
     var panoIcon = L.icon({
         iconUrl: '{% static "panorama/img/marker-red.png" %}',
