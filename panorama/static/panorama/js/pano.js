@@ -456,6 +456,7 @@ function inertialImage() {
     } else {
 	show_links();
     }
+    update_map();
 }
 
 function tri_ref_points(v1, v2) {
