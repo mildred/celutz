@@ -24,7 +24,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="locate-gps-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-gps" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
@@ -37,7 +37,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="new-pano-btn" href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="new-pano" class="collapse">
                 <li>
                     <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
