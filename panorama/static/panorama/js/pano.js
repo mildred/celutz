@@ -1209,7 +1209,7 @@ function getCone(lat, lng, bearing, cap, distance){
 	return p;
 };
 
-function getCapMinMaxVisible(image_width, image_cap_min, image_cap_max){
+function getCapMinMaxVisible(){
     /* Return the minimun and maximum cap visible
     */
     var cw = canvas.width;

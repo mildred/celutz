@@ -14,6 +14,8 @@
       var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
       var image_width = {{ panorama.image_width }};
       var image_height = {{ panorama.image_height }};
+      var image_cap_min = {{ panorama.cap_min }};
+      var image_cap_max = {{ panorama.cap_max }};
       var csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
@@ -59,8 +61,8 @@
     var lat = {{panorama.latitude}};
     var lng = {{panorama.longitude}};
     
-    var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
-	viewField = getCone({{panorama.latitude}},{{panorama.longitude}},bearing,cap,5000);
+    var cap = getCapMinMaxVisible();
+    viewField = getCone({{panorama.latitude}},{{panorama.longitude}},bearing,cap,5000);
     viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
     viewDirection.addTo(map);
 	viewField.addTo(map);
@@ -70,7 +72,7 @@
 	    map.removeLayer(viewField);
         map.removeLayer(viewDirection);
 
-        var cap = getCapMinMaxVisible(image_width, {{ panorama.cap_min }}, {{ panorama.cap_max }});
+        var cap = getCapMinMaxVisible();
 	    viewField = getCone(lat,lng,bearing,cap,5000);
 	    viewField.addTo(map);
         viewDirection = L.polygon([[lat, lng],[destVincenty(lat, lng, bearing, 7000).lat,destVincenty(lat, lng, bearing, 7000).lng]]);
