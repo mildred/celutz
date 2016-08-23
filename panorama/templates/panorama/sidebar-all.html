@@ -3,7 +3,7 @@
             <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> {% trans "Map" %}</a>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> {% trans "Panoramas" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="pano-list-btn" href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> {% trans "Panoramas" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="panos" class="collapse">
               {% for pano in panoramas %}
               <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
@@ -11,7 +11,7 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="locate-existing-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="locate-existing" class="collapse">
                 <li>
                     <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
