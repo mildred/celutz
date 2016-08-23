@@ -16,7 +16,7 @@
 
 {% block top-menu-pano-items %}
     {% if located_panoramas|length == 0 %}
-        <a class="navbar-brand" href="#">{% trans "No panorama seeing this point !" %}</a>
+        <a class="navbar-brand result-title" href="#">{% trans "No panorama seeing this point !" %}</a>
     {% else %}
         {% if located_point_name != None %}
             <a class="navbar-brand result-title" href="#">{% trans "Panoramas seeing the point" %} <b>{{ located_point_name }}</b></a>
