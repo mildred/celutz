@@ -273,7 +273,7 @@ fieldset#adding {
     background-color:rgba(100,0,0,0.5);
 }
 #map {
-    height: 800px;
+    height: 100%;
     padding: -10px;
 }
 /* Minimap on the panorama view */
@@ -343,4 +343,7 @@ select {
 }
 .fa-map-marker::before {
     font-size: 20px;
+}
+.result-title {
+    margin-left: 150px;
 }
