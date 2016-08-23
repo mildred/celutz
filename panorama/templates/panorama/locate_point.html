@@ -4,13 +4,26 @@
 {% load distance_filter %}
 {% load i18n %}
 
-{% block title %}{% trans "Celutz, a panorama viewer"%}{% endblock title %}
+{% block title %}{% trans "Result of research"%}{% endblock title %}
 
 {% block top-menu-title %}
-    <a class="navbar-brand" href="{% url 'panorama:main' %}">Celutz</a>
+    <a class="navbar-brand" href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i></a>
+
 {% endblock %}
 
 {% block top-menu-items %}
+{% endblock %}
+
+{% block top-menu-pano-items %}
+    {% if located_panoramas|length == 0 %}
+        <a class="navbar-brand" href="#">{% trans "No panorama seeing this point !" %}</a>
+    {% else %}
+        {% if located_point_name != None %}
+            <a class="navbar-brand result-title" href="#">{% trans "Panoramas seeing the point" %} <b>{{ located_point_name }}</b></a>
+        {% else %}
+            <a class="navbar-brand result-title" href="#">{% trans "Panoramas seeing the searched point" %}</a>
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
@@ -25,18 +38,11 @@
 {% endblock %}
 
 {% block page-wrapper-style %}
-style="padding:0px"
+style="padding:0px;height:calc(100vh - 50px)"
 {% endblock %}
 
 {% block content %}
-  {% if located_panoramas != None %}
-    <div id="location-result"></div>
-    {% if located_panoramas|length == 0 %}
-      <p><strong>No panorama seeing this point!</strong></p>
-    {% else %}
       <div id="map"></div>
-    {% endif %}
-  {% endif %}
 {% endblock content %}
 
 {% block css %}
@@ -68,8 +74,8 @@ style="padding:0px"
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
-        // start the map in Grenoble
-        map.setView(new L.LatLng(45.1842, 5.7218),13);
+        // start the map on the point
+        map.setView(new L.LatLng({{ located_point_lat }}, {{ located_point_lon }}),13);
         map.addLayer(osm);
 
         // Marker for the point being located
@@ -97,14 +103,17 @@ style="padding:0px"
         iconAnchor: [11, 35],
         popupAnchor: [0,-50],
     });
+    var allMarkers = [[{{ located_point_lat }}, {{ located_point_lon }}]];
     {% for panorama, distance, bearing, elevation in located_panoramas %}
         var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
         marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
         marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
         markerClusters.addLayer( marker );
         L.polyline([[{{ located_point_lat }}, {{ located_point_lon }}],[{{ panorama.latitude }}, {{ panorama.longitude }}]], {color: '#2636ca', opacity: 0.8, weight: 2, dashArray: "5, 6"}).addTo(map);
+        allMarkers.push([{{ panorama.latitude }}, {{ panorama.longitude }}]);
     {% endfor %}
     map.addLayer( markerClusters );
+    map.fitBounds(allMarkers,{padding: [30, 30]});
     }
     initmap();
 </script>
