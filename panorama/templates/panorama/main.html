@@ -69,12 +69,12 @@ style="padding:0px;height:calc(100vh - 50px)"
     function accordionMenus() {
         $("ul.side-nav").children().click(function(e) {
             var menu = $(e.target);
-            var target = menu.next();
-            if (!target.hasClass("in")) {
+            var content = menu.next();
+            if (content.is("ul") && content.hasClass("collapse") && !content.hasClass('in')) {
                 $(".collapse.in").each(function(){ 
                     $(".collapse.in").animate({height: '1px'}, 500, function(){
                         $(".collapse.in").removeClass("in");
-                        $(target).addClass("in");
+                        $(content).addClass("in");
                     });
                 });
             };
