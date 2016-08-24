@@ -347,3 +347,18 @@ select {
 .result-title {
     margin-left: 150px;
 }
+#panos {
+    height: 260px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#panos::-webkit-scrollbar,
+.side-nav::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+}
+#panos::-webkit-scrollbar-thumb, 
+.side-nav::-webkit-scrollbar-thumb {
+    background: #FF0000;
+    width: 30px;
+}
