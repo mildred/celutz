@@ -22,11 +22,11 @@
         </li>
         <li>
             {% if located_point_name != None %}
-                <a href="#"><i class="fa fa-fw fa-eye"></i> {% trans "Results for the point" %} <b>{{ located_point_name }}</b></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#result"><i class="fa fa-fw fa-eye"></i> {% trans "Results for the point" %} <b>{{ located_point_name }}</b></a>
             {% else %}
-                <a href="#"><i class="fa fa-fw fa-eye"></i> {% trans "Results for the searched point" %}</a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#result"><i class="fa fa-fw fa-eye"></i> {% trans "Results for the searched point" %}</a>
             {% endif %}
-            <ul>
+            <ul id="result" class="collapse in">
               {% for panorama, distance, bearing, elevation in located_panoramas %}
               <li><a href="{% panorama_url panorama bearing elevation %}" class="pano-result-list"><i class="fa fa-fw fa-map-marker"></i> {{ panorama.name }}<p>({% trans "at" %} {{ distance|distance }})</p></a></li>
               {% endfor %}

@@ -60,11 +60,41 @@ style="padding:0px;height:calc(100vh - 50px)"
     var ajaxRequest;
     var plotlist;
     var plotlayers=[];
+    // Marker for the point being located
+    var locatedIcon = L.icon({
+        iconUrl: '{% static "panorama/img/marker-deep-blue.png" %}',
+        iconSize: [22, 35],
+        iconAnchor: [11, 35],
+    });
+    // Marker for panorama point
+    var panoIcon = L.icon({
+        iconUrl: '{% static "panorama/img/marker-red.png" %}',
+        iconSize: [22, 35],
+        iconAnchor: [11, 35],
+        popupAnchor: [0,-50],
+    });
+    // Markers clusters 
     var markerClusters = L.markerClusterGroup({
     spiderfyOnMaxZoom: false,
     showCoverageOnHover: false,
     maxClusterRadius: 20
     });
+    var allMarkers = [[{{ located_point_lat }}, {{ located_point_lon }}]];
+
+    function accordionMenus() {
+        $("ul.side-nav").children().click(function(e) {
+            var menu = $(e.target);
+            var content = menu.next();
+            if (content.is("ul") && content.hasClass("collapse") && !content.hasClass('in')) {
+                $(".collapse.in").each(function(){ 
+                    $(".collapse.in").animate({height: '1px'}, 500, function(){
+                        $(".collapse.in").removeClass("in");
+                        $(content).addClass("in");
+                    });
+                });
+            };
+        });
+    }
 
     function initmap() {
         // set up the map
@@ -74,16 +104,12 @@ style="padding:0px;height:calc(100vh - 50px)"
         var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+
         // start the map on the point
         map.setView(new L.LatLng({{ located_point_lat }}, {{ located_point_lon }}),13);
         map.addLayer(osm);
 
-        // Marker for the point being located
-        var locatedIcon = L.icon({
-            iconUrl: '{% static "panorama/img/marker-deep-blue.png" %}',
-            iconSize: [22, 35],
-            iconAnchor: [11, 35],
-        });
+        // create the marker for the searched point
         located = new L.marker([{{ located_point_lat }}, {{ located_point_lon }}], {icon: locatedIcon});
         located.addTo(map);
 
@@ -97,24 +123,19 @@ style="padding:0px;height:calc(100vh - 50px)"
                     $('#id_altitude').val(parseInt(data));
                 });
         });
-    var panoIcon = L.icon({
-        iconUrl: '{% static "panorama/img/marker-red.png" %}',
-        iconSize: [22, 35],
-        iconAnchor: [11, 35],
-        popupAnchor: [0,-50],
-    });
-    var allMarkers = [[{{ located_point_lat }}, {{ located_point_lon }}]];
-    {% for panorama, distance, bearing, elevation in located_panoramas %}
-        var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
-        marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
-        marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
-        markerClusters.addLayer( marker );
-        L.polyline([[{{ located_point_lat }}, {{ located_point_lon }}],[{{ panorama.latitude }}, {{ panorama.longitude }}]], {color: '#2636ca', opacity: 0.8, weight: 2, dashArray: "5, 6"}).addTo(map);
-        allMarkers.push([{{ panorama.latitude }}, {{ panorama.longitude }}]);
-    {% endfor %}
-    map.addLayer( markerClusters );
-    map.fitBounds(allMarkers,{padding: [30, 30]});
+
+        {% for panorama, distance, bearing, elevation in located_panoramas %}
+            var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
+            marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
+            marker.on("click",function(){document.location.href="{% panorama_url panorama bearing elevation %}"});
+            markerClusters.addLayer( marker );
+            L.polyline([[{{ located_point_lat }}, {{ located_point_lon }}],[{{ panorama.latitude }}, {{ panorama.longitude }}]], {color: '#2636ca', opacity: 0.8, weight: 2, dashArray: "5, 6"}).addTo(map);
+            allMarkers.push([{{ panorama.latitude }}, {{ panorama.longitude }}]);
+        {% endfor %}
+        map.addLayer( markerClusters );
+        map.fitBounds(allMarkers,{padding: [30, 30]});
     }
     initmap();
+    accordionMenus(); 
 </script>
 {% endblock js %}
