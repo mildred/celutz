@@ -21,8 +21,13 @@
       var image_loop = {{ panorama.loop|yesno:"true,false,undefined" }};
       var image_width = {{ panorama.image_width }};
       var image_height = {{ panorama.image_height }};
-      var image_cap_min = {{ panorama.cap_min }};
-      var image_cap_max = {{ panorama.cap_max }};
+      if (image_loop){
+        var image_cap_min = 0;
+        var image_cap_max = 360;
+      } else {
+        var image_cap_min = {{ panorama.cap_min }};
+        var image_cap_max = {{ panorama.cap_max }};
+      };
       var panorama_lat = {{ panorama.latitude }};
       var panorama_lng = {{ panorama.longitude }};
       var csrf_token = "{{ csrf_token }}";
@@ -75,6 +80,7 @@
           markerClusters.addLayer( marker );
           allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
       {% endfor %}
+      
       $( document ).ready(load_map);
     </script>
 {% endblock js %}

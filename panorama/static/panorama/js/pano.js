@@ -1240,19 +1240,21 @@ function getCapMinMaxVisible(){
     // 1 pixel_screen = X pixel_photo = pixel_photo / ((nb_tiles-1) * pixel_tile + pixel_last_tile)
     // (nb_tiles-1)*pixel_tile + pixel_last_tile = zm.im.visible_width
     var half_width = (cw - 2*border_width) * ( image_width / (zm.im.visible_width)) / 2 ;
-    var x_min = x - half_width ;
-    var x_max = x + half_width ; 
-    // Check outside borders
-    if (x_min < 0){ x_min = 0 };
-    if (x_max > image_width) {x_max = image_width};
-    
+
     var total_angle = fmodulo(image_cap_max - image_cap_min, 360); // panorama total angle
+    if (total_angle == 0){total_angle = 360}; // if panorama loops
+    var half_angle = total_angle * (half_width / image_width);
 
     // min and max visible cap
-    var cap_min = image_cap_min + total_angle * (x_min / image_width);
-    var cap_max = image_cap_min + total_angle * (x_max / image_width);
-    if (cap_min>360){cap_min-=360};
-    if (cap_max>360){cap_max-=360};
+    var bearing = parseInt($('#angle_ctrl').val());
+    var cap_min = fmodulo(bearing - half_angle, 360);
+    var cap_max = fmodulo(bearing + half_angle, 360);
+
+    // check if we repeat the pano
+    if ((bearing < cap_min) && (bearing > cap_max)){
+        var cap_min = 0;
+        var cap_max = 360;
+    };
 
     return {cap_min: cap_min, cap_max : cap_max}
 };
@@ -1269,10 +1271,10 @@ function load_map(){
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
 	map.addLayer(osm);
-        map.addLayer( markerClusters );
+    map.addLayer( markerClusters );
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
-        map.fitBounds(allMarkers,{padding: [30, 30]});
+    map.fitBounds(allMarkers,{padding: [30, 30]});
 
 
     update_map();
