@@ -25,121 +25,121 @@
 {% endblock %}
 
 {% block page-wrapper-style %}
-style="padding:0px;height:calc(100vh - 50px)"
+    style="padding:0px;height:calc(100vh - 50px)"
 {% endblock %}
 
 {% block content %}
-  <div id="map"></div>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <div id="map"></div>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 {% endblock content %}
 
 {% block css %}
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
-<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 {% endblock css %}
 
 {% block js %}
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
-<script>
-    var map;
-    var ajaxRequest;
-    var plotlist;
-    var plotlayers=[];
-    var allMarkers = []
-    var markerClusters = L.markerClusterGroup({
-    spiderfyOnMaxZoom: false,
-    showCoverageOnHover: false,
-    maxClusterRadius: 20
-    });
-    var crosshairIcon = L.icon({
-        iconUrl: '{% static "panorama/img/marker-blue.png" %}',
-        iconSize:     [22, 35],
-        iconAnchor:   [11, 35]
-    });
-    var panoIcon = L.icon({
-        iconUrl: '{% static "panorama/img/marker-red.png" %}',
-        iconSize: [22, 35],
-        iconAnchor: [11, 35],
-        popupAnchor: [0,-50]
-    });
-
-    function accordionMenus() {
-        $("ul.side-nav").children().click(function(e) {
-            var menu = $(e.target);
-            var content = menu.next();
-            if (content.is("ul") && content.hasClass("collapse") && !content.hasClass('in')) {
-                $(".collapse.in").each(function(){ 
-                    $(".collapse.in").animate({height: '1px'}, 500, function(){
-                        $(".collapse.in").removeClass("in");
-                        $(content).addClass("in");
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
+    <script>
+        var map;
+        var ajaxRequest;
+        var plotlist;
+        var plotlayers=[];
+        var allMarkers = []
+        var markerClusters = L.markerClusterGroup({
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: false,
+            maxClusterRadius: 20
+        });
+        var crosshairIcon = L.icon({
+            iconUrl: '{% static "panorama/img/marker-blue.png" %}',
+            iconSize:     [22, 35],
+            iconAnchor:   [11, 35]
+        });
+        var panoIcon = L.icon({
+            iconUrl: '{% static "panorama/img/marker-red.png" %}',
+            iconSize: [22, 35],
+            iconAnchor: [11, 35],
+            popupAnchor: [0,-50]
+        });
+    
+        function accordionMenus() {
+            $("ul.side-nav").children().click(function(e) {
+                var menu = $(e.target);
+                var content = menu.next();
+                if (content.is("ul") && content.hasClass("collapse") && !content.hasClass('in')) {
+                    $(".collapse.in").each(function(){ 
+                        $(".collapse.in").animate({height: '1px'}, 500, function(){
+                            $(".collapse.in").removeClass("in");
+                            $(content).addClass("in");
+                        });
                     });
-                });
-            };
-        });
-    }
-    function fillCoord() {
-        var lat = map.getCenter().lat.toFixed(5);
-        var lng = map.getCenter().lng.toFixed(5);
-        $('#id_custompoint-latitude').val(lat);
-        $('#id_newpano-latitude').val(lat);
-        $('#id_custompoint-longitude').val(lng);
-        $('#id_newpano-longitude').val(lng);
-        $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
-            function(data) {
-                $('#id_custompoint-altitude').val(parseInt(data));
-                $('#id_newpano-altitude').val(parseInt(data));
+                };
             });
-    }
-
-    function initmap() {
-        // set up the map
-        map = new L.Map('map');
-
-        // create the tile layer with correct attribution
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
-
-        // start the map in Grenoble
-        map.setView(new L.LatLng(45.1842, 5.7218),13);
-        map.addLayer(osm);
-
-        // Add in a crosshair for the map
-        crosshair = new L.marker(map.getCenter(), {clickable:false,icon:crosshairIcon});
-        crosshair.addTo(map);
-
-        // Move the crosshair to the center of the map when the user pans
-        map.on('move', function(e) {
-            crosshair.setLatLng(map.getCenter());
-        });
-
-        // Autofill forms while moving crosshair and expanding menus
-        map.on('moveend', function(e) {
-            if ($("#locate-gps,#new-pano").hasClass("collapse in")){
-                fillCoord();
-            }
-        });
-        $('#locate-gps-btn, #new-pano-btn').click(function(e) {
-            fillCoord();
-        });
-
-        // Create markers for panoramas
-        {% for pano in panoramas %}
-            var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
-            marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
-            var popup = marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,});
-            popup.on('mouseover', marker.openPopup);
-            popup.on('mouseout', marker.closePopup);
-            markerClusters.addLayer( marker );
-            allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
-        {% endfor %}
-        map.addLayer( markerClusters );
-        map.fitBounds(allMarkers,{padding: [30, 30]});
         }
-    initmap();
-    accordionMenus(); 
-</script>
+        function fillCoord() {
+            var lat = map.getCenter().lat.toFixed(5);
+            var lng = map.getCenter().lng.toFixed(5);
+            $('#id_custompoint-latitude').val(lat);
+            $('#id_newpano-latitude').val(lat);
+            $('#id_custompoint-longitude').val(lng);
+            $('#id_newpano-longitude').val(lng);
+            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
+                function(data) {
+                    $('#id_custompoint-altitude').val(parseInt(data));
+                    $('#id_newpano-altitude').val(parseInt(data));
+                });
+        }
+    
+        function initmap() {
+            // set up the map
+            map = new L.Map('map');
+    
+            // create the tile layer with correct attribution
+            var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+            var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+    
+            // start the map in Grenoble
+            map.setView(new L.LatLng(45.1842, 5.7218),13);
+            map.addLayer(osm);
+    
+            // Add in a crosshair for the map
+            crosshair = new L.marker(map.getCenter(), {clickable:false,icon:crosshairIcon});
+            crosshair.addTo(map);
+    
+            // Move the crosshair to the center of the map when the user pans
+            map.on('move', function(e) {
+                crosshair.setLatLng(map.getCenter());
+            });
+    
+            // Autofill forms while moving crosshair and expanding menus
+            map.on('moveend', function(e) {
+                if ($("#locate-gps,#new-pano").hasClass("collapse in")){
+                    fillCoord();
+                }
+            });
+            $('#locate-gps-btn, #new-pano-btn').click(function(e) {
+                fillCoord();
+            });
+    
+            // Create markers for panoramas
+            {% for pano in panoramas %}
+                var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
+                marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
+                var popup = marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,});
+                popup.on('mouseover', marker.openPopup);
+                popup.on('mouseout', marker.closePopup);
+                markerClusters.addLayer( marker );
+                allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
+            {% endfor %}
+            map.addLayer( markerClusters );
+            map.fitBounds(allMarkers,{padding: [30, 30]});
+            }
+        initmap();
+        accordionMenus(); 
+    </script>
 {% endblock js %}
