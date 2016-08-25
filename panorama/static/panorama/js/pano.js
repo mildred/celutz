@@ -174,12 +174,12 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
 
     // draw a vertical blue line with the central dot
     // the dot is centered on (ox, oy) = (canvas.width/2, canvas.width/2)
-    var line_width = 6;
-    cntext.fillStyle = "rgba(0,0,255,0.5)";
-    cntext.strokeStyle = "rgb(255,255,255)";
-    cntext.lineWidth = 1;
+    var line_width = 3;
+    cntext.fillStyle = "rgba(38, 54, 202, 0.7)";
+    cntext.strokeStyle = "yellow";
+    cntext.lineWidth = 2;
     cntext.fillRect(canvas.width/2-line_width/2, 0, line_width, canvas.height);
-    cntext.strokeRect(canvas.width/2-line_width/2, canvas.height/2-line_width, line_width, line_width);
+    cntext.strokeRect(canvas.width/2-line_width, canvas.height/2-line_width, line_width*2, line_width*2);
     for(var i = 0; i < zm.pt_list.length; i++) {
       if (zm.pt_list[i]['type'] != 'unlocated') {
 	    cntext.fillStyle = 'rgba('+point_colors[zm.pt_list[i]['type']]+',0.5)';
@@ -1218,7 +1218,8 @@ function getCone(lat, lng, bearing, cap, distance){
         destVincenty(lat, lng, cap.cap_max, distance).lng])
 
 	var p = L.polygon(conepoints, {
-	    color: 'grey',
+	    color: 'black',
+            weight: '1',
 	    fillColor: 'grey',
 	    fillOpacity: 0.5
 	    });
@@ -1277,10 +1278,11 @@ function load_map(){
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
 	map.addLayer(osm);
-    map.addLayer( markerClusters );
+        map.addLayer( markerClusters );
+
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
-    map.fitBounds(allMarkers,{padding: [30, 30]});
+        map.fitBounds(allMarkers,{padding: [30, 30]});
 
 
     update_map();
@@ -1300,8 +1302,8 @@ function update_map(){
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
-	viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]]);
+    viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]],{color: '#2636ca', opacity: 0.8, weight: 2});
     
     viewField.addTo(map);
     viewDirection.addTo(map);
