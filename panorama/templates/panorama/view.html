@@ -1,9 +1,16 @@
 {% extends "panorama/base.html" %}
+{% load panorama_url %}
 {% load staticfiles %}
 {% load distance_filter %}
 {% load i18n %}
 
 {% block title %}{{ panorama.name }}{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+{% endblock css %}
 
 {% block js %}
     <script>
@@ -45,7 +52,29 @@
     <script src="{% static "panorama/js/hide_n_showForm.js" %}"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
     <script>
+      var allMarkers = []
+      var markerClusters = L.markerClusterGroup({
+          spiderfyOnMaxZoom: false,
+          showCoverageOnHover: false,
+          maxClusterRadius: 20
+      });
+      var panoIcon = L.icon({
+          iconUrl: '{% static "panorama/img/marker-red.png" %}',
+          iconSize: [22, 35],
+          iconAnchor: [11, 35],
+          popupAnchor: [0,-50]
+      });
+      {% for pano in panoramas %}
+          var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
+          marker.on("click",function(){document.location.href="{% url 'panorama:view_pano' pano.id %}"});
+          var popup = marker.bindPopup('{{ pano.name }}',{className : 'markerpopup', closeButton: false,});
+          popup.on('mouseover', marker.openPopup);
+          popup.on('mouseout', marker.closePopup);
+          markerClusters.addLayer( marker );
+          allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
+      {% endfor %}
       $( document ).ready(load_map);
     </script>
 {% endblock js %}
@@ -107,9 +136,7 @@ style="padding-left:0px"
 {% block content %}
 {% endblock content %}
 
-{% block css %}
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-{% endblock css %}
+
 
 {% block pano %}
     <canvas id="mon-canvas">

@@ -1269,8 +1269,11 @@ function load_map(){
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
 	map.addLayer(osm);
+        map.addLayer( markerClusters );
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
+        map.fitBounds(allMarkers,{padding: [30, 30]});
+
 
     update_map();
 

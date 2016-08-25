@@ -41,6 +41,12 @@ class PanoramaView(CelutzLoginMixin, DetailView):
     template_name = "panorama/view.html"
     context_object_name = "panorama"
 
+    def get_context_data(self, **kwargs):
+        context = super(PanoramaView, self).get_context_data(**kwargs)
+        context['panoramas'] = Panorama.objects.all()
+        return context
+
+
 
 class PanoramaGenTiles(CelutzLoginMixin, RedirectView):
     permanent = False
