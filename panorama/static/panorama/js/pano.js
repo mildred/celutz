@@ -1250,8 +1250,14 @@ function getCapMinMaxVisible(){
     var cap_min = fmodulo(bearing - half_angle, 360);
     var cap_max = fmodulo(bearing + half_angle, 360);
 
+    // check outside border
+    if (! image_loop){
+        if (x - half_width < 0){cap_min = image_cap_min};
+        if (x + half_width > image_width){cap_max = image_cap_max};
+    };
+
     // check if we repeat the pano
-    if ((bearing < cap_min) && (bearing > cap_max)){
+    if ( half_angle > 180 && image_loop){
         var cap_min = 0;
         var cap_max = 360;
     };
