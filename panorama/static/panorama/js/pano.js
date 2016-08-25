@@ -1078,9 +1078,9 @@ function load_pano() {
 
     angle_control = document.getElementById("angle_ctrl");
     angle_control.value = initial_orientation.cap;
-    angle_control.onchange = change_angle;
-    angle_control.onchange = update_map;
-    angle_control.onclick = change_angle;
+    angle_control.addEventListener('change', change_angle, false);
+    angle_control.addEventListener('change', update_map, false);
+    angle_control.addEventListener('onclick', change_angle, false);
     elvtn_control = document.getElementById("elvtn_ctrl");
     elvtn_control.value = initial_orientation.elevation;
     elvtn_control.onchange = change_angle;
