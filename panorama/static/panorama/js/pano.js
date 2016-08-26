@@ -1282,7 +1282,31 @@ function load_map(){
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
     map.fitBounds(allMarkers,{padding: [30, 30]});
 
+    map.on('click', function(e) { 
+        /* Compute the new cap to show given the clic lat/lng */
+        var lat = toRad(e.latlng.lat); // latitude
+        var phi = toRad(e.latlng.lng); // longitude
+        var lat_ref = toRad(panorama_lat);
+        var phi_ref = toRad(panorama_lng);
+        // angle between the ref_point and the clic_point
+        var a = Math.acos( Math.cos(lat_ref) * Math.cos(phi - phi_ref) * Math.cos(lat) + Math.sin(lat_ref) * Math.sin(lat) );
+        // azimuth between the ref_point and the clic_point (=new cap)
+        var B = Math.asin( Math.sin(phi - phi_ref) * Math.sin(Math.PI/2 - lat)/Math.sin(a));
+        // little hack because asin give an angle in [-pi/2, pi/2] 
+        if (lat>lat_ref){   
+            var newCap = toDeg(B);
+        } else {
+            var newCap = toDeg(Math.PI-B);
+        }
 
+        // change the cap
+        angle_control = document.getElementById('angle_ctrl');
+        angle_control.value = newCap;
+        
+        // update the panorama & minimap
+        change_angle(); // update panorama
+        update_map(); // update minimap
+    });
     update_map();
 
 };
@@ -1305,5 +1329,5 @@ function update_map(){
     
     viewField.addTo(map);
     viewDirection.addTo(map);
-	    
+
 }
