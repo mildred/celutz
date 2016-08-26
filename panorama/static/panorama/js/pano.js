@@ -175,7 +175,7 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
     // draw a vertical blue line with the central dot
     // the dot is centered on (ox, oy) = (canvas.width/2, canvas.width/2)
     var line_width = 3;
-    cntext.fillStyle = "rgba(38, 54, 202, 0.7)";
+    cntext.fillStyle = "rgba(43, 130, 203, 0.7)";
     cntext.strokeStyle = "yellow";
     cntext.lineWidth = 2;
     cntext.fillRect(canvas.width/2-line_width/2, 0, line_width, canvas.height);
@@ -1303,7 +1303,7 @@ function update_map(){
     var cap = getCapMinMaxVisible();
 
     viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]],{color: '#2636ca', opacity: 0.8, weight: 2});
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]],{color: '#2880ca', opacity: 1, weight: 2});
     
     viewField.addTo(map);
     viewDirection.addTo(map);
