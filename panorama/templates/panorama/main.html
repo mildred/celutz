@@ -70,11 +70,11 @@
             $("ul.side-nav").children().click(function(e) {
                 var menu = $(e.target);
                 var content = menu.next();
+                var contentid = content.attr("id");
                 if (content.is("ul") && content.hasClass("collapse") && !content.hasClass('in')) {
                     $(".collapse.in").each(function(){ 
                         $(".collapse.in").animate({height: '1px'}, 500, function(){
-                            $(".collapse.in").removeClass("in");
-                            $(content).addClass("in");
+                            $(".collapse.in").not(document.getElementById(contentid)).removeClass("in");
                         });
                     });
                 };
