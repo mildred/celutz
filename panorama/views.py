@@ -69,6 +69,7 @@ class MainView(CelutzLoginMixin, TemplateView):
         context['custom_point_form'] = CustomPointForm
         context['newpanorama_form'] = PanoramaForm
         context['panoramas'] = Panorama.objects.all()
+        context['poi_list'] = [poi for poi in ReferencePoint.objects.all() if not hasattr(poi, 'panorama')]
         return context
 
     def compute_interesting_panoramas(self, point):

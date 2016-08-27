@@ -137,6 +137,20 @@
                 allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
             {% endfor %}
             map.addLayer( markerClusters );
+            // Add POI
+            var pointsOfInterest = L.layerGroup();
+            var options = {radius: 10, color: '#0f0', opacity: 0.6, fillOpacity: 0.3, riseOnHover: true};
+            {% for poi in poi_list %}
+                var poiMarker = L.circleMarker([{{ poi.latitude }}, {{ poi.longitude }}], options);
+                var poiPopup = poiMarker.bindPopup('{{ poi.name }}', {className : 'markerpopup', closeButton: false});
+                /* TODO: la ligne suivante ne fonctionne pas, et donne une erreur lors du mouseover :
+                   leaflet.js:6 Uncaught TypeError: Cannot read property 'lat' of null
+                */
+                //poiPopup.on('mouseover', poiMarker.openPopup);
+                poiPopup.on('mouseout', poiMarker.closePopup);
+                pointsOfInterest.addLayer(poiMarker);
+            {% endfor %}
+            map.addLayer(pointsOfInterest);
             map.fitBounds(allMarkers,{padding: [30, 30]});
             }
         initmap();
