@@ -43,7 +43,8 @@ class PanoramaView(CelutzLoginMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PanoramaView, self).get_context_data(**kwargs)
-        context['panoramas'] = Panorama.objects.all()
+        pano = context['panorama']
+        context['panoramas'] = [p for p in Panorama.objects.all() if pano.great_circle_distance(p) <= settings.PANORAMA_MAX_DISTANCE]
         return context
 
 
