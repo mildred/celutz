@@ -1326,8 +1326,9 @@ function update_map(){
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
-    viewField = getCone(panorama_lat,panorama_lng,bearing,cap,7000);
-    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 7000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 7000).lng]],{color: '#2880ca', opacity: 1, weight: 2});
+    /* TODO: allow to configure the maximum distance. */
+    viewField = getCone(panorama_lat,panorama_lng,bearing,cap,50000);
+    viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 50000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 50000).lng]],{color: '#2880ca', opacity: 1, weight: 2});
     
     viewField.addTo(map);
     viewDirection.addTo(map);
