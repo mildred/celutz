@@ -72,6 +72,13 @@
           iconAnchor: [11, 35],
           popupAnchor: [0,-50]
       });
+      var poiIcon = L.icon({
+            iconUrl: '{% static "panorama/img/marker-circle-green.png" %}',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0,-20]
+      });
+
       
       {% for pano in panoramas %}
           {% if panorama.name != pano.name  %}
@@ -86,9 +93,12 @@
       {% endfor %}
 
       var pointsOfInterest = L.layerGroup();
+      var poiOptions = {icon: poiIcon, riseOnHover: true};
       {% for poi in poi_list %}
-          var options = {radius: 8, color: '#0f0', opacity: 0.5, fillOpacity: 0.25};
-          var marker = L.circleMarker([{{ poi.latitude }}, {{ poi.longitude }}], options);
+          var marker = L.marker([{{ poi.latitude }}, {{ poi.longitude }}], poiOptions);
+          var poiPopup = marker.bindPopup('{{ poi.name }}', {className : 'markerpopup', closeButton: false});
+          poiPopup.on('mouseover', marker.openPopup);
+          poiPopup.on('mouseout', marker.closePopup);
           pointsOfInterest.addLayer(marker);
       {% endfor %}
 
