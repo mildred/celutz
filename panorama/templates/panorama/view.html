@@ -80,8 +80,8 @@
               popup.on('mouseover', marker.openPopup);
               popup.on('mouseout', marker.closePopup);
               markerClusters.addLayer( marker );
-              allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
           {% endif %}
+          allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
       {% endfor %}
 
       $( document ).ready(load_map);
