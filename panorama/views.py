@@ -45,6 +45,7 @@ class PanoramaView(CelutzLoginMixin, DetailView):
         context = super(PanoramaView, self).get_context_data(**kwargs)
         pano = context['panorama']
         context['panoramas'] = [p for p in Panorama.objects.all() if pano.great_circle_distance(p) <= settings.PANORAMA_MAX_DISTANCE]
+        context['poi_list'] = [poi for poi in ReferencePoint.objects.all() if not hasattr(poi, 'panorama') and pano.great_circle_distance(poi) <= settings.PANORAMA_MAX_DISTANCE]
         return context
 
 

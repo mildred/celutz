@@ -1279,6 +1279,7 @@ function load_map(){
 	var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});		
 	map.addLayer(osm);
         map.addLayer( markerClusters );
+        map.addLayer(pointsOfInterest);
 
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);

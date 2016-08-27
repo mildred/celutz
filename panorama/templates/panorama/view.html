@@ -84,6 +84,13 @@
           allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
       {% endfor %}
 
+      var pointsOfInterest = L.layerGroup();
+      {% for poi in poi_list %}
+          var options = {radius: 8, color: '#0f0', opacity: 0.5, fillOpacity: 0.25};
+          var marker = L.circleMarker([{{ poi.latitude }}, {{ poi.longitude }}], options);
+          pointsOfInterest.addLayer(marker);
+      {% endfor %}
+
       $( document ).ready(load_map);
     </script>
 {% endblock js %}
