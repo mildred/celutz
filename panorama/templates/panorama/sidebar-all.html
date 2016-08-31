@@ -41,7 +41,7 @@
                     <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ newpanorama_form.name.label_tag }}{{ newpanorama_form.name }}
                         {{ newpanorama_form.image.label_tag }}{{ newpanorama_form.image }}
-                        <label for="{{ newpanorama_form.loop.id_for_label }}">{{ newpanorama_form.loop }} {% trans "360° panorama" %}</label>
+                        <label for="{{ newpanorama_form.loop.id_for_label }}">{{ newpanorama_form.loop }} {{ newpanorama_form.loop.label }}</label>
                         {{ newpanorama_form.latitude.label_tag }}{{ newpanorama_form.latitude }}
                         {{ newpanorama_form.longitude.label_tag }}{{ newpanorama_form.longitude }}
                         {{ newpanorama_form.altitude.label_tag }}{{ newpanorama_form.altitude }}
