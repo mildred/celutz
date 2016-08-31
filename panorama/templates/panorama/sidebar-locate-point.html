@@ -1,7 +1,9 @@
 {% load i18n %}
+{% load l10n %}
 {% load panorama_url %}
 {% load distance_filter %}
 {% include "panorama/sidebar-common.html" %}
+{% localize off %}
         <li>
             {% if located_point_name != None %}
                 <a href="javascript:;" data-toggle="collapse" data-target="#result"><i class="fa fa-fw fa-eye"></i> {% trans "Results for the point" %} <b>{{ located_point_name }}</b></a>
@@ -14,3 +16,4 @@
               {% endfor %}
             </ul>
         </li>
+{% endlocalize %}

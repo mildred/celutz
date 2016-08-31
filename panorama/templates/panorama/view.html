@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load distance_filter %}
 {% load i18n %}
+{% load l10n %}
 
 {% block title %}{{ panorama.name }}{% endblock title %}
 
@@ -14,6 +15,7 @@
 {% endblock css %}
 
 {% block js %}
+{% localize off %}
     <script>
       var title = "{{ panorama.name|escapejs }}";
       var panorama_id = {{ panorama.pk }};
@@ -104,6 +106,7 @@
 
       $( document ).ready(load_map);
     </script>
+{% endlocalize %}
 {% endblock js %}
 
 {% block top-menu-title %}
@@ -112,6 +115,7 @@
 {% endblock %}
 
 {% block top-menu-pano-items %}
+{% localize off %}
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i>  {% trans "Parameters" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -151,6 +155,7 @@
             </li>
         </ul>
     </li>
+{% endlocalize %}
 {% endblock %}
 
 {% block sidebar %}

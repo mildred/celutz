@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load l10n %}
+{% localize off %}
         <li>
             <a href="{% url 'panorama:main' %}"><i class="fa fa-fw fa-home"></i> {% trans "Map" %}</a>
         </li>
@@ -32,4 +34,4 @@
                 </li>
             </ul>
         </li>
-
+{% endlocalize %}

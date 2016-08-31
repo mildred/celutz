@@ -3,6 +3,7 @@
 {% load static %}
 {% load distance_filter %}
 {% load i18n %}
+{% load l10n %}
 
 {% block title %}{% trans "Result of research"%}{% endblock title %}
 
@@ -52,6 +53,7 @@ style="padding:0px;height:calc(100vh - 50px)"
 {% endblock css %}
 
 {% block js %}
+{% localize off %}
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
@@ -138,4 +140,5 @@ style="padding:0px;height:calc(100vh - 50px)"
     initmap();
     accordionMenus(); 
 </script>
+{% endlocalize %}
 {% endblock js %}
