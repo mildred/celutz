@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-23 16:55+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2016-08-31 17:27+0200\n"
+"PO-Revision-Date: 2016-08-31 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,11 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: panorama/admin.py:33
+msgid "Launched tiles regeneration, it may take some time to complete"
+msgstr ""
+
+#: panorama/admin.py:34
+msgid "Regenerate tiles for the selected panoramas"
+msgstr ""
+
+#: panorama/apps.py:10
+msgid "Panorama"
+msgstr "Panorama"
+
 #: panorama/forms.py:13
 msgid "Reference point"
 msgstr "Punto de referencia"
 
-#: panorama/models.py:25 panorama/templates/panorama/view.html:64
+#: panorama/models.py:25
 msgid "latitude"
 msgstr "latitud"
 
@@ -30,11 +42,11 @@ msgstr "latitud"
 msgid "In degrees"
 msgstr "En grados"
 
-#: panorama/models.py:28 panorama/templates/panorama/view.html:65
+#: panorama/models.py:28
 msgid "longitude"
 msgstr "longitud"
 
-#: panorama/models.py:31 panorama/templates/panorama/view.html:66
+#: panorama/models.py:31
 msgid "altitude"
 msgstr "altitud"
 
@@ -50,17 +62,67 @@ msgstr "nombre"
 msgid "Name of the point"
 msgstr "Nombre del punto"
 
-#: panorama/models.py:115 panorama/templates/panorama/sidebar-all.html:44
+#: panorama/models.py:114 panorama/models.py:296
+msgid "reference point"
+msgstr "punto de referencia"
+
+#: panorama/models.py:115
+msgid "reference points"
+msgstr "puntos de referencia"
+
+#: panorama/models.py:119
 msgid "360° panorama"
 msgstr "Panorama de 360°"
 
-#: panorama/models.py:116
+#: panorama/models.py:120
 msgid "Whether the panorama loops around the edges"
 msgstr "Si el panorama vuelta en los bordes"
 
-#: panorama/models.py:117
+#: panorama/models.py:121
 msgid "image"
 msgstr "imagen"
+
+#: panorama/models.py:124
+msgid "image width"
+msgstr ""
+
+#: panorama/models.py:125
+msgid "image height"
+msgstr ""
+
+#: panorama/models.py:130 panorama/models.py:332
+msgid "references"
+msgstr "referencias"
+
+#: panorama/models.py:143
+msgid "Tiles available?"
+msgstr ""
+
+#: panorama/models.py:282 panorama/models.py:298
+msgid "panorama"
+msgstr "panorama"
+
+#: panorama/models.py:283
+msgid "panoramas"
+msgstr "panoramas"
+
+#: panorama/models.py:312
+msgid "A panorama can't reference itself."
+msgstr ""
+
+#: panorama/models.py:317
+#, python-brace-format
+msgid "Position {xy} is outside the bounds of the image ({width}, {height})."
+msgstr ""
+
+#: panorama/models.py:324
+#, python-brace-format
+msgid "{refpoint} at {xy} in {pano}"
+msgstr ""
+
+#: panorama/models.py:331
+msgid "reference"
+msgstr "referencia"
 
 #: panorama/templates/panorama/base.html:47
 msgid "Admin"
@@ -72,7 +134,8 @@ msgstr "Acerca de"
 
 #: panorama/templates/panorama/base.html:53
 msgid "Celutz is a tool for managing and referencing panoramic photos"
-msgstr "Celutz es una heramienta para gestionar y referenciar fotos panoramicas"
+msgstr ""
+"Celutz es una heramienta para gestionar y referenciar fotos panoramicas"
 
 #: panorama/templates/panorama/base.html:54
 msgid "Project homepage"
@@ -94,8 +157,8 @@ msgstr "Panoramas que ven el punto"
 msgid "Panoramas seeing the searched point"
 msgstr "Panoramas que ven el punto deseado"
 
-#: panorama/templates/panorama/locate_point.html:109
-#: panorama/templates/panorama/sidebar-simple.html:31
+#: panorama/templates/panorama/locate_point.html:129
+#: panorama/templates/panorama/sidebar-locate-point.html:13
 msgid "at"
 msgstr "de"
 
@@ -107,93 +170,94 @@ msgstr "Celutz, un visualisador de panorama"
 msgid "Map"
 msgstr "Mapa"
 
-#: panorama/templates/panorama/sidebar-all.html:6
-#: panorama/templates/panorama/sidebar-simple.html:5
-msgid "Panoramas"
-msgstr ""
-
-#: panorama/templates/panorama/sidebar-all.html:14
-#: panorama/templates/panorama/sidebar-simple.html:13
-msgid "Locate existing point"
-msgstr "Localizar un punto"
-
-#: panorama/templates/panorama/sidebar-all.html:19
-#: panorama/templates/panorama/sidebar-all.html:32
-#: panorama/templates/panorama/sidebar-simple.html:18
-msgid "Locate"
-msgstr "Localizar"
-
-#: panorama/templates/panorama/sidebar-all.html:25
+#: panorama/templates/panorama/sidebar-all.html:7
 msgid "Locate GPS point"
 msgstr "Localizar por GPS"
 
-#: panorama/templates/panorama/sidebar-all.html:38
+#: panorama/templates/panorama/sidebar-all.html:14
+#: panorama/templates/panorama/sidebar-common.html:16
+#: panorama/templates/panorama/view.html:138
+#: panorama/templates/panorama/view.html:148
+msgid "Locate"
+msgstr "Localizar"
+
+#: panorama/templates/panorama/sidebar-all.html:20
 msgid "Add new panorama"
 msgstr "Añadir un panorama"
 
-#: panorama/templates/panorama/sidebar-all.html:48
+#: panorama/templates/panorama/sidebar-all.html:30
 msgid "Add"
 msgstr "Añadir"
 
-#: panorama/templates/panorama/sidebar-simple.html:25
+#: panorama/templates/panorama/sidebar-common.html:3
+msgid "Panoramas"
+msgstr "Panoramas"
+
+#: panorama/templates/panorama/sidebar-common.html:11
+msgid "Locate existing point"
+msgstr "Localizar un punto"
+
+#: panorama/templates/panorama/sidebar-locate-point.html:7
 msgid "Results for the point"
 msgstr "Resultados para el punto"
 
-#: panorama/templates/panorama/sidebar-simple.html:27
+#: panorama/templates/panorama/sidebar-locate-point.html:9
 msgid "Results for the searched point"
 msgstr "Resultados para el punto deseado"
 
-#: panorama/templates/panorama/view.html:60
+#: panorama/templates/panorama/view.html:116
 msgid "Parameters"
 msgstr "Parámetro"
 
-#: panorama/templates/panorama/view.html:72
+#: panorama/templates/panorama/view.html:120
+msgid "latitude:"
+msgstr "latitud:"
+
+#: panorama/templates/panorama/view.html:121
+msgid "longitude:"
+msgstr "longitud:"
+
+#: panorama/templates/panorama/view.html:122
+msgid "altitude:"
+msgstr "altitud:"
+
+#: panorama/templates/panorama/view.html:128
 msgid "Controls"
 msgstr "Control"
 
-#: panorama/templates/panorama/view.html:75
-msgid "Zoom"
-msgstr ""
+#: panorama/templates/panorama/view.html:131
+msgid "Zoom:"
+msgstr "Zoom:"
 
-#: panorama/templates/panorama/view.html:76
-msgid "Cap"
-msgstr ""
+#: panorama/templates/panorama/view.html:132
+msgid "Bearing:"
+msgstr "Dirección:"
 
-#: panorama/templates/panorama/view.html:77
-msgid "Élévation"
-msgstr "Elevación"
+#: panorama/templates/panorama/view.html:133
+msgid "Elevation:"
+msgstr "Elevación:"
 
-#: panorama/templates/panorama/view.html:82
-#: panorama/templates/panorama/view.html:92
-msgid "Localize"
-msgstr "Localizar"
+#: panorama/templates/panorama/view.html:141
+msgid "Latitude:"
+msgstr "Latitud:"
 
-#: panorama/templates/panorama/view.html:85
-msgid "Latitude"
-msgstr "Latitud"
+#: panorama/templates/panorama/view.html:143
+msgid "Longitude:"
+msgstr "Longitud:"
 
-#: panorama/templates/panorama/view.html:87
-msgid "Longitude"
-msgstr "Longitud"
+#: panorama/templates/panorama/view.html:145
+msgid "Altitude:"
+msgstr "Altitud:"
 
-#: panorama/templates/panorama/view.html:89
-msgid "Altitude"
-msgstr "Altitud"
-
-#: panorama/templates/panorama/view.html:93
-#, fuzzy
-#| msgid "delete"
+#: panorama/templates/panorama/view.html:149
+#: panorama/templates/panorama/view.html:179
 msgid "Delete"
-msgstr "borrar"
+msgstr "Borrar"
 
-#: panorama/templates/panorama/view.html:124
-msgid "insert"
-msgstr "insertar"
+#: panorama/templates/panorama/view.html:178
+msgid "Insert"
+msgstr "Insertar"
 
-#: panorama/templates/panorama/view.html:125
-msgid "delete"
-msgstr "borrar"
-
-#: panorama/templates/panorama/view.html:126
-msgid "cancel"
-msgstr "cancelar"
+#: panorama/templates/panorama/view.html:180
+msgid "Cancel"
+msgstr "Cancelar"
