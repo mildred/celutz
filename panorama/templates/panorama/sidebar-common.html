@@ -1,0 +1,20 @@
+{% load i18n %}
+        <li>
+            <a id="pano-list-btn" href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> {% trans "Panoramas" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="panos" class="collapse">
+              {% for pano in panoramas %}
+              <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
+              {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a id="locate-existing-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="locate-existing" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:locate_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                      {{ refpoints_form.as_p }}
+                      <input type="submit" class="btn btn-primary btn-sm" value={% trans "Locate" %} />
+                    </form>
+                </li>
+            </ul>
+        </li>
