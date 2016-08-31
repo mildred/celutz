@@ -110,6 +110,10 @@ class ReferencePoint(Point):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _("reference point")
+        verbose_name_plural = _("reference points")
+
 
 class Panorama(ReferencePoint):
     loop = models.BooleanField(default=False, verbose_name=_("360° panorama"),
@@ -117,12 +121,13 @@ class Panorama(ReferencePoint):
     image = models.ImageField(verbose_name=_("image"), upload_to="pano",
                               width_field="image_width",
                               height_field="image_height")
-    image_width = models.PositiveIntegerField(default=0)
-    image_height = models.PositiveIntegerField(default=0)
+    image_width = models.PositiveIntegerField(default=0, verbose_name=_("image width"))
+    image_height = models.PositiveIntegerField(default=0, verbose_name=_("image height"))
     # Set of references, i.e. reference points with information on how
     # they relate to this panorama.
     references = models.ManyToManyField(ReferencePoint, through='Reference',
-                                        related_name="referenced_panorama")
+                                        related_name="referenced_panorama",
+                                        verbose_name=_("references"))
 
     def tiles_dir(self):
         return os.path.join(settings.MEDIA_ROOT, settings.PANORAMA_TILES_DIR,
@@ -135,6 +140,7 @@ class Panorama(ReferencePoint):
     def has_tiles(self):
         return path_exists(self.tiles_dir()) and len(os.listdir(self.tiles_dir())) > 0
     has_tiles.boolean = True
+    has_tiles.short_description = _("Tiles available?")
 
     def delete_tiles(self):
         """Delete all tiles and the tiles dir"""
@@ -272,6 +278,10 @@ class Panorama(ReferencePoint):
                 (ref2.x - ref1.x)
         return target_cap % 360
 
+    class Meta:
+        verbose_name = _("panorama")
+        verbose_name_plural = _("panoramas")
+
 
 @python_2_unicode_compatible
 class Reference(models.Model):
@@ -282,8 +292,10 @@ class Reference(models.Model):
     are represented by (azimuth, elevation) couples."""
 
     # Components of the ManyToMany relation
-    reference_point = models.ForeignKey(ReferencePoint, related_name="refpoint_references")
-    panorama = models.ForeignKey(Panorama, related_name="panorama_references")
+    reference_point = models.ForeignKey(ReferencePoint, related_name="refpoint_references",
+                                        verbose_name=_("reference point"))
+    panorama = models.ForeignKey(Panorama, related_name="panorama_references",
+                                 verbose_name=_("panorama"))
     # Position of the reference point in the panorama image
     x = models.PositiveIntegerField()
     y = models.PositiveIntegerField()
@@ -297,21 +309,24 @@ class Reference(models.Model):
         # Check that the reference point and the panorama are different
         # (remember that panoramas can *also* be seen as reference points)
         if self.panorama.pk == self.reference_point.pk:
-            raise ValidationError("A panorama can't reference itself.")
+            raise ValidationError(_("A panorama can't reference itself."))
         # Check than the position is within the bounds of the image.
         w = self.panorama.image_width
         h = self.panorama.image_height
         if self.x >= w or self.y >= h:
-            raise ValidationError("Position ({x}, {y}) is outside the bounds "
-                                  "of the image ({width}, {height}).".format(
-                                      x=self.x,
-                                      y=self.y,
-                                      width=w,
-                                      height=h))
+            raise ValidationError(_("Position {xy} is outside the bounds "
+                                    "of the image ({width}, {height}).").format(
+                                        xy=(self.x, self.y),
+                                        width=w,
+                                        height=h))
 
     def __str__(self):
-        return '{ref}: at {xy} in {pano}'.format(
+        return _('{refpoint} at {xy} in {pano}').format(
                 pano=self.panorama.name,
                 xy=(self.x, self.y),
-                ref=self.reference_point.name,
+                refpoint=self.reference_point.name,
                 )
+
+    class Meta:
+        verbose_name = _("reference")
+        verbose_name_plural = _("references")

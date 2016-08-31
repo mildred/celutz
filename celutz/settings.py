@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     # For Celery
     'kombu.transport.django',
     'rest_framework',
-    'panorama',
+    'panorama.apps.PanoramaConfig',
     'api'
 )
 

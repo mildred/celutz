@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import os
 
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Panorama, ReferencePoint, Reference
 from .utils import path_exists
@@ -29,8 +30,8 @@ class PanoramaAdmin(admin.ModelAdmin):
         for pano in queryset:
             pano.delete_tiles()
             pano.generate_tiles()
-        self.message_user(request, "Launched tiles regeneration, it may take some time to complete")
-    regenerate_tiles.short_description = "Regenerate tiles for the selected panoramas"
+        self.message_user(request, _("Launched tiles regeneration, it may take some time to complete"))
+    regenerate_tiles.short_description = _("Regenerate tiles for the selected panoramas")
 
 
 @admin.register(ReferencePoint)
