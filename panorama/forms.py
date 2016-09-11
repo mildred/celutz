@@ -28,3 +28,11 @@ class PanoramaForm(forms.ModelForm):
     class Meta:
         model = Panorama
         fields = ['name', 'image', 'loop', 'latitude', 'longitude', 'altitude']
+
+class ReferencePointForm(forms.ModelForm):
+    """Form to insert a new reference point"""
+    prefix = 'newrefpoint'
+
+    class Meta:
+        model = ReferencePoint
+        fields = ['name', 'latitude', 'longitude', 'altitude']

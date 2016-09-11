@@ -127,11 +127,11 @@
     
             // Autofill forms while moving crosshair and expanding menus
             map.on('moveend', function(e) {
-                if ($("#locate-gps,#new-pano").hasClass("collapse in")){
+                if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
                     fillCoord();
                 }
             });
-            $('#locate-gps-btn, #new-pano-btn').click(function(e) {
+            $('#locate-gps-btn, #new-pano-btn, #new-refpoint-btn').click(function(e) {
                 fillCoord();
             });
     

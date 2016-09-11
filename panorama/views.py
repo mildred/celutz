@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, RedirectView, ListView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Point, Panorama, ReferencePoint
-from .forms import SelectReferencePointForm, CustomPointForm, PanoramaForm
+from .forms import SelectReferencePointForm, CustomPointForm, PanoramaForm, ReferencePointForm
 
 
 class CelutzLoginMixin(LoginRequiredMixin):
@@ -68,6 +68,7 @@ class MainView(CelutzLoginMixin, TemplateView):
         context['refpoints_form'] = SelectReferencePointForm
         context['custom_point_form'] = CustomPointForm
         context['newpanorama_form'] = PanoramaForm
+        context['newrefpoint_form'] = ReferencePointForm
         context['panoramas'] = Panorama.objects.all()
         context['poi_list'] = [poi for poi in ReferencePoint.objects.all() if not hasattr(poi, 'panorama')]
         return context
@@ -85,6 +86,15 @@ class MainView(CelutzLoginMixin, TemplateView):
              for pano in queryset.all() if pano.is_visible(point)]
         # Sort by increasing distance
         return sorted(l, key=lambda x: x[1])
+
+
+class CreateReferencePoint(CelutzLoginMixin, CreateView):
+    model = ReferencePoint
+    fields = ('name', 'latitude', 'longitude', 'altitude')
+    template_name = 'panorama/new-refpoint.html'
+
+    def get_success_url(self):
+        return reverse_lazy("panorama:main")
 
 
 class LocateReferencePointView(MainView):

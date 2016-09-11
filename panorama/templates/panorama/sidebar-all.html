@@ -19,6 +19,20 @@
             </ul>
         </li>
         <li>
+            <a id="new-refpoint-btn" href="javascript:;" data-toggle="collapse" data-target="#new-refpoint"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new reference point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="new-refpoint" class="collapse">
+                <li>
+                    <form action="{% url 'panorama:new_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+                        {{ newrefpoint_form.name.label_tag }}{{ newrefpoint_form.name }}
+                        {{ newrefpoint_form.latitude.label_tag }}{{ newrefpoint_form.latitude }}
+                        {{ newrefpoint_form.longitude.label_tag }}{{ newrefpoint_form.longitude }}
+                        {{ newrefpoint_form.altitude.label_tag }}{{ newrefpoint_form.altitude }}
+                        <input type="submit" class="btn btn-primary btn-sm" value={% trans "Add" %} />
+                    </form>
+                </li>
+            </ul>
+        </li>
+        <li>
             <a id="new-pano-btn" href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="new-pano" class="collapse">
                 <li>
