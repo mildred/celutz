@@ -31,6 +31,7 @@ class PanoramaUpload(CelutzLoginMixin, CreateView):
     model = Panorama
     fields = ('name', 'image', 'loop', 'latitude', 'longitude', 'altitude')
     template_name = "panorama/new.html"
+    prefix = 'newpano'
 
     def get_success_url(self):
         return reverse_lazy("panorama:gen_tiles", kwargs={"pk": self.object.id})
@@ -92,6 +93,7 @@ class CreateReferencePoint(CelutzLoginMixin, CreateView):
     model = ReferencePoint
     fields = ('name', 'latitude', 'longitude', 'altitude')
     template_name = 'panorama/new-refpoint.html'
+    prefix = 'newrefpoint'
 
     def get_success_url(self):
         return reverse_lazy("panorama:main")
