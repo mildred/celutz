@@ -7,7 +7,7 @@
 {% include "panorama/sidebar-common.html" %}
         <li>
             <a id="locate-gps-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-gps"><i class="fa fa-fw fa-map-marker"></i> {% trans "Locate GPS point" %}<i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="locate-gps" class="collapse">
+            <ul id="locate-gps" class="sidebarform collapse">
                 <li>
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ custom_point_form.latitude.label_tag }}{{ custom_point_form.latitude }}
@@ -20,7 +20,7 @@
         </li>
         <li>
             <a id="new-refpoint-btn" href="javascript:;" data-toggle="collapse" data-target="#new-refpoint"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new reference point" %}<i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="new-refpoint" class="collapse">
+            <ul id="new-refpoint" class="sidebarform collapse">
                 <li>
                     <form action="{% url 'panorama:new_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ newrefpoint_form.name.label_tag }}{{ newrefpoint_form.name }}
@@ -34,7 +34,7 @@
         </li>
         <li>
             <a id="new-pano-btn" href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="new-pano" class="collapse">
+            <ul id="new-pano" class="sidebarform collapse">
                 <li>
                     <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ newpanorama_form.name.label_tag }}{{ newpanorama_form.name }}
