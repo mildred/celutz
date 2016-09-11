@@ -94,8 +94,10 @@
             var lng = map.getCenter().lng.toFixed(5);
             $('#id_custompoint-latitude').val(lat);
             $('#id_newpano-latitude').val(lat);
+            $('#id_newrefpoint-latitude').val(lat);
             $('#id_custompoint-longitude').val(lng);
             $('#id_newpano-longitude').val(lng);
+            $('#id_newrefpoint-longitude').val(lng);
             $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
                 function(data) {
                     $('#id_custompoint-altitude').val(parseInt(data));
