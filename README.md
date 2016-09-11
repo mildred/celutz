@@ -124,6 +124,26 @@ For each panorama that can "see" the target point, a direct link is provided to
 orient the view to the estimated position.  This allows you to quickly ascertain
 whether the target point is actually visible from at least one existing location.
 
+Contributing translations
+-------------------------
+
+You can help translating celutz in your language!  So far, English, French and
+Spanish translations are available.
+
+To create or update a message file in your language:
+
+    ./manage.py makemessages -l fr
+
+You can then edit the PO file in `panorama/locale/fr/LC_MESSAGES/django.po`.
+
+Once you are done, you need to compile your translation:
+
+    ./manage.py compilemessages
+
+Then, add both the `django.po` and `django.mo` files to git.
+
+For more information, see <https://docs.djangoproject.com/en/1.9/topics/i18n/translation/#localization-how-to-create-language-files>
+
 Installing celutz
 -----------------
 
