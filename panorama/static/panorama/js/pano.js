@@ -81,7 +81,6 @@ function distort_canvas(p, x, y) {
 	else if (p == -1) cntext.translate(0, 0);
 	draw_image(x, y);
 	cntext.restore();
-	document.getElementById('res').innerHTML = 'distort : ' + distort + ' shift ' + shift + ' ratio : ' + ratio + '<br/>';
     }
 }
 
@@ -562,30 +561,6 @@ function tzoom(zv) {
 			    this.ref_pixels[0].dshft_y = 0;
 			    this.ref_pixels[ord_pts.length].dshft_y = 0;
 		    }
-
-		    if (debug_mode) {
-			    var res = document.getElementById('res');
-			    res.innerHTML = 'liste des '+this.ref_pixels.length+' valeurs de correction (image = '+this.im.width+'x'+this.im.height+') zoom = '+this.value+':<br/>';
-			    for (var i=0; i < this.ref_pixels.length; i++) { // pour le debug
-				    res.innerHTML += '<p>point '+i+' :</p><ul>';
-				    for (var key in this.ref_pixels[i]) { // pour le debug
-					    res.innerHTML += '<li>'+key + '['+i+'] = '+this.ref_pixels[i][key]+'</li>';
-				    }
-				    if (i != this.ref_pixels.length-1) {
-					    var tx0 = this.ref_pixels[i+1].x-1;
-					    //var ty0 = this.ref_pixels[i+1].shift_y;
-					    var ty0 = 0;
-				    } else {
-					    var tx0 = this.im.width-1;
-					    var ty0 = 0;
-				    }
-				    res.innerHTML += '</ul><p>test sur : '+tx0+','+ty0+'</p>';
-				    var tst = this.get_cap_ele(tx0, ty0);
-				    res.innerHTML += '<p>cap:'+tst.cap+', ele:'+tst.ele+'</p>';
-				    var tst2 = this.get_pos_xy(tst.cap, tst.ele);
-				    res.innerHTML += '</ul><p>x:'+tst2.x+', y:'+tst2.y+'</p>';
-			    }
-		    }
 	    }
 
 	    this.pt_list = new Array();
@@ -890,8 +865,6 @@ function insert_ref_point(el, x, y) {
 	    posy = 0.5 - (last.y + y - canvas.height/2)/zm.im.height;
 	    var pval = {x:posx, y:posy, cap:zm.pt_list[i]['cap'], ele:zm.pt_list[i]['ele'], label:label};
 	    ref_points[label] = pval;
-	    document.getElementById('res').innerHTML = '<h4>Dernier point entré</h4>';
-	    document.getElementById('res').innerHTML += '<p>reference["'+label+'"] = '+posx.toFixed(5)+','+posy.toFixed(5)+'</p>';
 	    reset_zooms();
 	    putImage(last.x, last.y);
 	    found = true;
@@ -901,7 +874,6 @@ function insert_ref_point(el, x, y) {
 	if (!found) {
 		alert('unknown ref_point: '+label);
 	}
-	show_result();
 	
 	// Then push the modif
 	var xhr = getXMLHttpRequest();
@@ -921,17 +893,6 @@ function insert_ref_point(el, x, y) {
         xhr.setRequestHeader("X-CSRFToken", csrf_token);
 }
 
-function show_result(clear_before) {
-    var res = document.getElementById('res');
-    var strg = '';
-    for (var lbl in ref_points) {
-	strg += '<li>reference["'+lbl+'"] = '+ref_points[lbl].x.toFixed(5)+','+ref_points[lbl].y.toFixed(5)+'</li>';
-    }
-    if (strg) strg = '<h3>Liste de tous les points de référence</h3>\n<ul>' + strg + '</ul>';
-    if (clear_before) res.innerHTML = strg;
-    else res.innerHTML += strg;
-}
-
 function delete_ref_point(el) {
     var ref_name = document.getElementById('sel_point').value;
     el.style.display = 'none';
@@ -939,7 +900,6 @@ function delete_ref_point(el) {
     delete ref_points[ref_name];
     reset_zooms();
     putImage(last.x, last.y);
-    show_result(true);
 
     // Then push the modif
     var xhr = getXMLHttpRequest();
