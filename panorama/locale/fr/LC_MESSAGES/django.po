@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-11 17:08+0200\n"
+"POT-Creation-Date: 2016-09-12 00:08+0200\n"
 "PO-Revision-Date: 2016-08-31 17:34+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,19 +125,23 @@ msgstr "{refpoint} en {xy} sur {pano}"
 msgid "reference"
 msgstr "référence"
 
-#: panorama/templates/panorama/base.html:63
+#: panorama/templates/panorama/base.html:49
 msgid "Admin"
 msgstr "Admin"
 
-#: panorama/templates/panorama/base.html:66
+#: panorama/templates/panorama/base.html:54
+msgid "Language"
+msgstr "Langue"
+
+#: panorama/templates/panorama/base.html:69
 msgid "About"
 msgstr "À propos"
 
-#: panorama/templates/panorama/base.html:69
+#: panorama/templates/panorama/base.html:72
 msgid "Celutz is a tool for managing and referencing panoramic photos"
 msgstr "Celutz est un outil pour gérer et référencer des photos panoramiques"
 
-#: panorama/templates/panorama/base.html:70
+#: panorama/templates/panorama/base.html:73
 msgid "Project homepage"
 msgstr "Page du projet"
 
@@ -266,4 +270,3 @@ msgstr "Insérer"
 #: panorama/templates/panorama/view.html:185
 msgid "Cancel"
 msgstr "Annuler"
-
