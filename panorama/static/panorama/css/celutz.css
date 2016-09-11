@@ -358,3 +358,46 @@ select {
     background: #FF0000;
     width: 30px;
 }
+
+.langue form {
+    padding: 0px;
+}
+.langue .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width:100%!important;
+}
+.langue .bootstrap-select > .dropdown-toggle.btn-default, 
+.langue .bootstrap-select > .dropdown-toggle.btn-default:active {
+    background-color: #222;
+    border:none;
+    border-radius: 0px;
+    height:50px;
+    color:#999;
+}
+.langue .bootstrap-select > .dropdown-toggle.btn-default:focus,
+.langue .bootstrap-select > .dropdown-toggle.btn-default:hover {
+    color: #FFF !important;
+    background-color: #000;
+}
+.langue .bootstrap-select > .dropdown-toggle.btn-default:before {
+    font-family: "FontAwesome";
+    content: "\f11d"; 
+    left:-10px;
+    position:absolute;
+    margin-left:20px;
+}
+.langue .bootstrap-select .dropdown-toggle:focus {
+    outline: none !important;
+}
+.langue .bootstrap-select.btn-group .dropdown-menu li a span.text {
+    color:#999;
+}
+.langue .bootstrap-select.btn-group .dropdown-menu li a span.text:hover {
+    color:#FFF;
+}
+.langue .dropdown-menu {
+    margin: 0px;
+    border-radius: 0px;
+    border-right:2px;
+    border-left:2px;
+}
+
