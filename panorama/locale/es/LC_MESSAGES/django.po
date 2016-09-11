@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-31 17:27+0200\n"
+"POT-Creation-Date: 2016-09-11 17:08+0200\n"
 "PO-Revision-Date: 2016-08-31 17:28+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,70 +124,75 @@ msgstr ""
 msgid "reference"
 msgstr "referencia"
 
-#: panorama/templates/panorama/base.html:47
+#: panorama/templates/panorama/base.html:63
 msgid "Admin"
 msgstr ""
 
-#: panorama/templates/panorama/base.html:50
+#: panorama/templates/panorama/base.html:66
 msgid "About"
 msgstr "Acerca de"
 
-#: panorama/templates/panorama/base.html:53
+#: panorama/templates/panorama/base.html:69
 msgid "Celutz is a tool for managing and referencing panoramic photos"
 msgstr ""
 "Celutz es una heramienta para gestionar y referenciar fotos panoramicas"
 
-#: panorama/templates/panorama/base.html:54
+#: panorama/templates/panorama/base.html:70
 msgid "Project homepage"
 msgstr "Pagina del projecto"
 
-#: panorama/templates/panorama/locate_point.html:7
+#: panorama/templates/panorama/locate_point.html:8
 msgid "Result of research"
 msgstr "Resultado de la búsqueda"
 
-#: panorama/templates/panorama/locate_point.html:19
+#: panorama/templates/panorama/locate_point.html:20
 msgid "No panorama seeing this point !"
 msgstr "Ningún panorama ve este punto"
 
-#: panorama/templates/panorama/locate_point.html:22
+#: panorama/templates/panorama/locate_point.html:23
 msgid "Panoramas seeing the point"
 msgstr "Panoramas que ven el punto"
 
-#: panorama/templates/panorama/locate_point.html:24
+#: panorama/templates/panorama/locate_point.html:25
 msgid "Panoramas seeing the searched point"
 msgstr "Panoramas que ven el punto deseado"
 
-#: panorama/templates/panorama/locate_point.html:129
-#: panorama/templates/panorama/sidebar-locate-point.html:13
+#: panorama/templates/panorama/locate_point.html:131
+#: panorama/templates/panorama/sidebar-locate-point.html:15
 msgid "at"
 msgstr "de"
 
-#: panorama/templates/panorama/main.html:7
+#: panorama/templates/panorama/main.html:8
 msgid "Celutz, a panorama viewer"
 msgstr "Celutz, un visualisador de panorama"
 
-#: panorama/templates/panorama/sidebar-all.html:3
+#: panorama/templates/panorama/sidebar-all.html:5
 msgid "Map"
 msgstr "Mapa"
 
-#: panorama/templates/panorama/sidebar-all.html:7
+#: panorama/templates/panorama/sidebar-all.html:9
 msgid "Locate GPS point"
 msgstr "Localizar por GPS"
 
-#: panorama/templates/panorama/sidebar-all.html:14
+#: panorama/templates/panorama/sidebar-all.html:16
 #: panorama/templates/panorama/sidebar-common.html:16
-#: panorama/templates/panorama/view.html:138
-#: panorama/templates/panorama/view.html:148
+#: panorama/templates/panorama/view.html:142
+#: panorama/templates/panorama/view.html:152
 msgid "Locate"
 msgstr "Localizar"
 
-#: panorama/templates/panorama/sidebar-all.html:20
-msgid "Add new panorama"
-msgstr "Añadir un panorama"
+#: panorama/templates/panorama/sidebar-all.html:22
+msgid "New reference point"
+msgstr "Añadir un punto"
 
 #: panorama/templates/panorama/sidebar-all.html:30
+#: panorama/templates/panorama/sidebar-all.html:46
 msgid "Add"
 msgstr "Añadir"
+
+#: panorama/templates/panorama/sidebar-all.html:36
+msgid "New panorama"
+msgstr "Añadir un panorama"
 
 #: panorama/templates/panorama/sidebar-common.html:3
 msgid "Panoramas"
@@ -197,67 +202,67 @@ msgstr "Panoramas"
 msgid "Locate existing point"
 msgstr "Localizar un punto"
 
-#: panorama/templates/panorama/sidebar-locate-point.html:7
+#: panorama/templates/panorama/sidebar-locate-point.html:9
 msgid "Results for the point"
 msgstr "Resultados para el punto"
 
-#: panorama/templates/panorama/sidebar-locate-point.html:9
+#: panorama/templates/panorama/sidebar-locate-point.html:11
 msgid "Results for the searched point"
 msgstr "Resultados para el punto deseado"
 
-#: panorama/templates/panorama/view.html:116
+#: panorama/templates/panorama/view.html:120
 msgid "Parameters"
 msgstr "Parámetro"
 
-#: panorama/templates/panorama/view.html:120
+#: panorama/templates/panorama/view.html:124
 msgid "latitude:"
 msgstr "latitud:"
 
-#: panorama/templates/panorama/view.html:121
+#: panorama/templates/panorama/view.html:125
 msgid "longitude:"
 msgstr "longitud:"
 
-#: panorama/templates/panorama/view.html:122
+#: panorama/templates/panorama/view.html:126
 msgid "altitude:"
 msgstr "altitud:"
 
-#: panorama/templates/panorama/view.html:128
+#: panorama/templates/panorama/view.html:132
 msgid "Controls"
 msgstr "Control"
 
-#: panorama/templates/panorama/view.html:131
+#: panorama/templates/panorama/view.html:135
 msgid "Zoom:"
 msgstr "Zoom:"
 
-#: panorama/templates/panorama/view.html:132
+#: panorama/templates/panorama/view.html:136
 msgid "Bearing:"
 msgstr "Dirección:"
 
-#: panorama/templates/panorama/view.html:133
+#: panorama/templates/panorama/view.html:137
 msgid "Elevation:"
 msgstr "Elevación:"
 
-#: panorama/templates/panorama/view.html:141
+#: panorama/templates/panorama/view.html:145
 msgid "Latitude:"
 msgstr "Latitud:"
 
-#: panorama/templates/panorama/view.html:143
+#: panorama/templates/panorama/view.html:147
 msgid "Longitude:"
 msgstr "Longitud:"
 
-#: panorama/templates/panorama/view.html:145
+#: panorama/templates/panorama/view.html:149
 msgid "Altitude:"
 msgstr "Altitud:"
 
-#: panorama/templates/panorama/view.html:149
-#: panorama/templates/panorama/view.html:179
+#: panorama/templates/panorama/view.html:153
+#: panorama/templates/panorama/view.html:184
 msgid "Delete"
 msgstr "Borrar"
 
-#: panorama/templates/panorama/view.html:178
+#: panorama/templates/panorama/view.html:183
 msgid "Insert"
 msgstr "Insertar"
 
-#: panorama/templates/panorama/view.html:180
+#: panorama/templates/panorama/view.html:185
 msgid "Cancel"
 msgstr "Cancelar"

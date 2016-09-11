@@ -19,7 +19,7 @@
             </ul>
         </li>
         <li>
-            <a id="new-refpoint-btn" href="javascript:;" data-toggle="collapse" data-target="#new-refpoint"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new reference point" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="new-refpoint-btn" href="javascript:;" data-toggle="collapse" data-target="#new-refpoint"><i class="fa fa-fw fa-plus-square"></i> {% trans "New reference point" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="new-refpoint" class="sidebarform collapse">
                 <li>
                     <form action="{% url 'panorama:new_refpoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
@@ -33,7 +33,7 @@
             </ul>
         </li>
         <li>
-            <a id="new-pano-btn" href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "Add new panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
+            <a id="new-pano-btn" href="javascript:;" data-toggle="collapse" data-target="#new-pano"><i class="fa fa-fw fa-plus-square"></i> {% trans "New panorama" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="new-pano" class="sidebarform collapse">
                 <li>
                     <form action="{% url 'panorama:new' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
