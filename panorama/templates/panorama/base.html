@@ -42,7 +42,23 @@
                 {% endblock top-menu-pano-items %}
             </ul>
             <ul class="nav navbar-right top-nav">
-
+              <li>
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                  <input name="next" type="hidden" value="{{ redirect_to }}" />
+                  <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% with "fr en es" as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES.split as languages %}
+                    {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                      {{ language.name_local }} ({{ language.code }})
+                    </option>
+                    {% endfor %}
+                    {% endwith %}
+                  </select>
+                  <input type="submit" value="Go" />
+                </form>
+              </li>
                 <li>
                     <a href="/admin"><i class="fa fa-pencil-square-o"></i>  {% trans "Admin" %}</a>
                 </li>

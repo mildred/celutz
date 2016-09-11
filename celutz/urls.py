@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('panorama.urls', namespace="panorama")),
     url(r'^api/v1/', include('api.urls')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 # In debug mode, serve tiles
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
