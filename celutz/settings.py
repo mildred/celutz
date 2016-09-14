@@ -93,6 +93,12 @@ DATABASES = {
 
 LANGUAGE_CODE = 'fr'
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'French'),
+    ('es', 'Spanish'),
+]
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
