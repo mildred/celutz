@@ -347,33 +347,27 @@ select {
     height: 260px;
     overflow: scroll;
     overflow-x: hidden;
-    border-bottom: 2px solid #ae3a3a;
+    z-index : 1;
+    margin-bottom: 0px;
 }
-#panos:after,
-#panos:before {
-	top: 99.5%;
-	left: 80%;
-	border: 1px solid #666;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-        pointer-events: none;
-
+.panosmore {
+  height: 18px;
+  width:100%;
+  margin-top: 242px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  border-bottom: 1px dashed #ae3a3a;
 }
-#panos:after {
-	border-color: rgba(34, 34, 34, 0);
-	border-top-color: #222;
-	border-width: 8px;
-	margin-left: -8px;
-
+.panosmore svg {
+  height:18px;
+  width:100%;
+  padding-left: 40%;
 }
-#panos:before {
-	border-color: rgba(102, 102, 102, 0);
-	border-top-color: #ae3a3a;
-	border-width: 11px;
-	margin-left: -11px;
-
+.panomoretext {
+  font-family: "FontAwesome";
+  color: #ae3a3a;
+  font-size:19px;
 }
 #panos::-webkit-scrollbar,
 #panos .side-nav::-webkit-scrollbar {
@@ -428,4 +422,6 @@ select {
     border-right:2px;
     border-left:2px;
 }
-
+.navbar-nav li {
+    max-width: 100%;
+}

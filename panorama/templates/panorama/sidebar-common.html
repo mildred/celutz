@@ -1,11 +1,23 @@
 {% load i18n %}
+{% load staticfiles %}
         <li>
             <a id="pano-list-btn" href="javascript:;" data-toggle="collapse" data-target="#panos"><i class="fa fa-fw fa-image"></i> {% trans "Panoramas" %}<i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="panos" class="collapse">
+              <div class="panosmore" >
+                  <svg>
+                      <foreignobject x="0" y="0" width="200" height="30">
+                       <p class="panomoretext">&#xf06e;</p>
+                      </foreignobject>
+                      <!--
+                      <polygon points="8 10,0 0,16 0" stroke="#ae3a3a" fill="#ae3a3a" >
+                      -->
+                  </svg> 
+              </div>
               {% for pano in panoramas %}
               <li><a href="{% url 'panorama:view_pano' pano.id %}"><i class="fa fa-fw fa-eye"></i> {{ pano.name }}</a></li>
               {% endfor %}
             </ul>
+
         </li>
         <li>
             <a id="locate-existing-btn" href="javascript:;" data-toggle="collapse" data-target="#locate-existing"><i class="fa fa-fw fa-circle-thin"></i> {% trans "Locate existing point" %}<i class="fa fa-fw fa-caret-down"></i></a>
