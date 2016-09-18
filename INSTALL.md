@@ -89,6 +89,13 @@ You probably also need to configure your webserver to allow to send very large
 files in a POST request.  An upper limit of 200 MB should be enough, even for
 very large pictures in raw format.
 
+Updating a production installation
+----------------------------------
+
+There is a script, `update_prod.sh`, that handles updating an existing
+production installation.  It install new dependencies and collect static
+files.
+
 Tile generation
 ---------------
 
