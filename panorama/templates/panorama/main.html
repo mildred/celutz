@@ -4,6 +4,7 @@
 {% load distance_filter %}
 {% load i18n %}
 {% load l10n %}
+{% load utils %}
 
 {% block title %}{% trans "Celutz, a panorama viewer"%}{% endblock title %}
 
@@ -145,7 +146,9 @@
                 popup.on('mouseover', marker.openPopup);
                 popup.on('mouseout', marker.closePopup);
                 markerClusters.addLayer( marker );
-                allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
+                if ( {{ pano.latitude }} > {% get_setting 'MAP_MIN_LAT' %} && {{ pano.latitude }} < {% get_setting 'MAP_MAX_LAT' %} && {{ pano.longitude }} > {% get_setting 'MAP_MIN_LONG' %} && {{ pano.longitude }} < {% get_setting 'MAP_MAX_LONG' %} ) {
+                    allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
+                }
             {% endfor %}
             map.addLayer( markerClusters );
             // Add POI
