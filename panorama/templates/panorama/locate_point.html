@@ -83,6 +83,8 @@ style="padding:0px;height:calc(100vh - 50px)"
     maxClusterRadius: 20
     });
     var allMarkers = [[{{ located_point_lat }}, {{ located_point_lon }}]];
+    // Legend
+    var legend = L.control({position: 'bottomright'});
 
     function accordionMenus() {
         $("ul.side-nav").children().click(function(e) {
@@ -135,8 +137,20 @@ style="padding:0px;height:calc(100vh - 50px)"
             L.polyline([[{{ located_point_lat }}, {{ located_point_lon }}],[{{ panorama.latitude }}, {{ panorama.longitude }}]], {color: '#2636ca', opacity: 0.8, weight: 2, dashArray: "5, 6"}).addTo(map);
             allMarkers.push([{{ panorama.latitude }}, {{ panorama.longitude }}]);
         {% endfor %}
+
+        // Add a legend to the map
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += '<div class="legendtitle"><p><i class="fa fa-fw fa-caret-down"></i>{% trans "Legend" %}</p></div>';
+            div.innerHTML += '<img src={% static "panorama/img/marker-red.png" %} ><p>{% trans "Panorama" %}</p></br>';
+            div.innerHTML += '<img src={% static "panorama/img/marker-deep-blue.png" %} ><p>{% trans "Localized point" %}</p></br>';
+            return div;
+        };
+
         map.addLayer( markerClusters );
         map.fitBounds(allMarkers,{padding: [30, 30]});
+        legend.addTo(map);
+
     }
     initmap();
     accordionMenus(); 

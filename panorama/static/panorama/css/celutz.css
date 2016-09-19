@@ -425,3 +425,36 @@ select {
 .navbar-nav li {
     max-width: 100%;
 }
+.legend {
+    background:rgba(34,34,34,0.7);
+    color:#fff;
+    font-size:13px;
+    line-height:24px;
+    border-radius:5px;
+    padding: 5px 5px;
+    line-height: 1.4;
+    position:relative;
+    max-height: 30px;
+    transition: max-height 1.5s;
+    -webkit-transition: max-height 1.5s;
+    -moz-transition: max-height 1.5s;
+    overflow:hidden;
+}
+.legend:hover {
+    max-height: 500px;
+}
+.legend p {
+    display:inline-block;
+    margin-left:5px;
+}
+.legend img {
+    width:15px;
+}
+.legendtitle {
+    width: 100%;
+    font-weight:bold;
+}
+.legendtitle i {
+    display: inline;
+    margin-right: 10px;
+}
