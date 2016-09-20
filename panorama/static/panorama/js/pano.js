@@ -1243,7 +1243,6 @@ function load_map(){
 
 
 	L.marker([panorama_lat, panorama_lng]).addTo(map);
-        map.fitBounds(allMarkers,{padding: [30, 30]});
 
     map.on('click', function(e) { 
         /* Compute the new cap to show given the clic lat/lng */

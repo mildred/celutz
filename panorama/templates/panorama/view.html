@@ -62,7 +62,6 @@
     <script type='text/javascript' src="{% static "panorama/js/jquery-3.0.0.min.js" %}"></script>
     <script type='text/javascript' src="{% static "panorama/js/leaflet.markercluster/0.4.0/leaflet.markercluster.js" %}"></script>
     <script>
-      var allMarkers = []
       var markerClusters = L.markerClusterGroup({
           spiderfyOnMaxZoom: false,
           showCoverageOnHover: false,
@@ -91,7 +90,6 @@
               popup.on('mouseout', marker.closePopup);
               markerClusters.addLayer( marker );
           {% endif %}
-          allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
       {% endfor %}
 
       var pointsOfInterest = L.layerGroup();
