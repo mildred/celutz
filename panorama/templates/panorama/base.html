@@ -46,6 +46,10 @@
             </ul>
             <ul class="nav navbar-right top-nav">
                 <li>
+                    <input type="text" name="search" id="search" placeholder="22 rue des violettes, grenoble" class="form-control" />
+                    <span id="search-btn" class="btn btn-primary btn-sm" data-loading-text="..."><i class="fa fa-search"></i></span>
+                </li>
+                <li>
                     <a href="/admin"><i class="fa fa-pencil-square-o"></i>  {% trans "Admin" %}</a>
                 </li>
                 <li class="dropdown langue">
@@ -81,6 +85,20 @@
         {% block content %}{% endblock content %}
         </div>
     </div>
+<!-- MODAL -->
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Resultats" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+            <h4 class="modal-title" id="myModalLabel">Résultats</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- enmodal -->
     {% block js %}
     {% endblock js %}
 

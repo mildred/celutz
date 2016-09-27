@@ -458,3 +458,10 @@ select {
     display: inline;
     margin-right: 10px;
 }
+#search {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-bottom:9px;
+    margin-top:9px;
+}
