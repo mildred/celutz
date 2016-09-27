@@ -465,3 +465,6 @@ select {
     margin-bottom:9px;
     margin-top:9px;
 }
+.search-btn {
+    border: none; !important
+}

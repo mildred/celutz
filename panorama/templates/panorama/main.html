@@ -13,6 +13,19 @@
 {% endblock %}
 
 {% block top-menu-items %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i>  {% trans "Search" %}<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li>
+                <div style="display:table;" class="input-group">
+                    <input type="text" name="search" id="search" placeholder={% trans "Enter an address" %} class="form-control" />
+                    <span class="input-group-btn">
+                        <span type="button" id="search-btn" class="btn btn-primary search-btn" data-loading-text="..."><i class="fa fa-search"></i></span>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </li>
 {% endblock %}
 
 {% block sidebar %}
@@ -32,6 +45,18 @@
 
 {% block content %}
     <div id="map"></div>
+    <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Resultats" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+            <h4 class="modal-title" id="myModalLabel">Résultats</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock content %}
 
 {% block css %}
@@ -222,4 +247,5 @@
         accordionMenus(); 
     </script>
 {% endlocalize %}
+
 {% endblock js %}
