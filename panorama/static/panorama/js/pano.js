@@ -1254,13 +1254,22 @@ function load_map(){
         var a = Math.acos( Math.cos(lat_ref) * Math.cos(phi - phi_ref) * Math.cos(lat) + Math.sin(lat_ref) * Math.sin(lat) );
         // azimuth between the ref_point and the clic_point (=new cap)
         var B = Math.asin( Math.sin(phi - phi_ref) * Math.sin(Math.PI/2 - lat)/Math.sin(a));
-        // little hack because asin give an angle in [-pi/2, pi/2] 
+        // little hack because asin give an angle in [-pi/2, pi/2] and we want
+        // in [0 360]
         if (lat>lat_ref){   
             var newCap = toDeg(B);
         } else {
             var newCap = toDeg(Math.PI-B);
         }
-
+        if (newCap < 0 ){
+            newCap += 360;
+        }
+        // cap_min < cap < cap_max
+        if (newCap < image_cap_min){
+            newCap = image_cap_min;
+        } else if (newCap > image_cap_max){
+            newCap = image_cap_max;
+        }
         // change the cap
         angle_control = document.getElementById('angle_ctrl');
         angle_control.value = newCap;
