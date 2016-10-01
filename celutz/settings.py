@@ -130,11 +130,14 @@ PANORAMA_TILES_DIR = "tiles"
 # (in meters)
 PANORAMA_MAX_DISTANCE = 50000
 
-# Max and min latitudes and longitudes for the default main map view
-MAP_MIN_LAT = 45.17
-MAP_MAX_LAT = 45.20
-MAP_MIN_LONG = 5.68
-MAP_MAX_LONG = 5.77
+# Map bounds (in degrees) for the main view.
+# If not defined, all points are used to fit the view.
+#MAP_BOUNDS = {
+#  "min_lat": 45.17,
+#  "max_lat": 45.20,
+#  "min_lon": 5.68,
+#  "max_lon": 5.77,
+#}
 
 # Celery configuration
 BROKER_URL = 'django://'

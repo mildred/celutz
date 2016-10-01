@@ -168,7 +168,19 @@
                 }); 
             });
         }
- 
+
+        function isInMapBounds(item, index, array) {
+            {% get_setting 'MAP_BOUNDS' as bounds %}
+            {% if bounds %}
+            return (item[0] > {{ bounds.min_lat }})
+                && (item[0] < {{ bounds.max_lat }})
+                && (item[1] > {{ bounds.min_lon }})
+                && (item[1] < {{ bounds.max_lon }});
+            {% else %}
+            return true;
+            {% endif %}
+        }
+
         function initmap() {
             // set up the map
             map = new L.Map('map');
@@ -212,10 +224,10 @@
                 popup.on('mouseover', marker.openPopup);
                 popup.on('mouseout', marker.closePopup);
                 markerClusters.addLayer( marker );
-                if ( {{ pano.latitude }} > {% get_setting 'MAP_MIN_LAT' %} && {{ pano.latitude }} < {% get_setting 'MAP_MAX_LAT' %} && {{ pano.longitude }} > {% get_setting 'MAP_MIN_LONG' %} && {{ pano.longitude }} < {% get_setting 'MAP_MAX_LONG' %} ) {
-                    allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
-                }
+                allMarkers.push([{{ pano.latitude }}, {{ pano.longitude }}]);
             {% endfor %}
+            // Filter to only take points inside the bounds (for fitting the view)
+            fittingMarkers = allMarkers.filter(isInMapBounds);
             map.addLayer( markerClusters );
             // Add POI
             var pointsOfInterest = L.layerGroup();
@@ -237,7 +249,7 @@
                 return div;
             };
             map.addLayer(pointsOfInterest);
-            map.fitBounds(allMarkers,{padding: [30, 30]});
+            map.fitBounds(fittingMarkers,{padding: [30, 30]});
             legend.addTo(map);
 
 
