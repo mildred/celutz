@@ -719,6 +719,7 @@ function change_zoom(shx, shy) {
 	    zoom_control.value = zm.value;
 	}
     }
+    update_map();
 }
 
 function change_angle() {
@@ -1264,6 +1265,7 @@ function load_map(){
         if (newCap < 0 ){
             newCap += 360;
         }
+
         // cap_min < cap < cap_max
         if (newCap < image_cap_min){
             newCap = image_cap_min;
