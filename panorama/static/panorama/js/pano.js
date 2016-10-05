@@ -339,25 +339,25 @@ function onImageClick(e) {
     hide_contextmenu();
     var index = {};
     if (e.touches && e.touches.length == 2) {
-	e.preventDefault();
-	fingr = Math.sqrt((e.touches[0].clientX - e.touches[1].clientX)^2 +
-			  (e.touches[0].clientY - e.touches[1].clientY)^2);
+        e.preventDefault();
+        fingr = Math.sqrt((e.touches[0].clientX - e.touches[1].clientX)^2 +
+                  (e.touches[0].clientY - e.touches[1].clientY)^2);
     } else {
-	if (e.touches) {
-	    e.preventDefault();
-	    index.x = e.changedTouches[0].clientX;
-	    index.y = e.changedTouches[0].clientY;
-	} else {
-	    index.x = e.pageX;
-	    index.y = e.pageY;
-	}
+        if (e.touches) {
+            e.preventDefault();
+            index.x = e.changedTouches[0].clientX;
+            index.y = e.changedTouches[0].clientY;
+        } else {
+            index.x = e.pageX;
+            index.y = e.pageY;
+        }
 
-	shift.x = last.x;
-	shift.y = last.y;
-	speed.x = 0;
-	speed.y = 0;
-	mouse.x = index.x;
-	mouse.y = index.y;
+        shift.x = last.x;
+        shift.y = last.y;
+        speed.x = 0;
+        speed.y = 0;
+        mouse.x = index.x;
+        mouse.y = index.y;
     }
     clearTimeout(tmt);  //arrêt de l'éffet eventuel d'amorti en cours.
     canvas.addEventListener('mousemove', stickImage, false);
@@ -375,28 +375,28 @@ function onImageClick(e) {
 function stickImage(e) {
     var index = {};
     if (e.changedTouches && e.changedTouches.length == 2) {
-	e.preventDefault();
-	// cas du zoom à 2 doigts
-	var nfingr = Math.sqrt((e.changedTouches[0].clientX - e.changedTouches[1].clientX)^2 +
-			       (e.changedTouches[0].clientY - e.changedTouches[1].clientY)^2);
-	var evt = {}
-	evt.pageX = (e.changedTouches[0].clientX + e.changedTouches[1].clientX)/2;
-	evt.pageY = (e.changedTouches[0].clientY + e.changedTouches[1].clientY)/2;
-	if (fingr > nfingr*2 || fingr < nfingr/2) {
-	    evt.wheelDelta = fingr - nfingr;
-	    fingr = nfingr;
-	    return wheel_zoom(evt);
-	} else {
-	    return;
-	}
+        e.preventDefault();
+        // cas du zoom à 2 doigts
+        var nfingr = Math.sqrt((e.changedTouches[0].clientX - e.changedTouches[1].clientX)^2 +
+                       (e.changedTouches[0].clientY - e.changedTouches[1].clientY)^2);
+        var evt = {}
+        evt.pageX = (e.changedTouches[0].clientX + e.changedTouches[1].clientX)/2;
+        evt.pageY = (e.changedTouches[0].clientY + e.changedTouches[1].clientY)/2;
+        if (fingr > nfingr*2 || fingr < nfingr/2) {
+            evt.wheelDelta = fingr - nfingr;
+            fingr = nfingr;
+            return wheel_zoom(evt);
+        } else {
+            return;
+        }
     }
     if (e.touches) {
-	e.preventDefault();
-	index.x = e.changedTouches[0].clientX;
-	index.y = e.changedTouches[0].clientY;
+        e.preventDefault();
+        index.x = e.changedTouches[0].clientX;
+        index.y = e.changedTouches[0].clientY;
     } else {
-	index.x = e.pageX;
-	index.y = e.pageY;
+        index.x = e.pageX;
+        index.y = e.pageY;
     }
 
     var xs = mouse.x - index.x + shift.x;
@@ -409,12 +409,12 @@ function stickImage(e) {
 function launchImage(e) {
     var index = {};
     if (e.touches) {
-	e.preventDefault();
-	index.x = e.changedTouches[0].clientX;
-	index.y = e.changedTouches[0].clientY;
+        e.preventDefault();
+        index.x = e.changedTouches[0].clientX;
+        index.y = e.changedTouches[0].clientY;
     } else {
-	index.x = e.pageX;
-	index.y = e.pageY;
+        index.x = e.pageX;
+        index.y = e.pageY;
     }
     distort_canvas(0);
     canvas.removeEventListener('mousemove', stickImage, false);
@@ -428,20 +428,20 @@ function launchImage(e) {
 function putImage(x, y) { // est destiné à permettre l'effet d'amortissement par la mémorisation de la position courante.
     if (!zm.is_updated) return;
     if (x >= zm.im.width) {   // rebouclage horizontal
-	shift.x -= zm.im.width;
-	x -= zm.im.width;
+        shift.x -= zm.im.width;
+        x -= zm.im.width;
     } else if (x < 0) {
-	shift.x += zm.im.width;
-	x += zm.im.width;
+        shift.x += zm.im.width;
+        x += zm.im.width;
     }
     if (y >= zm.im.height) {   // pas de rebouclage vertical mais blocage
-	//distort_canvas(1, x, y);
-	shift.y = zm.im.height-1;
-	y = zm.im.height-1;
+	    //distort_canvas(1, x, y);
+	    shift.y = zm.im.height-1;
+	    y = zm.im.height-1;
     } else if (y < 0) {
-	//distort_canvas(-1, x, y);
-	shift.y = 0;
-	y = 0;
+	    //distort_canvas(-1, x, y);
+	    shift.y = 0;
+	    y = 0;
     }
 
     last.x = x;
@@ -453,12 +453,11 @@ function inertialImage() {
     speed.x *= 0.9;
     speed.y *= 0.9;
     if (Math.abs(speed.x) > 2 || Math.abs(speed.y) > 2) {
-	putImage(last.x+speed.x, last.y+speed.y);
-	tmt = setTimeout(inertialImage, 100);
+	    putImage(last.x+speed.x, last.y+speed.y);
+	    tmt = setTimeout(inertialImage, 100);
     } else {
-	show_links();
+	    show_links();
     }
-    update_map();
 }
 
 function tri_ref_points(v1, v2) {
