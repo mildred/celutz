@@ -144,6 +144,9 @@ function draw_image(ox, oy) {
     angle_control.value = cap_ele.cap.toFixed(2);
     elvtn_control.value = cap_ele.ele.toFixed(2);
     update_url();
+    // draw minimap
+    if (map_never_drawn) { load_map() }
+    update_map();
 }
 
 function draw_tile_del(ref, idx, tx, ty, ox, oy, twidth, theight) {
@@ -330,8 +333,6 @@ function keys(key) {
     //    alert(key.which)
         break;
     }
-    // Always update map when a key is pressed
-    update_map();
 
 }
 
@@ -718,7 +719,6 @@ function change_zoom(shx, shy) {
             zoom_control.value = zm.value;
         }
     }
-    update_map();
 }
 
 function change_angle() {
@@ -926,7 +926,6 @@ canvas_set_size = function() {
 canvas_resize = function() {
     canvas_set_size();
     putImage(last.x, last.y);
-    update_map();
 }
 
 function paramIn(e) {
@@ -1038,7 +1037,6 @@ function load_pano() {
     angle_control = document.getElementById("angle_ctrl");
     angle_control.value = initial_orientation.cap;
     angle_control.addEventListener('change', change_angle, false);
-    angle_control.addEventListener('change', update_map, false);
     angle_control.addEventListener('onclick', change_angle, false);
     elvtn_control = document.getElementById("elvtn_ctrl");
     elvtn_control.value = initial_orientation.elevation;
@@ -1063,12 +1061,7 @@ function load_pano() {
     document.addEventListener('keydown', keys, false);
     canvas.addEventListener('mousewheel', wheel_zoom, false);
     canvas.addEventListener('DOMMouseScroll', wheel_zoom, false);
-    //map events
-    canvas.addEventListener('mousewheel', update_map, false);
-    canvas.addEventListener('DOMMouseScroll', update_map, false);
-    canvas.addEventListener('mousedown', update_map, false);
-    canvas.addEventListener('mouseup', update_map, false);
-    //
+    
     window.onresize = canvas_resize;
     if (adding) {
     document.getElementById("paramFormHide").onclick = hideForm;
@@ -1237,8 +1230,8 @@ function load_map(){
     var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
     var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
     map.addLayer(osm);
-        map.addLayer( markerClusters );
-        map.addLayer(pointsOfInterest);
+    map.addLayer( markerClusters );
+    map.addLayer(pointsOfInterest);
 
 
     L.marker([panorama_lat, panorama_lng]).addTo(map);
@@ -1275,11 +1268,8 @@ function load_map(){
         angle_control.value = newCap;
         
         // update the panorama & minimap
-        change_angle(); // update panorama
-        update_map(); // update minimap
+        change_angle(); // update panorama & minimap
     });
-    update_map();
-
 };
 
 function update_map(){

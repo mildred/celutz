@@ -36,7 +36,6 @@
       var csrf_token = "{{ csrf_token }}";
     </script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
-    <script>window.onload = load_pano</script>
     <script>
       {% for zoom_level, data in panorama.tiles_data.items %}
       zooms[{{ zoom_level }}] = new tzoom({{ zoom_level }});
@@ -101,9 +100,10 @@
           poiPopup.on('mouseout', marker.closePopup);
           pointsOfInterest.addLayer(marker);
       {% endfor %}
-
-      $( document ).ready(load_map);
-
+    </script>
+    <script>
+        // need to be after the initialization of the leaflet variables.
+        window.onload = load_pano
     </script>
 {% endlocalize %}
 {% endblock js %}
