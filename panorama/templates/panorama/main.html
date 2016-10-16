@@ -251,9 +251,19 @@
             map.addLayer(pointsOfInterest);
             map.fitBounds(fittingMarkers,{padding: [30, 30]});
             legend.addTo(map);
+        }
 
-
+        // Submit on enter keypress for the search module
+        $('#search').keypress(function(e){
+            if(e.which == 13) {
+                document.getElementById("search-btn").click();
             }
+        });
+        // Put cursor on the search field for dropdown search module
+        $('#search-menu').click(function () {
+            setTimeout(function(){$('#search').focus();},0);
+        });
+
         initmap();
 
         accordionMenus(); 
