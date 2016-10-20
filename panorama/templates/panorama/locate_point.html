@@ -118,17 +118,6 @@ style="padding:0px;height:calc(100vh - 50px)"
         located = new L.marker([{{ located_point_lat }}, {{ located_point_lon }}], {icon: locatedIcon});
         located.addTo(map);
 
-        map.on('moveend', function(e) {
-            var lat = map.getCenter().lat;
-            var lng = map.getCenter().lng;
-            $('#id_latitude').val(lat);
-            $('#id_longitude').val(lng);
-            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
-                function(data) {
-                    $('#id_altitude').val(parseInt(data));
-                });
-        });
-
         {% for panorama, distance, bearing, elevation in located_panoramas %}
             var marker = L.marker([{{ panorama.latitude }}, {{ panorama.longitude }}], {icon: panoIcon, riseOnHover: true});
             marker.bindPopup('{{ panorama.name }} ({% trans "at" %} {{ distance|distance }})',{className : 'markerpopup', closeButton: false,}).on('mouseover', marker.openPopup).on('mouseout', marker.closePopup);
