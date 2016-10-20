@@ -48,7 +48,7 @@
                 {% block top-menu-items %}
                 {% endblock top-menu-items %}
                 <li>
-                    <a href="/admin"><i class="fa fa-pencil-square-o"></i>  {% trans "Admin" %}</a>
+                    <a href="{% url 'admin:index' %}"><i class="fa fa-pencil-square-o"></i>  {% trans "Admin" %}</a>
                 </li>
                 <li class="dropdown langue">
                   <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
