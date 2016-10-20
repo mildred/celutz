@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'kombu.transport.django',
     'rest_framework',
     'panorama.apps.PanoramaConfig',
+    'altitude.apps.AltitudeConfig',
     'api'
 )
 
@@ -118,6 +119,8 @@ STATIC_URL = '/static/'
 # Is it required to login to use celutz?
 LOGIN_REQUIRED = False
 
+
+GEONAMES_ASTERGDEM = "http://api.geonames.org/astergdem?lat={lat}&lng={lon}&username=celutz&style=full"
 
 # For uploaded panorama
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -124,7 +124,7 @@
             $('#id_custompoint-longitude').val(lng);
             $('#id_newpano-longitude').val(lng);
             $('#id_newrefpoint-longitude').val(lng);
-            $.get("http://api.geonames.org/astergdem?lat="+lat+"&lng="+lng+"&username=celutz&style=full" ).done(
+            $.get("/altitude/" + lat + "/" + lng + "/").done(
                 function(data) {
                     $('#id_custompoint-altitude').val(parseInt(data));
                     $('#id_newpano-altitude').val(parseInt(data));
