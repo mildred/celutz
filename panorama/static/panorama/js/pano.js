@@ -144,9 +144,20 @@ function draw_image(ox, oy) {
     angle_control.value = cap_ele.cap.toFixed(2);
     elvtn_control.value = cap_ele.ele.toFixed(2);
     update_url();
+
     // draw minimap
-    if (map_never_drawn) { load_map() }
-    update_map();
+    if (Object.keys(ref_points).length>1){
+        // Draw the mijimap only if there are at least 2 reference points (so the size is known)
+        if (typeof panorama_lat !== 'undefined') {
+            if (map_never_drawn ) { load_map() }
+            update_map();
+        } else {
+            // hack: It updates well when the 2nd points is pointed, but the map
+            // failed to load due to the missing JS variables linked to the panorama
+            // (head of view.html), so reload the page first.
+            location.reload(); 
+        };
+    }
 }
 
 function draw_tile_del(ref, idx, tx, ty, ox, oy, twidth, theight) {
