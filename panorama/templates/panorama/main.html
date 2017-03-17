@@ -116,8 +116,10 @@
             });
         }
         function fillCoord() {
-            var lat = map.getCenter().lat.toFixed(5);
-            var lng = map.getCenter().lng.toFixed(5);
+            //var lat = map.getCenter().lat.toFixed(5);
+            //var lng = map.getCenter().lng.toFixed(5);
+            var lat = crosshair.getLatLng().lat.toFixed(5);
+            var lng = crosshair.getLatLng().lng.toFixed(5);
             $('#id_custompoint-latitude').val(lat);
             $('#id_newpano-latitude').val(lat);
             $('#id_newrefpoint-latitude').val(lat);
@@ -195,7 +197,7 @@
             map.addLayer(osm);
     
             // Add in a crosshair for the map
-            crosshair = new L.marker(map.getCenter(), {clickable:false,icon:crosshairIcon});
+            crosshair = new L.marker(map.getCenter(),{icon:crosshairIcon,draggable:true});
             crosshair.addTo(map);
     
             // Move the crosshair to the center of the map when the user pans
@@ -205,6 +207,11 @@
     
             // Autofill forms while moving crosshair and expanding menus
             map.on('moveend', function(e) {
+                if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
+                    fillCoord();
+                }
+            });
+            crosshair.on('moveend', function(e) {
                 if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
                     fillCoord();
                 }
