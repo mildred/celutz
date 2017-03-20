@@ -199,18 +199,29 @@
             // Add in a crosshair for the map
             crosshair = new L.marker(map.getCenter(),{icon:crosshairIcon,draggable:true});
             crosshair.addTo(map);
-    
-            // Move the crosshair to the center of the map when the user pans
-            map.on('move', function(e) {
-                crosshair.setLatLng(map.getCenter());
+
+            // Change crosshair lat/lon when click on the map
+            map.on('click', function(e) {
+                crosshair.setLatLng(e.latlng)
+                if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
+                    fillCoord();
+                }
+
             });
     
+            // Move the crosshair to the center of the map when the user pans
+            /*map.on('move', function(e) {
+                crosshair.setLatLng(map.getCenter());
+            });
+            
             // Autofill forms while moving crosshair and expanding menus
             map.on('moveend', function(e) {
                 if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
                     fillCoord();
                 }
             });
+            */
+            // Autofill forms while moving crosshair and expanding menus
             crosshair.on('moveend', function(e) {
                 if ($("#locate-gps,#new-pano,#new-refpoint").hasClass("collapse in")){
                     fillCoord();
