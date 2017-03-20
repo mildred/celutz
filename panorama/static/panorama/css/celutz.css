@@ -281,6 +281,22 @@ fieldset#adding {
     margin: 2px;
     right: 0;
 }
+/* Expand button of the minimap on the panorama view*/
+#expandmap {
+    background-color: #fff; 
+    position: absolute;
+    bottom: 266px;
+    right: 12px;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    font-size: 18px;
+    text-indent: 1px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1;
+}
 
 /* menu items on pano viewer */
 @media (min-width: 768px) {
