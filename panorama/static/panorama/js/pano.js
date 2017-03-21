@@ -1281,6 +1281,7 @@ function load_map(){
         // update the panorama & minimap
         change_angle(); // update panorama & minimap
     });
+    hide_map()
 };
 
 function update_map(){
@@ -1304,3 +1305,21 @@ function update_map(){
     viewDirection.addTo(map);
 
 }
+
+function hide_map(){
+    /* Hide or show the map on panorama view
+    */
+    var map = $('#mapid')
+    $('#expandmap').click(function() {
+        if(map.css('visibility')=='visible'){
+            map.css('visibility','hidden');
+            $('#expandmap').css({'bottom': '12px','right':'12px'})
+            $('#expandmap').attr('class', 'fa fa-expand');
+        } else {
+            map.css('visibility','visible');
+            $('#expandmap').css({'bottom':'266px','right':'12px'})
+            $('#expandmap').attr('class', 'fa fa-compress');
+        }
+    });
+
+ }
