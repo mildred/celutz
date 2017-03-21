@@ -157,6 +157,10 @@ function draw_image(ox, oy) {
             // (head of view.html), so reload the page first.
             location.reload(); 
         };
+        $('#expandmap').css({'visibility': 'visible'})
+    } else {
+        // remove the expandmap button
+        $('#expandmap').css({'visibility': 'hidden'})
     }
 }
 
@@ -1250,30 +1254,42 @@ function load_map(){
     map.on('click', function(e) { 
         /* Compute the new cap to show given the clic lat/lng */
         var lat = toRad(e.latlng.lat); // latitude
-        var phi = toRad(e.latlng.lng); // longitude
+        var lng = toRad(e.latlng.lng); // longitude
         var lat_ref = toRad(panorama_lat);
-        var phi_ref = toRad(panorama_lng);
+        var lng_ref = toRad(panorama_lng);
         // angle between the ref_point and the clic_point
-        var a = Math.acos( Math.cos(lat_ref) * Math.cos(phi - phi_ref) * Math.cos(lat) + Math.sin(lat_ref) * Math.sin(lat) );
-        // azimuth between the ref_point and the clic_point (=new cap)
-        var B = Math.asin( Math.sin(phi - phi_ref) * Math.sin(Math.PI/2 - lat)/Math.sin(a));
-        // little hack because asin give an angle in [-pi/2, pi/2] and we want
-        // in [0 360]
-        if (lat>lat_ref){   
-            var newCap = toDeg(B);
-        } else {
-            var newCap = toDeg(Math.PI-B);
-        }
+        var y = Math.sin(lng-lng_ref) * Math.cos(lat);
+        var x = Math.cos(lat_ref)*Math.sin(lat) -
+                    Math.sin(lat_ref)*Math.cos(lat)*Math.cos(lng-lng_ref);
+        var brng = Math.atan2(y, x);
+        var brng = toDeg(brng)
+
+        var newCap = brng
+        // The cap is between -180 and 180, and we want 0 360, so convert
+        // negative value (-180 -> -0 to 180 360).
         if (newCap < 0 ){
-            newCap += 360;
+            newCap = 360 + brng
+        }
+        // Ensure the cap is between cap_min and cap_max
+        // first, let cap_min be 0, 
+        // then, rot the other angles (if it's not a 360 degree)
+        // Here is a hack of the modulus operator for negative value
+        // Last, if the new cap is greater than the max, then set it to the max
+        var rot = image_cap_min
+        var a_min = 0
+        if (image_cap_max != 360) {
+            var a_max = ((image_cap_max - rot) % 360 + 360) % 360
+        }
+        var b = ((newCap - rot) % 360 + 360) % 360
+        if (b > a_max){
+            var meanAngle = a_max+(360-a_max)/2
+            if (b < meanAngle){
+                newCap = image_cap_max;
+            }else{
+                newCap = image_cap_min;
+            }
         }
 
-        // cap_min < cap < cap_max
-        if (newCap < image_cap_min){
-            newCap = image_cap_min;
-        } else if (newCap > image_cap_max){
-            newCap = image_cap_max;
-        }
         // change the cap
         angle_control = document.getElementById('angle_ctrl');
         angle_control.value = newCap;
