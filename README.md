@@ -29,6 +29,8 @@ Features
 Getting started: basic usage of celutz
 --------------------------------------
 
+See also some tips [on FAImaison wiki](https://wiki.faimaison.net/doku.php?id=celutz) (french)
+
 ### Add reference points
 
 If this is a new installation, you first need to add reference points
