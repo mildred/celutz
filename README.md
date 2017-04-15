@@ -42,16 +42,11 @@ recognisable when seen on a picture.
 To add new reference points, go to the Django admin, for instance at
 <http://localhost:8000/admin/panorama/referencepoint>.
 
-You need a name, GPS coordinates, and an altitude.  The altitude is relative to
-the sea level, so you need to figure out the ground altitude and add the height
-of the reference point (e.g. height of the building).
-In the future, the ground altitude will be computed automatically.
-
-In the meantime, you can use the geonames API to get the ground altitude:
-
-    lat=42.4
-    lon=0.54
-    curl "http://api.geonames.org/astergdem?lat=$lat&lng=$lon&username=celutz&style=full"
+You need a name, GPS coordinates, and an altitude. The altitude is relative to
+the sea level. Celutz queries ground elevation
+from [geonames api](http://www.geonames.org/export/web-services.html), you
+still have to add the height of the reference point (e.g. height of the
+building).
 
 *Hint: it is better to set the altitude of the topmost part of a building.
  This is because it will be much easier to aim when viewing a panorama.*
