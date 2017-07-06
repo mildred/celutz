@@ -33,8 +33,8 @@
       };
       var panorama_lat = {{ panorama.latitude }};
       var panorama_lng = {{ panorama.longitude }};
-      var csrf_token = "{{ csrf_token }}";
     </script>
+    <script src="{% static "panorama/js/js.cookie.js" %}"></script>
     <script src="{% static "panorama/js/pano.js" %}"></script>
     <script>
       {% for zoom_level, data in panorama.tiles_data.items %}

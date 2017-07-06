@@ -1,6 +1,8 @@
 if (ref_points == undefined) var ref_points = new Array();
 if (image_loop == undefined) var image_loop = false;
 
+var csrf_token = Cookies.get('csrftoken');
+
 var debug_mode = false;
 var canvas;
 var cntext;

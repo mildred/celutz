@@ -5,7 +5,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, RedirectView, ListView, TemplateView
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Point, Panorama, ReferencePoint
@@ -37,6 +39,7 @@ class PanoramaUpload(CelutzLoginMixin, CreateView):
         return reverse_lazy("panorama:gen_tiles", kwargs={"pk": self.object.id})
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class PanoramaView(CelutzLoginMixin, DetailView):
     model = Panorama
     template_name = "panorama/view.html"
