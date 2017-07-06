@@ -80,7 +80,8 @@ style="padding:0px;height:calc(100vh - 50px)"
     var markerClusters = L.markerClusterGroup({
     spiderfyOnMaxZoom: false,
     showCoverageOnHover: false,
-    maxClusterRadius: 20
+    maxClusterRadius: 20,
+    disableClusteringAtZoom: 19
     });
     var allMarkers = [[{{ located_point_lat }}, {{ located_point_lon }}]];
     // Legend
