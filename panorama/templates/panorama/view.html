@@ -28,8 +28,8 @@
         var image_cap_min = 0;
         var image_cap_max = 360;
       } else {
-        var image_cap_min = {{ panorama.cap_min }};
-        var image_cap_max = {{ panorama.cap_max }};
+        var image_cap_min = {{ panorama.cap_min|default:0 }};
+        var image_cap_max = {{ panorama.cap_max|default:360 }};
       };
       var panorama_lat = {{ panorama.latitude }};
       var panorama_lng = {{ panorama.longitude }};
