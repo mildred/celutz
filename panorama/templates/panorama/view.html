@@ -64,7 +64,8 @@
       var markerClusters = L.markerClusterGroup({
           spiderfyOnMaxZoom: false,
           showCoverageOnHover: false,
-          maxClusterRadius: 20
+          maxClusterRadius: 20,
+          disableClusteringAtZoom: 19
       });
       var panoIcon = L.icon({
           iconUrl: '{% static "panorama/img/marker-red.png" %}',
