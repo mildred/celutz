@@ -108,7 +108,7 @@ style="padding:0px;height:calc(100vh - 50px)"
         // create the tile layer with correct attribution
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
         var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+        var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib, maxZoom: 19});
 
         // start the map on the point
         map.setView(new L.LatLng({{ located_point_lat }}, {{ located_point_lon }}),13);

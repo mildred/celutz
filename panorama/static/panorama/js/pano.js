@@ -1245,7 +1245,7 @@ function load_map(){
     // create the tile layer with correct attribution
     var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-    var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+    var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib, maxZoom: 19});
     map.addLayer(osm);
     map.addLayer( markerClusters );
     map.addLayer(pointsOfInterest);
