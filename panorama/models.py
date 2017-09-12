@@ -315,6 +315,8 @@ class Reference(models.Model):
         # It makes no sense to have multiple references of the same
         # reference point on a given panorama.
         unique_together = (("reference_point", "panorama"),)
+        verbose_name = _("reference")
+        verbose_name_plural = _("references")
 
     def clean(self):
         # Check that the reference point and the panorama are different
@@ -337,7 +339,3 @@ class Reference(models.Model):
                 xy=(self.x, self.y),
                 refpoint=self.reference_point.name,
                 )
-
-    class Meta:
-        verbose_name = _("reference")
-        verbose_name_plural = _("references")
