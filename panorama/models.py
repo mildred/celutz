@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, division, print_function
 
-import subprocess
 import os
 from math import radians, degrees, sin, cos, asin, atan2, sqrt, ceil
 
