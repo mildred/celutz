@@ -35,4 +35,4 @@ class ReferencePointForm(forms.ModelForm):
 
     class Meta:
         model = ReferencePoint
-        fields = ['name', 'latitude', 'longitude', 'altitude']
+        fields = ['name', 'latitude', 'longitude', 'altitude', 'kind']

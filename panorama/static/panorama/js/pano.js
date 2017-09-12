@@ -31,6 +31,9 @@ var point_colors = {
     'pano_point' : '255,128,128', // red
     'ref_point'  : '128,128,255', // blue
     'loc_point'  : '128,255,128', // green
+    'loc_point_other'  : '128,255,128', // green
+    'loc_point_subscriber'  : '255,128,255', // purple
+    'loc_point_waiting'  : '255,196,128', // orange
     'temporary'  : '255,255,128', // yellow
     'unlocated'  : '255,255,255'  // white
 };

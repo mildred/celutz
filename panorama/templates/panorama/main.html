@@ -94,12 +94,27 @@
             iconAnchor: [11, 35],
             popupAnchor: [0,-50]
         });
-        var poiIcon = L.icon({
-            iconUrl: '{% static "panorama/img/marker-circle-green.png" %}',
-            iconSize: [20, 20],
-            iconAnchor: [10, 10],
-            popupAnchor: [0,-20]
-        });
+        var poiIcons = {
+          subscriber: L.icon({
+              iconUrl: '{% static "panorama/img/marker-circle-green.png" %}',
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+              popupAnchor: [0,-20]
+          }),
+          waiting: L.icon({
+              iconUrl: '{% static "panorama/img/marker-circle-orange.png" %}',
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+              popupAnchor: [0,-20]
+          }),
+          other: L.icon({
+              iconUrl: '{% static "panorama/img/marker-circle-purple.png" %}',
+              iconSize: [20, 20],
+              iconAnchor: [10, 10],
+              popupAnchor: [0,-20]
+          }),
+        };
+
         var legend = L.control({position: 'bottomright'});
     
         function accordionMenus() {
@@ -250,9 +265,8 @@
             map.addLayer( markerClusters );
             // Add POI
             var pointsOfInterest = L.layerGroup();
-            var options = {icon: poiIcon, riseOnHover: true};
             {% for poi in poi_list %}
-                var poiMarker = L.marker([{{ poi.latitude }}, {{ poi.longitude }}], options);
+                var poiMarker = L.marker([{{ poi.latitude }}, {{ poi.longitude }}], {icon: poiIcons['{{ poi.kind }}'], riseOnHover: true});
                 var poiPopup = poiMarker.bindPopup('{{ poi.name }}', {className : 'markerpopup', closeButton: false});
                 poiPopup.on('mouseover', poiMarker.openPopup);
                 poiPopup.on('mouseout', poiMarker.closePopup);
@@ -264,7 +278,9 @@
                 div.innerHTML += '<div class="legendtitle"><p><i class="fa fa-fw fa-caret-down"></i>{% trans "Legend" %}</p></div>';
                 div.innerHTML += '<img src={% static "panorama/img/marker-red.png" %} ><p>{% trans "Panorama" %}</p></br>';
                 div.innerHTML += '<img src={% static "panorama/img/marker-blue.png" %} ><p>{% trans "Control" %}</p></br>';
-                div.innerHTML += '<img src={% static "panorama/img/marker-circle-green.png" %} ><p>{% trans "Point of interest" %}</p></br>';
+                div.innerHTML += '<img src={% static "panorama/img/marker-circle-green.png" %} ><p>{% trans "Point of interest (subscriber)" %}</p></br>';
+                div.innerHTML += '<img src={% static "panorama/img/marker-circle-orange.png" %} ><p>{% trans "Point of interest (waiting)" %}</p></br>';
+                div.innerHTML += '<img src={% static "panorama/img/marker-circle-purple.png" %} ><p>{% trans "Point of interest (other)" %}</p></br>';
                 return div;
             };
             map.addLayer(pointsOfInterest);

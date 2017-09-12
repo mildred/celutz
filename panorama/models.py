@@ -107,6 +107,18 @@ class ReferencePoint(Point):
     name = models.CharField(verbose_name=_("name"), max_length=255,
                             help_text=_("Name of the point"))
 
+    KIND_OTHER = 'other'
+    KIND_SUBSCRIBER = 'subscriber'
+    KIND_WAITING = 'waiting'
+    KIND_CHOICES = (
+        (KIND_WAITING, _('waiting')),
+        (KIND_SUBSCRIBER, _('subscriber')),
+        (KIND_OTHER, _('other')),
+    )
+
+    kind = models.CharField(verbose_name=_('kind'), max_length=255,
+                            choices=KIND_CHOICES, default=KIND_WAITING)
+
     def __str__(self):
         return self.name
 
