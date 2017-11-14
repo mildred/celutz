@@ -73,14 +73,27 @@
           iconAnchor: [11, 35],
           popupAnchor: [0,-50]
       });
-      var poiIcon = L.icon({
+      var poiIcons = {
+        subscriber: L.icon({
             iconUrl: '{% static "panorama/img/marker-circle-green.png" %}',
             iconSize: [20, 20],
             iconAnchor: [10, 10],
             popupAnchor: [0,-20]
-      });
+        }),
+        waiting: L.icon({
+            iconUrl: '{% static "panorama/img/marker-circle-orange.png" %}',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0,-20]
+        }),
+        other: L.icon({
+            iconUrl: '{% static "panorama/img/marker-circle-purple.png" %}',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0,-20]
+        }),
+      };
 
-      
       {% for pano in panoramas %}
           {% if panorama.name != pano.name  %}
               var marker = L.marker([{{ pano.latitude }}, {{ pano.longitude }}], {icon: panoIcon, riseOnHover: true});
@@ -93,9 +106,8 @@
       {% endfor %}
 
       var pointsOfInterest = L.layerGroup();
-      var poiOptions = {icon: poiIcon, riseOnHover: true};
       {% for poi in poi_list %}
-          var marker = L.marker([{{ poi.latitude }}, {{ poi.longitude }}], poiOptions);
+          var marker = L.marker([{{ poi.latitude }}, {{ poi.longitude }}], {icon: poiIcons['{{ poi.kind }}'], riseOnHover: true});
           var poiPopup = marker.bindPopup('{{ poi.name }}', {className : 'markerpopup', closeButton: false});
           poiPopup.on('mouseover', marker.openPopup);
           poiPopup.on('mouseout', marker.closePopup);

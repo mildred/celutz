@@ -37,5 +37,5 @@ class PanoramaAdmin(admin.ModelAdmin):
 @admin.register(ReferencePoint)
 class ReferencePointAdmin(admin.ModelAdmin):
     model = ReferencePoint
-    list_display = ('name', 'latitude', 'longitude', 'altitude')
-    fields = ('name', ('latitude', 'longitude'), 'altitude')
+    list_display = ('name', 'latitude', 'longitude', 'altitude', 'kind')
+    fields = ('name', ('latitude', 'longitude'), 'altitude', 'kind')

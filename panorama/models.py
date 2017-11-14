@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, division, print_function
 
-import subprocess
 import os
 from math import radians, degrees, sin, cos, asin, atan2, sqrt, ceil
 
@@ -106,6 +105,18 @@ class ReferencePoint(Point):
     """Reference point, to be used"""
     name = models.CharField(verbose_name=_("name"), max_length=255,
                             help_text=_("Name of the point"))
+
+    KIND_OTHER = 'other'
+    KIND_SUBSCRIBER = 'subscriber'
+    KIND_WAITING = 'waiting'
+    KIND_CHOICES = (
+        (KIND_WAITING, _('waiting')),
+        (KIND_SUBSCRIBER, _('subscriber')),
+        (KIND_OTHER, _('other')),
+    )
+
+    kind = models.CharField(verbose_name=_('kind'), max_length=255,
+                            choices=KIND_CHOICES, default=KIND_WAITING)
 
     def __str__(self):
         return self.name
@@ -304,6 +315,8 @@ class Reference(models.Model):
         # It makes no sense to have multiple references of the same
         # reference point on a given panorama.
         unique_together = (("reference_point", "panorama"),)
+        verbose_name = _("reference")
+        verbose_name_plural = _("references")
 
     def clean(self):
         # Check that the reference point and the panorama are different
@@ -326,7 +339,3 @@ class Reference(models.Model):
                 xy=(self.x, self.y),
                 refpoint=self.reference_point.name,
                 )
-
-    class Meta:
-        verbose_name = _("reference")
-        verbose_name_plural = _("references")
