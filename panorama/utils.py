@@ -51,9 +51,9 @@ else:
             return os.makedirs(name, mode=mode)
         # Emulate exist_ok behaviour
         try:
-            res = os.makedirs(name, mode=mode)
+            return os.makedirs(name, mode=mode)
         except OSError as e:
             if e.errno == os.errno.EEXIST:
-                return res
+                return
             else:
                 raise
