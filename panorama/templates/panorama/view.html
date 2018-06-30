@@ -48,7 +48,7 @@
       {% endfor %}
 
       {% for id, refpoint in panorama.refpoints_data %}
-      point_list[{{ id }}] = new Array("{{ refpoint.name|escapejs }}", {{ refpoint.distance }}, {{ refpoint.cap }}, {{ refpoint.elevation }}, "{{ refpoint.url }}", "/api/v1/refpoints/{{ refpoint.id }}/");
+      point_list[{{ id }}] = new Array("{{ refpoint.name|escapejs }}", {{ refpoint.distance }}, "{{ refpoint.distance|distance|escapejs }}", {{ refpoint.cap }}, {{ refpoint.elevation }}, "{{ refpoint.url }}", "/api/v1/refpoints/{{ refpoint.id }}/");
       {% endfor %}
 
       ref_points = new Array();

@@ -267,7 +267,7 @@ function localate_point() {
 }
 
 function display_temp(d,cap,ele) {
-    point_list[point_list.length] = new Array("point temporaire", d,cap,ele, "temporary");
+    point_list[point_list.length] = new Array("point temporaire", d, d, cap, ele, "temporary");
     reset_zooms();
     putImage(last.x, last.y);
 }
@@ -587,10 +587,11 @@ function tzoom(zv) {
         for (var i=0; i<point_list.length; i++) {
             var lbl = point_list[i][0];
             var dst = point_list[i][1];
-            var cap = point_list[i][2];
-            var ele = point_list[i][3];
-            var lnk = point_list[i][4];
-            var url = point_list[i][5];
+            var dst_human = point_list[i][2];
+            var cap = point_list[i][3];
+            var ele = point_list[i][4];
+            var lnk = point_list[i][5];
+            var url = point_list[i][6];
             var typ = 'unlocated';
             var rxy = this.get_pos_xy(cap, ele);
             var is_visible = (
@@ -621,6 +622,7 @@ function tzoom(zv) {
             this.pt_list[i]['cap'] = cap;
             this.pt_list[i]['ele'] = ele;
             this.pt_list[i]['dist'] = dst;
+            this.pt_list[i]['dist_human'] = dst_human;
             this.pt_list[i]['label'] = lbl;
             this.pt_list[i]['lnk'] = lnk;
             this.pt_list[i]['url'] = url;
@@ -799,11 +801,9 @@ function display_links(e) {
         if (is_located || zm.pt_list[i]['type'] == 'ref_point') {
             if (check_prox(zm.pt_list[i]['xc']-pos_x, zm.pt_list[i]['yc']-pos_y, 20)) {
                 info.innerHTML = zm.pt_list[i]['label'];
-                info.style.opacity = '0.8'
-                info.style.color = 'black'
-                if (zm.pt_list[i]['dist'] < 10) var dst = Math.round(zm.pt_list[i]['dist']*1000)+' m';
-                else var dst = zm.pt_list[i]['dist'].toFixed(1)+' kms';
-                info.innerHTML += '<br/>(' + dst + ')';
+                info.style.opacity = '0.8';
+                info.style.color = 'black';
+                info.innerHTML += '<br/>(' + zm.pt_list[i]['dist_human'] + ')';
                 info.style.backgroundColor = 'rgb('+point_colors[zm.pt_list[i]['type']]+')';
                 canvas.style.cursor='auto';
                 break;

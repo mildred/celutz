@@ -214,7 +214,7 @@ class Panorama(ReferencePoint):
                            "url": get_url(r),
                            "cap": self.bearing(r),
                            "elevation": self.elevation(r),
-                           "distance": self.line_distance(r) / 1000}
+                           "distance": self.line_distance(r)}
                           for r in refpoints])
 
     def references_data(self):
