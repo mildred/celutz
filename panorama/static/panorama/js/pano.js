@@ -891,7 +891,7 @@ function insert_ref_point(el, x, y) {
     }
     }
     if (!found) {
-        alert('unknown ref_point: '+label);
+        alert('unknown ref_point: ' + selected_label);
     }
     
     // Then push the modif
