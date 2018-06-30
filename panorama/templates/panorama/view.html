@@ -189,7 +189,7 @@ style="padding-left:0px"
     <p id="info"></p>
     <p id="insert"><select id="sel_point" name="known_points">
         {% for id, refpoint in panorama.refpoints_data %}
-        <option>{{ refpoint.name }}</option>
+        <option>{{ refpoint.name }} ({{ refpoint.distance|distance }})</option>
         {% endfor %}
       </select>
       <input type="button" id="do-insert" class="btn btn-primary btn-sm" value={% trans "Insert" %} />
