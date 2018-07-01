@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+import altitude.providers
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -119,8 +120,11 @@ STATIC_URL = '/static/'
 # Is it required to login to use celutz?
 LOGIN_REQUIRED = False
 
-
-GEONAMES_ASTERGDEM = "http://api.geonames.org/astergdem?lat={lat}&lng={lon}&username=celutz&style=full"
+# Altitude providers are tried in order until obtaining a result.
+ALTITUDE_PROVIDERS = [altitude.providers.GeoportailProvider,
+                      altitude.providers.GeonamesProvider]
+# Connection timeout for each provider, in seconds
+ALTITUDE_PROVIDER_TIMEOUT = 3.
 
 # For uploaded panorama
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

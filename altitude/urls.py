@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.views.decorators.cache import cache_page
 
-from altitude.views import geonames_altitude
+from altitude.views import get_altitude
 
 urlpatterns = [
-    url(r'^(?P<lat>-?\d+(?:\.\d+)?)/(?P<lon>-?\d+(?:\.\d+)?)/$', cache_page(7*24*60*60)(geonames_altitude)),
+    url(r'^(?P<lat>-?\d+(?:\.\d+)?)/(?P<lon>-?\d+(?:\.\d+)?)/$', cache_page(7*24*60*60)(get_altitude)),
 ]
