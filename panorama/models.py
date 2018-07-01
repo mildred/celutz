@@ -27,9 +27,6 @@ class Point(models.Model):
     longitude = models.FloatField(verbose_name=_("longitude"), help_text=_("In degrees"),
                                  validators=[MinValueValidator(-180),
                                              MaxValueValidator(180)])
-    altitude = models.FloatField(verbose_name=_("altitude"), help_text=_("In meters"),
-                                 validators=[MinValueValidator(0.)])
-
     ground_altitude = models.FloatField(verbose_name=_("altitude at ground level"),
                                         help_text=_("In meters"),
                                         validators=[MinValueValidator(0.)])
