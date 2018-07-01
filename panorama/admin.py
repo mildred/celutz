@@ -22,7 +22,7 @@ class PanoramaAdmin(admin.ModelAdmin):
     inlines = (ReferenceInline, )
     list_display = ('name', 'has_tiles', 'latitude', 'longitude', 'altitude', 'loop')
     fields = ('name', ('image', 'image_width', 'image_height'),
-              'loop', ('latitude', 'longitude'), 'altitude')
+              'loop', ('latitude', 'longitude'), ('ground_altitude', 'height_above_ground'))
     readonly_fields = ('image_width', 'image_height')
     actions = ('regenerate_tiles', )
 
@@ -38,4 +38,4 @@ class PanoramaAdmin(admin.ModelAdmin):
 class ReferencePointAdmin(admin.ModelAdmin):
     model = ReferencePoint
     list_display = ('name', 'latitude', 'longitude', 'altitude', 'kind')
-    fields = ('name', ('latitude', 'longitude'), 'altitude', 'kind')
+    fields = ('name', ('latitude', 'longitude'), ('ground_altitude', 'height_above_ground'), 'kind')

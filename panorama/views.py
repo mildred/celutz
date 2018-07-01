@@ -31,7 +31,7 @@ class CelutzLoginMixin(LoginRequiredMixin):
 
 class PanoramaUpload(CelutzLoginMixin, CreateView):
     model = Panorama
-    fields = ('name', 'image', 'loop', 'latitude', 'longitude', 'altitude')
+    fields = ('name', 'image', 'loop', 'latitude', 'longitude', 'ground_altitude', 'height_above_ground')
     template_name = "panorama/new.html"
     prefix = 'newpano'
 
@@ -94,7 +94,7 @@ class MainView(CelutzLoginMixin, TemplateView):
 
 class CreateReferencePoint(CelutzLoginMixin, CreateView):
     model = ReferencePoint
-    fields = ('name', 'latitude', 'longitude', 'altitude')
+    fields = ('name', 'latitude', 'longitude', 'ground_altitude', 'height_above_ground')
     template_name = 'panorama/new-refpoint.html'
     prefix = 'newrefpoint'
 

@@ -40,7 +40,7 @@ class Command(BaseCommand):
         data = json.load(sys.stdin)
         p = Panorama(name=data["titre"], latitude=float(data["latitude"]),
                      longitude=float(data["longitude"]),
-                     altitude=float(data["altitude"]),
+                     ground_altitude=float(data["altitude"]),
                      loop=data["image_loop"])
         # http://www.revsys.com/blog/2014/dec/03/loading-django-files-from-code/
         with open(args[0], "rb") as f:

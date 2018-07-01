@@ -19,7 +19,7 @@ class CustomPointForm(forms.ModelForm):
 
     class Meta:
         model = Point
-        fields = ['latitude', 'longitude', 'altitude']
+        fields = ['latitude', 'longitude', 'ground_altitude', 'height_above_ground']
 
 class PanoramaForm(forms.ModelForm):
     """Form to insert a new panorama."""
@@ -27,7 +27,7 @@ class PanoramaForm(forms.ModelForm):
 
     class Meta:
         model = Panorama
-        fields = ['name', 'image', 'loop', 'latitude', 'longitude', 'altitude']
+        fields = ['name', 'image', 'loop', 'latitude', 'longitude', 'ground_altitude', 'height_above_ground']
 
 class ReferencePointForm(forms.ModelForm):
     """Form to insert a new reference point"""
@@ -35,4 +35,4 @@ class ReferencePointForm(forms.ModelForm):
 
     class Meta:
         model = ReferencePoint
-        fields = ['name', 'latitude', 'longitude', 'altitude', 'kind']
+        fields = ['name', 'latitude', 'longitude', 'ground_altitude', 'height_above_ground', 'kind']

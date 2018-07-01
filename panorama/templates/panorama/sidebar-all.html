@@ -12,7 +12,8 @@
                     <form action="{% url 'panorama:locate_custompoint' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
                         {{ custom_point_form.latitude.label_tag }}{{ custom_point_form.latitude }}
                         {{ custom_point_form.longitude.label_tag }}{{ custom_point_form.longitude }}
-                        {{ custom_point_form.altitude.label_tag }}{{ custom_point_form.altitude }}
+                        {{ custom_point_form.ground_altitude.label_tag }}{{ custom_point_form.ground_altitude }}
+                        {{ custom_point_form.height_above_ground.label_tag }}{{ custom_point_form.height_above_ground }}
                         <input type="submit" class="btn btn-primary btn-sm" value={% trans "Locate" %} />
                     </form>
                 </li>
@@ -26,7 +27,8 @@
                         {{ newrefpoint_form.name.label_tag }}{{ newrefpoint_form.name }}
                         {{ newrefpoint_form.latitude.label_tag }}{{ newrefpoint_form.latitude }}
                         {{ newrefpoint_form.longitude.label_tag }}{{ newrefpoint_form.longitude }}
-                        {{ newrefpoint_form.altitude.label_tag }}{{ newrefpoint_form.altitude }}
+                        {{ newrefpoint_form.ground_altitude.label_tag }}{{ newrefpoint_form.ground_altitude }}
+                        {{ newrefpoint_form.height_above_ground.label_tag }}{{ newrefpoint_form.height_above_ground }}
                         {{ newrefpoint_form.kind.label_tag }}{{ newrefpoint_form.kind }}
                         <input type="submit" class="btn btn-primary btn-sm" value={% trans "Add" %} />
                     </form>
@@ -43,7 +45,8 @@
                         <label for="{{ newpanorama_form.loop.id_for_label }}">{{ newpanorama_form.loop }} {{ newpanorama_form.loop.label }}</label>
                         {{ newpanorama_form.latitude.label_tag }}{{ newpanorama_form.latitude }}
                         {{ newpanorama_form.longitude.label_tag }}{{ newpanorama_form.longitude }}
-                        {{ newpanorama_form.altitude.label_tag }}{{ newpanorama_form.altitude }}
+                        {{ newpanorama_form.ground_altitude.label_tag }}{{ newpanorama_form.ground_altitude }}
+                        {{ newpanorama_form.height_above_ground.label_tag }}{{ newpanorama_form.height_above_ground }}
                         <input type="submit" class="btn btn-primary btn-sm" value={% trans "Add" %} />
                     </form>
                 </li>

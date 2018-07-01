@@ -30,6 +30,17 @@ class Point(models.Model):
     altitude = models.FloatField(verbose_name=_("altitude"), help_text=_("In meters"),
                                  validators=[MinValueValidator(0.)])
 
+    ground_altitude = models.FloatField(verbose_name=_("altitude at ground level"),
+                                        help_text=_("In meters"),
+                                        validators=[MinValueValidator(0.)])
+    height_above_ground = models.FloatField(verbose_name=_("height above ground"),
+                                            help_text=_("In meters"),
+                                            default=0.)
+
+    @property
+    def altitude(self):
+        return self.ground_altitude + self.height_above_ground
+
     @property
     def latitude_rad(self):
         return radians(self.latitude)
