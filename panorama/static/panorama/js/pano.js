@@ -207,9 +207,13 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
             cntext.fillStyle = 'rgba('+point_colors[zm.pt_list[i]['type']]+',0.5)';
             var cx = nmodulo(zm.pt_list[i]['xc'] - ox, zm.im.width);
             var cy = zm.pt_list[i]['yc'] - oy;
+            var cy_ground = zm.pt_list[i]['yc_ground'] - oy;
             cntext.beginPath();
             cntext.arc(cx, cy, 20, 0, 2*Math.PI, true);
             cntext.fill();
+            // Draw line that shows the height of the building
+            cntext.fillStyle = "rgba(0,0,255,0.6)";
+            cntext.fillRect(cx-1, cy, 2, cy_ground - cy);
         }
     }
     if (twidth) {
@@ -267,7 +271,7 @@ function localate_point() {
 }
 
 function display_temp(d,cap,ele) {
-    point_list[point_list.length] = new Array("point temporaire", d, d, cap, ele, "temporary");
+    point_list[point_list.length] = new Array("point temporaire", d, d, cap, ele, ele, "temporary");
     reset_zooms();
     putImage(last.x, last.y);
 }
@@ -590,10 +594,12 @@ function tzoom(zv) {
             var dst_human = point_list[i][2];
             var cap = point_list[i][3];
             var ele = point_list[i][4];
-            var lnk = point_list[i][5];
-            var url = point_list[i][6];
+            var ele_ground = point_list[i][5];
+            var lnk = point_list[i][6];
+            var url = point_list[i][7];
             var typ = 'unlocated';
             var rxy = this.get_pos_xy(cap, ele);
+            var rxy_ground = this.get_pos_xy(cap, ele_ground);
             var is_visible = (
                 fmodulo(cap - alpha_domain.start, 360) 
                     <= 
@@ -621,6 +627,7 @@ function tzoom(zv) {
             this.pt_list[i]['type'] = typ;
             this.pt_list[i]['cap'] = cap;
             this.pt_list[i]['ele'] = ele;
+            this.pt_list[i]['ele_ground'] = ele_ground;
             this.pt_list[i]['dist'] = dst;
             this.pt_list[i]['dist_human'] = dst_human;
             this.pt_list[i]['label'] = lbl;
@@ -628,6 +635,7 @@ function tzoom(zv) {
             this.pt_list[i]['url'] = url;
             this.pt_list[i]['xc'] = rxy.x;
             this.pt_list[i]['yc'] = Math.floor(this.im.height/2 - rxy.y);
+            this.pt_list[i]['yc_ground'] = Math.floor(this.im.height/2 - rxy_ground.y);
         }
     },
 

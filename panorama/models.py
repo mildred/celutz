@@ -222,6 +222,7 @@ class Panorama(ReferencePoint):
                            "url": get_url(r),
                            "cap": self.bearing(r),
                            "elevation": self.elevation(r),
+                           "elevation_ground": self.elevation(Point(latitude=r.latitude, longitude=r.longitude, ground_altitude=r.ground_altitude, height_above_ground=0)),
                            "distance": self.line_distance(r)}
                           for r in refpoints])
 
