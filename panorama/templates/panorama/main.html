@@ -144,9 +144,9 @@
             $('#id_newrefpoint-longitude').val(lng);
             $.get("/altitude/" + lat + "/" + lng + "/").done(
                 function(data) {
-                    $('#id_custompoint-ground_altitude').val(parseInt(data));
-                    $('#id_newpano-ground_altitude').val(parseInt(data));
-                    $('#id_newrefpoint-ground_altitude').val(parseInt(data));
+                    $('#id_custompoint-ground_altitude').val(parseFloat(data));
+                    $('#id_newpano-ground_altitude').val(parseFloat(data));
+                    $('#id_newrefpoint-ground_altitude').val(parseFloat(data));
                 });
         }
         function SearchPlace() {
