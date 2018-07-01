@@ -24,6 +24,7 @@ class PanoramaAdmin(admin.ModelAdmin):
     fields = ('name', ('image', 'image_width', 'image_height'),
               'loop', ('latitude', 'longitude'), ('ground_altitude', 'height_above_ground'))
     readonly_fields = ('image_width', 'image_height')
+    search_fields = ('name', )
     actions = ('regenerate_tiles', )
 
     def regenerate_tiles(self, request, queryset):
@@ -37,5 +38,7 @@ class PanoramaAdmin(admin.ModelAdmin):
 @admin.register(ReferencePoint)
 class ReferencePointAdmin(admin.ModelAdmin):
     model = ReferencePoint
-    list_display = ('name', 'latitude', 'longitude', 'altitude', 'kind')
+    list_display = ('name', 'latitude', 'longitude', 'height_above_ground', 'altitude', 'kind')
+    list_filter = ('kind', )
     fields = ('name', ('latitude', 'longitude'), ('ground_altitude', 'height_above_ground'), 'kind')
+    search_fields = ('name', )
