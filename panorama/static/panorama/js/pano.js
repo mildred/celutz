@@ -212,8 +212,8 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
             cntext.arc(cx, cy, 20, 0, 2*Math.PI, true);
             cntext.fill();
             // Draw line that shows the height of the building
-            cntext.fillStyle = "rgba(0,0,255,0.6)";
-            cntext.fillRect(cx-1, cy, 2, cy_ground - cy);
+            cntext.fillStyle = "rgba(0,0,255,0.45)";
+            cntext.fillRect(cx-1, cy, 3, cy_ground - cy);
         }
     }
     if (twidth) {
