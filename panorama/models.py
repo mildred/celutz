@@ -102,6 +102,8 @@ class Point(models.Model):
         d = self.line_distance(other)
         sin_elev = (other.altitude_abs ** 2 - self.altitude_abs ** 2 - d ** 2) \
                    / (2 * self.altitude_abs * d)
+        # Ensure the value belongs to [-1, 1], which might not be the case because of float rouding
+        sin_elev = max(min(sin_elev, 1), -1)
         return degrees(asin(sin_elev))
 
     class Meta:
