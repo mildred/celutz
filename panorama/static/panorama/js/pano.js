@@ -213,9 +213,13 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
             cntext.beginPath();
             cntext.arc(cx, cy, circle_size, 0, 2*Math.PI, true);
             cntext.fill();
-            // Draw line that shows the height of the building
-            cntext.fillStyle = "rgba(0,0,255,0.45)";
-            cntext.fillRect(cx-1, cy, 3, cy_ground - cy);
+            // Draw line that shows the height of the building (provided
+            // it's a bit larger than the circle itself, otherwise it does
+            // not look good)
+	    if (cy_ground - cy >= 0.9 * circle_size) {
+		cntext.fillStyle = "rgba(0,0,255,0.45)";
+		cntext.fillRect(cx-1, cy, 3, cy_ground - cy);
+	    }
         }
     }
     if (twidth) {
