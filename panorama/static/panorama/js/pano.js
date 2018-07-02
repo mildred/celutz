@@ -202,14 +202,16 @@ function drawDecorations(ox, oy, tx, ty, twidth, theight) {
     cntext.lineWidth = 2;
     cntext.fillRect(canvas.width/2-line_width/2, 0, line_width, canvas.height);
     cntext.strokeRect(canvas.width/2-line_width, canvas.height/2-line_width, line_width*2, line_width*2);
-    for(var i = 0; i < zm.pt_list.length; i++) {
-        if (zm.pt_list[i]['type'] != 'unlocated') {
-            cntext.fillStyle = 'rgba('+point_colors[zm.pt_list[i]['type']]+',0.5)';
-            var cx = nmodulo(zm.pt_list[i]['xc'] - ox, zm.im.width);
-            var cy = zm.pt_list[i]['yc'] - oy;
-            var cy_ground = zm.pt_list[i]['yc_ground'] - oy;
+    for(var i = 0; i < zm.pt_list_by_dist.length; i++) {
+	var point = zm.pt_list_by_dist[i];
+        if (point['type'] != 'unlocated') {
+            cntext.fillStyle = 'rgba('+point_colors[point['type']]+',0.7)';
+            var cx = nmodulo(point['xc'] - ox, zm.im.width);
+            var cy = point['yc'] - oy;
+            var cy_ground = point['yc_ground'] - oy;
+            var circle_size = get_circle_size(point);
             cntext.beginPath();
-            cntext.arc(cx, cy, 20, 0, 2*Math.PI, true);
+            cntext.arc(cx, cy, circle_size, 0, 2*Math.PI, true);
             cntext.fill();
             // Draw line that shows the height of the building
             cntext.fillStyle = "rgba(0,0,255,0.45)";
@@ -489,6 +491,13 @@ function tri_ref_points(v1, v2) {
     return v1['x'] - v2['x'];
 }
 
+function sort_points_by_distance(p1, p2) {
+    return p1['dist'] - p2['dist'];
+}
+
+function sort_points_by_rev_distance(p1, p2) {
+    return p2['dist'] - p1['dist'];
+}
 
 
 function tzoom(zv) {
@@ -588,6 +597,9 @@ function tzoom(zv) {
         }
 
         this.pt_list = new Array();
+	// List of points, sorted from furthest away to closest.  This is
+	// used to handle overlapping markers.
+        this.pt_list_by_dist = new Array();
         for (var i=0; i<point_list.length; i++) {
             var lbl = point_list[i][0];
             var dst = point_list[i][1];
@@ -637,6 +649,8 @@ function tzoom(zv) {
             this.pt_list[i]['yc'] = Math.floor(this.im.height/2 - rxy.y);
             this.pt_list[i]['yc_ground'] = Math.floor(this.im.height/2 - rxy_ground.y);
         }
+	this.pt_list_by_dist = this.pt_list.slice(0);
+	this.pt_list_by_dist.sort(sort_points_by_rev_distance);
     },
 
     this.get_tile_size = function(nx, ny) {
@@ -693,6 +707,18 @@ function tzoom(zv) {
         return {x:px, y:py};
     }
     }
+}
+
+/*
+  Main ideas:
+  - the circle should look roughly like a ball with a radius of 4 meters
+  - the atan scales its size according to the distance
+  - we use pixel_y_ratio to adapt the size based on the zoom level and the resolution of the image
+  - we bound the size to reasonable values (7 px to 50 px)
+*/
+function get_circle_size(point) {
+    var size = 75 * zm.pixel_y_ratio * Math.atan2(4, point['dist']);
+    return Math.max(Math.min(size, 50), 7);
 }
 
 function reset_zooms () {
@@ -769,10 +795,13 @@ function check_links(e) {
     var mouse_y = e.pageY-canvas_pos.y;
     var pos_x = nmodulo(last.x + mouse_x - canvas.width/2, zm.im.width);
     var pos_y = last.y + mouse_y - canvas.height/2;
-    for(var i = 0; i < zm.pt_list.length; i++) {
-        if (is_located && zm.pt_list[i]['type'] == 'pano_point') {
-            if (check_prox(zm.pt_list[i]['xc']-pos_x, zm.pt_list[i]['yc']-pos_y, 20)) {
-                if (zm.pt_list[i]['lnk'] != '') window.location = zm.pt_list[i]['lnk'];
+    var circle_size;
+    for(var i = 0; i < zm.pt_list_by_dist.length; i++) {
+	var point = zm.pt_list_by_dist[i];
+	circle_size = get_circle_size(point);
+        if (is_located && point['type'] == 'pano_point') {
+            if (check_prox(point['xc']-pos_x, point['yc']-pos_y, circle_size)) {
+                if (point['lnk'] != '') window.location = point['lnk'];
                 break;
             }
         }
@@ -797,6 +826,7 @@ function display_links(e) {
     //var cap = ((pos_x/zm.im.width)*360).toFixed(2);
     var res = zm.get_cap_ele(pos_x, zm.im.height/2 - pos_y);
     //var ele = ((zm.im.height/2 - pos_y)/zm.im.width)*360;
+    var circle_size;
     info.innerHTML = 'élévation : '+res.ele.toFixed(2)+'&#176;<br/>cap : '+res.cap.toFixed(2)+'&#176;';
     info.style.top = index.y+'px';
     info.style.left = index.x+'px';
@@ -805,14 +835,16 @@ function display_links(e) {
     info.style.color = 'white'
     info.style.display = 'block';
     canvas.style.cursor='crosshair';
-    for(var i = 0; i < zm.pt_list.length; i++) {
-        if (is_located || zm.pt_list[i]['type'] == 'ref_point') {
-            if (check_prox(zm.pt_list[i]['xc']-pos_x, zm.pt_list[i]['yc']-pos_y, 20)) {
-                info.innerHTML = zm.pt_list[i]['label'];
+    for(var i = 0; i < zm.pt_list_by_dist.length; i++) {
+	var point = zm.pt_list_by_dist[i];
+	circle_size = get_circle_size(point);
+        if (is_located || point['type'] == 'ref_point') {
+            if (check_prox(point['xc']-pos_x, point['yc']-pos_y, circle_size)) {
+                info.innerHTML = point['label'];
                 info.style.opacity = '0.8';
                 info.style.color = 'black';
-                info.innerHTML += '<br/>(' + zm.pt_list[i]['dist_human'] + ')';
-                info.style.backgroundColor = 'rgb('+point_colors[zm.pt_list[i]['type']]+')';
+                info.innerHTML += '<br/>(' + point['dist_human'] + ')';
+                info.style.backgroundColor = 'rgb('+point_colors[point['type']]+')';
                 canvas.style.cursor='auto';
                 break;
             }
@@ -850,16 +882,19 @@ function manage_ref_points(e) {
 
     var pos_x = nmodulo(last.x + e.pageX - canvas_pos.x - canvas.width/2, zm.im.width);
     var pos_y = last.y + e.pageY - canvas_pos.y - canvas.height/2;
+    var circle_size;
 
     insrt.style.left = e.pageX+'px';
     insrt.style.top = e.pageY+'px';
     insrt.style.display = 'block';
 
     if (do_insert) {// true if there are ref points
-        for(var i = 0; i < zm.pt_list.length; i++) {
-            if (zm.pt_list[i]['type'] == 'ref_point') {
-                if (check_prox(zm.pt_list[i]['xc']-pos_x, zm.pt_list[i]['yc']-pos_y, 20)) {
-                    sel_pt.value = zm.pt_list[i]['label'];
+        for(var i = 0; i < zm.pt_list_by_dist.length; i++) {
+	    var point = zm.pt_list_by_dist[i];
+	    circle_size = get_circle_size(point);
+            if (point['type'] == 'ref_point') {
+                if (check_prox(point['xc']-pos_x, point['yc']-pos_y, circle_size)) {
+                    sel_pt.value = point['label'];
                 }
             }
         }
