@@ -145,3 +145,10 @@ Installing celutz
 -----------------
 
 See `INSTALL.md`.
+
+Advanced usage
+--------------
+
+To create a panorama from the command-line, see:
+
+    ./manage.py create_pano -h
