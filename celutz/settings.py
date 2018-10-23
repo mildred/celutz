@@ -133,9 +133,14 @@ MEDIA_URL = '/media/'
 # Relative to MEDIA_ROOT and MEDIA_URL
 PANORAMA_TILES_DIR = "tiles"
 
-# Max distance around a point at which to consider reference points
+# Maximum distance for reference points to be displayed when viewing a panorama
 # (in meters)
 PANORAMA_MAX_DISTANCE = 50000
+
+# When locating a reference point, only consider panoramas that are closer than
+# this maximum distance, in meters.
+# Cannot be greater than PANORAMA_MAX_DISTANCE.
+LOCATE_POINT_MAX_DISTANCE = 50000
 
 # Map bounds (in degrees) for the main view.
 # If not defined, all points are used to fit the view.
@@ -157,3 +162,5 @@ try:
 except ImportError:
     pass
 
+# Ensure that LOCATE_POINT_MAX_DISTANCE <= PANORAMA_MAX_DISTANCE
+LOCATE_POINT_MAX_DISTANCE = min(LOCATE_POINT_MAX_DISTANCE, PANORAMA_MAX_DISTANCE)

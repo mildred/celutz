@@ -87,7 +87,7 @@ class MainView(CelutzLoginMixin, TemplateView):
         else:
             queryset = Panorama.objects
         l = [(pano, pano.line_distance(point), pano.bearing(point), pano.elevation(point))
-             for pano in queryset.all() if pano.is_visible(point)]
+             for pano in queryset.all() if pano.is_visible(point) and pano.great_circle_distance(point) <= settings.LOCATE_POINT_MAX_DISTANCE]
         # Sort by increasing distance
         return sorted(l, key=lambda x: x[1])
 

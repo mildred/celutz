@@ -48,7 +48,8 @@ There are also celutz-specific settings:
 
 - `LOGIN_REQUIRED`: is celutz public or are users required to login first?
 - `PANORAMA_TILES_DIR`: where the tiles are, relatively to `MEDIA_ROOT` and `MEDIA_URL`
-- `PANORAMA_MAX_DISTANCE`: maximum distance (in meters) after which reference points are considered to be too far away
+- `PANORAMA_MAX_DISTANCE`: maximum distance (in meters) for reference points to be displayed when viewing a panorama
+- `LOCATE_POINT_MAX_DISTANCE`:  when locating a reference point, only consider panoramas that are closer than this maximum distance, in meters.
 - `MAP_BOUNDS`: if defined, limit the view of the main map to the given rectangle.  By default, the view is fitted to display all points.  See `celutz/settings.py` for an example.
 
 Then run the migrations:
