@@ -1,0 +1,218 @@
+[
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Marc",
+            "latitude": 43.6057,
+            "longitude": 1.42846,
+            "altitude": 170
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "FF2",
+            "latitude": 43.67737,
+            "longitude": 1.45077,
+            "altitude": 140
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Clocher de Saint-Sernin",
+            "latitude": 43.6085,
+            "longitude": 1.4424,
+            "altitude": 214
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Clocher des Minimes",
+            "latitude": 43.61811,
+            "longitude": 1.43639,
+            "altitude": 192
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "D\u00f4me de la grave",
+            "latitude": 43.60085,
+            "longitude": 1.43298,
+            "altitude": 185
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Clocher des Jacobins",
+            "latitude": 43.60368,
+            "longitude": 1.44038,
+            "altitude": 199
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Ob\u00e9lisque de l'observatoire",
+            "latitude": 43.6114,
+            "longitude": 1.4618,
+            "altitude": 220
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Pic d'Aneto",
+            "latitude": 42.63055,
+            "longitude": 0.65695,
+            "altitude": 3404
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Pic de Montcalm",
+            "latitude": 42.672118,
+            "longitude": 1.406422,
+            "altitude": 3077
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Pic du Carlit",
+            "latitude": 42.569865,
+            "longitude": 1.932092,
+            "altitude": 2921
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Pic du Canigou",
+            "latitude": 42.518889,
+            "longitude": 2.456667,
+            "altitude": 2784
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Mont Valier",
+            "latitude": 42.797699,
+            "longitude": 1.085672,
+            "altitude": 2838
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Pic du Midi de Bigrorre",
+            "latitude": 42.936389,
+            "longitude": 0.142778,
+            "altitude": 2877
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "chemin\u00e9e SNPE-SME",
+            "latitude": 43.56582,
+            "longitude": 1.43374,
+            "altitude": 222
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "antenne caserne P\u00e9rignon",
+            "latitude": 43.59903,
+            "longitude": 1.46449,
+            "altitude": 247
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "\u00c9metteur Radiodiffusion Bonhoure",
+            "latitude": 43.60158,
+            "longitude": 1.47308,
+            "altitude": 265
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "\u00c8metteur radiodiffusion Moscou",
+            "latitude": 43.593611,
+            "longitude": 1.478056,
+            "altitude": 260
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Tour T\u00e9l\u00e9com Ramonville-Saint-Agne",
+            "latitude": 43.539722,
+            "longitude": 1.456389,
+            "altitude": 311
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Incin\u00e9rateur du Mirail",
+            "latitude": 43.556944,
+            "longitude": 1.398889,
+            "altitude": 212
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Chemin\u00e9e du sang de serp",
+            "latitude": 43.62494,
+            "longitude": 1.42202,
+            "altitude": 170
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Ch\u00e2teau d'eau de blagnac",
+            "latitude": 43.62443,
+            "longitude": 1.39547,
+            "altitude": 170
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Ch\u00e2teau d'eau de fenouillet",
+            "latitude": 43.67984,
+            "longitude": 1.3929,
+            "altitude": 170
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Ch\u00e2teau d'eau d'Aucamville",
+            "latitude": 43.66759,
+            "longitude": 1.42796,
+            "altitude": 170
+        }
+    },
+    {
+        "model": "panorama.referencepoint",
+        "fields": {
+            "name": "Tour du boulevard de Gen\u00e8ve",
+            "latitude": 43.617408,
+            "longitude": 1.419533,
+            "altitude": 163
+        }
+    }
+]
