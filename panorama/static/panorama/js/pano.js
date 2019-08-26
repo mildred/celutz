@@ -44,7 +44,7 @@ var viewDirection; // blue line drawn on the minimap
 
 function getXMLHttpRequest() {
     var xhr = null;
-    
+
     if (window.XMLHttpRequest || window.ActiveXObject) {
         if (window.ActiveXObject) {
             try {
@@ -53,13 +53,13 @@ function getXMLHttpRequest() {
                 xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
         } else {
-            xhr = new XMLHttpRequest(); 
+            xhr = new XMLHttpRequest();
         }
     } else {
         alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
         return null;
     }
-    
+
     return xhr;
 }
 
@@ -160,7 +160,7 @@ function draw_image(ox, oy) {
             // hack: It updates well when the 2nd points is pointed, but the map
             // failed to load due to the missing JS variables linked to the panorama
             // (head of view.html), so reload the page first.
-            location.reload(); 
+            location.reload();
         };
         $('#expandmap').css({'visibility': 'visible'})
     } else {
@@ -313,7 +313,7 @@ function get_file_name(x, y, z) { // recherche du fichier correspondant au zoom 
 }
 
 function get_base_name() {
-    /** 
+    /**
      * @returns the base name, which is the name (not path) of the folder where
      * the tiles are.
      */
@@ -332,7 +332,7 @@ function keys(key) {
     }
     //alert(key);
     //if (!evt.shiftKey) return;
-    
+
     switch (key.which) {
     case 36: // home
     case 35: // end
@@ -535,7 +535,7 @@ function tzoom(zv) {
             ord_pts.push(ref_points[label]);
         }
         ord_pts = ord_pts.sort(tri_ref_points);
-        is_located = (ord_pts.length > 1) 
+        is_located = (ord_pts.length > 1)
                       || image_loop && (ord_pts.length > 0);
 
 
@@ -617,18 +617,18 @@ function tzoom(zv) {
             var rxy = this.get_pos_xy(cap, ele);
             var rxy_ground = this.get_pos_xy(cap, ele_ground);
             var is_visible = (
-                fmodulo(cap - alpha_domain.start, 360) 
-                    <= 
-                    fmodulo(alpha_domain.end - 
-                            alpha_domain.start -0.0001, 360)+0.0001 
+                fmodulo(cap - alpha_domain.start, 360)
+                    <=
+                    fmodulo(alpha_domain.end -
+                            alpha_domain.start -0.0001, 360)+0.0001
                     && is_located);
 
             this.pt_list[i] = new Array();
             if (ref_points[lbl] != undefined && lnk == '') {
                 typ = 'ref_point';
-                if (!is_located) { 
+                if (!is_located) {
                     rxy = {
-                        x:ref_points[lbl].x*this.im.width, 
+                        x:ref_points[lbl].x*this.im.width,
                         y:ref_points[lbl].y*this.im.height
                     };
                 }
@@ -749,6 +749,7 @@ function wheel_zoom (event) {
 }
 
 function change_zoom(shx, shy) {
+    update_zoom_ctrl_btn();
     var zoom_control = document.getElementById("zoom_ctrl");
     var v = zoom_control.value;
 
@@ -779,6 +780,7 @@ function change_zoom(shx, shy) {
             zoom_control.value = zm.value;
         }
     }
+
 }
 
 function change_angle() {
@@ -940,7 +942,7 @@ function insert_ref_point(el, x, y) {
     if (!found) {
         alert('unknown ref_point: ' + selected_label);
     }
-    
+
     // Then push the modif
     var xhr = getXMLHttpRequest();
     xhr.open("POST", "/api/v1/references/", true);
@@ -1128,7 +1130,7 @@ function load_pano() {
     document.addEventListener('keydown', keys, false);
     canvas.addEventListener('mousewheel', wheel_zoom, false);
     canvas.addEventListener('DOMMouseScroll', wheel_zoom, false);
-    
+
     window.onresize = canvas_resize;
     if (adding) {
     document.getElementById("paramFormHide").onclick = hideForm;
@@ -1186,7 +1188,7 @@ function destVincenty(lat1, lon1, brng, dist) {
         lambda = Math.atan2(sinSigma * sinAlpha1, cosU1 * cosSigma - sinU1 * sinSigma * cosAlpha1),
         C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha)),
         Lo = lambda - (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM))),
-        revAz = Math.atan2(sinAlpha, -tmp); // final bearing    
+        revAz = Math.atan2(sinAlpha, -tmp); // final bearing
 
     return {lat: toDeg(lat2), lng: lon1 + toDeg(Lo)};
 };
@@ -1253,7 +1255,7 @@ function getCapMinMaxVisible(){
     var initial_orientation = get_orientation_from_url();
     var x = initial_orientation.x ;
     var to_zoom = initial_orientation.zoom ;
-    
+
     zm = zooms[to_zoom];
 
     // x min and max visible in the screen
@@ -1286,9 +1288,9 @@ function getCapMinMaxVisible(){
 };
 
 function load_map(){
-    /* Create the map object with the view cone and bearing object 
+    /* Create the map object with the view cone and bearing object
     */
-    
+
     // initialize the map object (global, to be view from update_map())
     map = L.map('mapid').setView([panorama_lat, panorama_lng], 13);
 
@@ -1303,7 +1305,7 @@ function load_map(){
 
     L.marker([panorama_lat, panorama_lng]).addTo(map);
 
-    map.on('click', function(e) { 
+    map.on('click', function(e) {
         /* Compute the new cap to show given the clic lat/lng */
         var lat = toRad(e.latlng.lat); // latitude
         var lng = toRad(e.latlng.lng); // longitude
@@ -1323,7 +1325,7 @@ function load_map(){
             newCap = 360 + brng
         }
         // Ensure the cap is between cap_min and cap_max
-        // first, let cap_min be 0, 
+        // first, let cap_min be 0,
         // then, rot the other angles (if it's not a 360 degree)
         // Here is a hack of the modulus operator for negative value
         // Last, if the new cap is greater than the max, then set it to the max
@@ -1345,7 +1347,7 @@ function load_map(){
         // change the cap
         angle_control = document.getElementById('angle_ctrl');
         angle_control.value = newCap;
-        
+
         // update the panorama & minimap
         change_angle(); // update panorama & minimap
     });
@@ -1353,7 +1355,7 @@ function load_map(){
 };
 
 function update_map(){
-    /* Update the map: view cone and bearing 
+    /* Update the map: view cone and bearing
     */
     if (map_never_drawn){
         map_never_drawn = false;
@@ -1361,14 +1363,14 @@ function update_map(){
         map.removeLayer(viewField);
         map.removeLayer(viewDirection);
     };
-        
+
     var bearing = $('#angle_ctrl').val();
     var cap = getCapMinMaxVisible();
 
     /* TODO: allow to configure the maximum distance. */
     viewField = getCone(panorama_lat,panorama_lng,bearing,cap,50000);
     viewDirection = L.polygon([[panorama_lat, panorama_lng],[destVincenty(panorama_lat, panorama_lng, bearing, 50000).lat,destVincenty(panorama_lat, panorama_lng, bearing, 50000).lng]],{color: '#2880ca', opacity: 1, weight: 2});
-    
+
     viewField.addTo(map);
     viewDirection.addTo(map);
 
@@ -1390,4 +1392,20 @@ function hide_map(){
         }
     });
 
+ }
+
+ function reduce_zoom_btn(){
+    document.getElementById('zoom_ctrl').value--;
+    $('#zoom_ctrl').change();
+ }
+
+ function increase_zoom_btn(){
+    document.getElementById('zoom_ctrl').value++;
+    $('#zoom_ctrl').change();
+ }
+
+ function update_zoom_ctrl_btn(){
+    const elem = document.getElementById('zoom_ctrl');
+    document.getElementById('zoom_ctrl_sup').disabled = (elem.value === elem.max);
+    document.getElementById('zoom_ctrl_inf').disabled = (elem.value === elem.min);
  }
