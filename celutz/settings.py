@@ -35,8 +35,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # For Celery
-    'kombu.transport.django',
     'rest_framework',
     'panorama.apps.PanoramaConfig',
     'altitude.apps.AltitudeConfig',
@@ -152,7 +150,7 @@ LOCATE_POINT_MAX_DISTANCE = 50000
 #}
 
 # Celery configuration
-BROKER_URL = 'django://'
+CELERY_BROKER_URL = 'django://'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 
