@@ -1,65 +1,772 @@
 [
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.18494,
-    "name": "Tour Perret",
-    "altitude": 300.0,
-    "longitude": 5.73541
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18494,
+      "longitude": 5.73541,
+      "ground_altitude": 212.83,
+      "height_above_ground": 85,
+      "name": "Tour Perret",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18706,
+      "longitude": 5.73002,
+      "ground_altitude": 212.24,
+      "height_above_ground": 46.75999999999999,
+      "name": "Basilique Saint-Joseph",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19414,
+      "longitude": 5.73609,
+      "ground_altitude": 213.17,
+      "height_above_ground": 91.83000000000001,
+      "name": "Tour Vercors",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19168,
+      "longitude": 5.7385,
+      "ground_altitude": 213.32,
+      "height_above_ground": 102.68,
+      "name": "Tour Belledonne",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.20689,
+      "longitude": 5.70174,
+      "ground_altitude": 208.94,
+      "height_above_ground": 38.06,
+      "name": "Pont d'Oxford",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18699,
+      "longitude": 5.71403,
+      "ground_altitude": 212.55,
+      "height_above_ground": 67,
+      "name": "Eglise Saint Bruno",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.1665,
+      "longitude": 5.71858,
+      "ground_altitude": 220.92,
+      "height_above_ground": 27.080000000000013,
+      "name": "Tour Caterpillar Alliés",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.120679,
+      "longitude": 5.708464,
+      "ground_altitude": 245.17,
+      "height_above_ground": 40.83000000000001,
+      "name": "Cheminée pétro-chimique Pont de Claix",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16994,
+      "longitude": 5.70565,
+      "ground_altitude": 221.19,
+      "height_above_ground": 53.81,
+      "name": "Cheminée Lycée Vaucanson",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.13196,
+      "longitude": 5.73599,
+      "ground_altitude": 445,
+      "height_above_ground": 81,
+      "name": "Tour Hertzienne Jarrie",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17723,
+      "longitude": 5.75111,
+      "ground_altitude": 213.36,
+      "height_above_ground": 11.639999999999986,
+      "name": "Résidence Houille Blanche",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.1794,
+      "longitude": 5.71969,
+      "ground_altitude": 213.4,
+      "height_above_ground": 51.599999999999994,
+      "name": "Tour Mangin",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17805,
+      "longitude": 5.71442,
+      "ground_altitude": 216.97,
+      "height_above_ground": 51.03,
+      "name": "Grande tour 15 rue André Rivoire",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.1725,
+      "longitude": 5.73289,
+      "ground_altitude": 217.36,
+      "height_above_ground": -5.360000000000014,
+      "name": "MC2 (Parc de la culture)",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.28833,
+      "longitude": 5.73861,
+      "ground_altitude": 1743.07,
+      "height_above_ground": 27.930000000000064,
+      "name": "Montagne la Pinéa",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18582,
+      "longitude": 5.73049,
+      "ground_altitude": 212.46,
+      "height_above_ground": 52,
+      "name": "Poste centrale",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16976,
+      "longitude": 5.73105,
+      "ground_altitude": 217.28,
+      "height_above_ground": 66.5,
+      "name": "CPAM",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18635,
+      "longitude": 5.73621,
+      "ground_altitude": 211.72,
+      "height_above_ground": 46.51000000000002,
+      "name": "Mairie de Grenoble",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.14435,
+      "longitude": 5.85497,
+      "ground_altitude": 830.46,
+      "height_above_ground": -0.4600000000000364,
+      "name": "Pré Tardy (Saint Martin d'Uriage)",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17295,
+      "longitude": 5.75125,
+      "ground_altitude": 214.23,
+      "height_above_ground": 60,
+      "name": "Tour de chauffage urbain",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19854,
+      "longitude": 5.72467,
+      "ground_altitude": 471.89,
+      "height_above_ground": 10.110000000000014,
+      "name": "Bastille",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.15289,
+      "longitude": 5.7364,
+      "ground_altitude": 222.89,
+      "height_above_ground": 77.11000000000001,
+      "name": "Tour compagnie de chauffage",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.12629,
+      "longitude": 5.69937,
+      "ground_altitude": 242.47,
+      "height_above_ground": 34.53,
+      "name": "Immeuble cours saint-andré, pont-de-claix",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.12087,
+      "longitude": 5.69751,
+      "ground_altitude": 274.69,
+      "height_above_ground": 23.310000000000002,
+      "name": "Château d'eau Pont-de-claix",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.0525,
+      "longitude": 5.64077,
+      "ground_altitude": 1235.93,
+      "height_above_ground": 34.069999999999936,
+      "name": "Le Pieu",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.02878,
+      "longitude": 5.61787,
+      "ground_altitude": 1403.08,
+      "height_above_ground": 7.920000000000073,
+      "name": "Rocher de l'Epiremmont",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.02347,
+      "longitude": 5.67754,
+      "ground_altitude": 918.38,
+      "height_above_ground": 7.6200000000000045,
+      "name": "Le grand brion",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.05367,
+      "longitude": 5.69199,
+      "ground_altitude": 517.61,
+      "height_above_ground": 19.389999999999986,
+      "name": "Le petit brion",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.14747,
+      "longitude": 5.63942,
+      "ground_altitude": 1876.13,
+      "height_above_ground": 24.86999999999989,
+      "name": "Moucherotte",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.13406,
+      "longitude": 5.75875,
+      "ground_altitude": 541.8,
+      "height_above_ground": 2.2000000000000455,
+      "name": "Colline Montavie",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.00521,
+      "longitude": 5.82627,
+      "ground_altitude": 2136.86,
+      "height_above_ground": 4.139999999999873,
+      "name": "Le Grand Serre",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18859,
+      "longitude": 5.64513,
+      "ground_altitude": 1114.21,
+      "height_above_ground": 109.78999999999996,
+      "name": "Antenne Charvets / Le Mollard",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17428,
+      "longitude": 5.782887,
+      "ground_altitude": 430.87,
+      "height_above_ground": -0.8700000000000045,
+      "name": "Fort du Murier",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19267,
+      "longitude": 5.72802,
+      "ground_altitude": 212.71,
+      "height_above_ground": 56.28999999999999,
+      "name": "Collégiale Saint André",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.09013,
+      "longitude": 5.62006,
+      "ground_altitude": 1923.85,
+      "height_above_ground": 42.15000000000009,
+      "name": "Pic Saint Michel",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.02506,
+      "longitude": 5.58898,
+      "ground_altitude": 2066.15,
+      "height_above_ground": 42.84999999999991,
+      "name": "Mont Gerbier",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19359,
+      "longitude": 5.71943,
+      "ground_altitude": 212.09,
+      "height_above_ground": 20.909999999999997,
+      "name": "Porte de France",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.090318,
+      "longitude": 5.9592219,
+      "ground_altitude": 2549.72,
+      "height_above_ground": -24.7199999999998,
+      "name": "Le Grand Galbert",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.77526,
+      "longitude": 5.83946,
+      "ground_altitude": 2768,
+      "height_above_ground": 21,
+      "name": "Grande tête de l'Obiou",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.77226,
+      "longitude": 5.83022,
+      "ground_altitude": 2651.03,
+      "height_above_ground": 11.9699999999998,
+      "name": "Bonnet de l'évèque",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.72171,
+      "longitude": 5.81485,
+      "ground_altitude": 2727.67,
+      "height_above_ground": 30.329999999999927,
+      "name": "Le Grand Ferrand",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.75375,
+      "longitude": 5.62475,
+      "ground_altitude": 1898.11,
+      "height_above_ground": 4.8900000000001,
+      "name": "Mont Barral",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.7241,
+      "longitude": 5.6472,
+      "ground_altitude": 2045.74,
+      "height_above_ground": 5.259999999999991,
+      "name": "Le Jocou",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.84174,
+      "longitude": 5.55222,
+      "ground_altitude": 2004.8,
+      "height_above_ground": 82.20000000000005,
+      "name": "Mont Aiguille",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.86972,
+      "longitude": 5.52669,
+      "ground_altitude": 2316.41,
+      "height_above_ground": 24.590000000000146,
+      "name": "Grand Veymont",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.864,
+      "longitude": 5.53075,
+      "ground_altitude": 2081.78,
+      "height_above_ground": 38.2199999999998,
+      "name": "Petit Veymont",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.109327,
+      "longitude": 5.690627,
+      "ground_altitude": 407.76,
+      "height_above_ground": 0.2400000000000091,
+      "name": "Le Grand Rochefort",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.099935,
+      "longitude": 5.689729,
+      "ground_altitude": 348.61,
+      "height_above_ground": 1.3899999999999864,
+      "name": "Le Petit Rochefort",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.732484,
+      "longitude": 5.635351,
+      "ground_altitude": 1816.24,
+      "height_above_ground": 28.75999999999999,
+      "name": "La Roberche",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 44.84417,
+      "longitude": 5.59345,
+      "ground_altitude": 1519.37,
+      "height_above_ground": 23.63000000000011,
+      "name": "Le Goutaroux",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17246,
+      "longitude": 5.66847,
+      "ground_altitude": 620,
+      "height_above_ground": 62,
+      "name": "Antenne tour sans venin",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.13365,
+      "longitude": 5.75178,
+      "ground_altitude": 348.94,
+      "height_above_ground": 7.060000000000002,
+      "name": "Château de Bresson",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.1372,
+      "longitude": 5.7476,
+      "ground_altitude": 272.24,
+      "height_above_ground": 12.759999999999991,
+      "name": "Mairie de Bresson",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16478,
+      "longitude": 5.73913,
+      "ground_altitude": 217.15,
+      "height_above_ground": 54,
+      "name": "Immeuble les hauts du parc",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16285,
+      "longitude": 5.72144,
+      "ground_altitude": 222.64,
+      "height_above_ground": 57,
+      "name": "Tour Kogan A",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16247,
+      "longitude": 5.722,
+      "ground_altitude": 222.89,
+      "height_above_ground": 57,
+      "name": "Tour Kogan B",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.16142,
+      "longitude": 5.73455,
+      "ground_altitude": 219.6,
+      "height_above_ground": 60,
+      "name": "Tour Ampelopsis",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.14466,
+      "longitude": 5.70012,
+      "ground_altitude": 233.56,
+      "height_above_ground": 62.5,
+      "name": "Immeuble La Luire",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.172414,
+      "longitude": 5.804121,
+      "ground_altitude": 531,
+      "height_above_ground": 10,
+      "name": "Église de Venon",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19025,
+      "longitude": 5.76708,
+      "ground_altitude": 213.04,
+      "height_above_ground": 13,
+      "name": "Bâtiment IMAG",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19232,
+      "longitude": 5.76978,
+      "ground_altitude": 215.82,
+      "height_above_ground": 20,
+      "name": "BU sciences",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.19068,
+      "longitude": 5.77207,
+      "ground_altitude": 213.42,
+      "height_above_ground": 16,
+      "name": "BU droit-lettres",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.23466,
+      "longitude": 5.71024,
+      "ground_altitude": 1276.73,
+      "height_above_ground": 21.27,
+      "name": "Le Néron",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.2061,
+      "longitude": 5.69285,
+      "ground_altitude": 210.12,
+      "height_above_ground": 30,
+      "name": "Réacteur nucléaire presque-île",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.21023,
+      "longitude": 5.65191,
+      "ground_altitude": 332.67,
+      "height_above_ground": 15,
+      "name": "Château de Beaurevoir, Sassenage",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17883,
+      "longitude": 5.7036,
+      "ground_altitude": 218.11,
+      "height_above_ground": 51,
+      "name": "Résidence Portes de l'Ouest",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.1967,
+      "longitude": 5.68778,
+      "ground_altitude": 200,
+      "height_above_ground": 20,
+      "name": "Roseraie",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.23496,
+      "longitude": 5.76229,
+      "ground_altitude": 1334.95,
+      "height_above_ground": 0,
+      "name": "Fort Saint-Eynard",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.18717,
+      "longitude": 5.70225,
+      "ground_altitude": 214.25,
+      "height_above_ground": 40,
+      "name": "Pylône élec A480 / Belle électrique",
+      "kind": "other"
+    }
+  },
+  {
+    "model": "panorama.referencepoint",
+    "fields": {
+      "latitude": 45.17433,
+      "longitude": 5.67414,
+      "ground_altitude": 520,
+      "height_above_ground": 20,
+      "name": "Antenne Bois Roland",
+      "kind": "other"
+    }
   }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.18706,
-    "name": "Basilique Saint-Joseph",
-    "altitude": 261.0,
-    "longitude": 5.73002
-  }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.19414,
-    "name": "Tour Vercors",
-    "altitude": 316.0,
-    "longitude": 5.73609
-  }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.19279,
-    "name": "Tour Mont-Blanc",
-    "altitude": 316.0,
-    "longitude": 5.73741
-  }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.19168,
-    "name": "Tour Belledonne",
-    "altitude": 316.0,
-    "longitude": 5.7385
-  }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.20689,
-    "name": "Pont Oxford",
-    "altitude": 247.0,
-    "longitude": 5.70174
-  }
-},
-{
-  "model": "panorama.referencepoint",
-  "fields": {
-    "latitude": 45.18699,
-    "name": "Eglise Saint Bruno",
-    "altitude": 280.0,
-    "longitude": 5.71403
-  }
-}
 ]
