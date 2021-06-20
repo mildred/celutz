@@ -9,7 +9,6 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import gettext_lazy as _
 
 from .tasks import generate_tiles
@@ -110,7 +109,6 @@ class Point(models.Model):
         abstract = True
 
 
-@python_2_unicode_compatible
 class ReferencePoint(Point):
     """Reference point, to be used"""
     name = models.CharField(verbose_name=_("name"), max_length=255,
@@ -305,7 +303,6 @@ class Panorama(ReferencePoint):
         verbose_name_plural = _("panoramas")
 
 
-@python_2_unicode_compatible
 class Reference(models.Model):
     """A reference is made of a Panorama, a Reference Point, and the position
     (x, y) of the reference point inside the image.  With enough
