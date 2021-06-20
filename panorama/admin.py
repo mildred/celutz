@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import os
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .models import Panorama, ReferencePoint, Reference
 from .utils import path_exists

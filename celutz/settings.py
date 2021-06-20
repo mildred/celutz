@@ -76,6 +76,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'celutz.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
