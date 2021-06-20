@@ -315,9 +315,11 @@ class Reference(models.Model):
 
     # Components of the ManyToMany relation
     reference_point = models.ForeignKey(ReferencePoint, related_name="refpoint_references",
-                                        verbose_name=_("reference point"))
+                                        verbose_name=_("reference point"),
+                                        on_delete=models.CASCADE)
     panorama = models.ForeignKey(Panorama, related_name="panorama_references",
-                                 verbose_name=_("panorama"))
+                                 verbose_name=_("panorama"),
+                                 on_delete=models.CASCADE)
     # Position of the reference point in the panorama image
     x = models.PositiveIntegerField()
     y = models.PositiveIntegerField()

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.core.validators
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -35,7 +36,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='panorama',
             name='referencepoint_ptr',
-            field=models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, default=None, serialize=False, to='panorama.ReferencePoint'),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, parent_link=True, auto_created=True, primary_key=True, default=None, serialize=False, to='panorama.ReferencePoint'),
             preserve_default=False,
         ),
         migrations.AlterField(
