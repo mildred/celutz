@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, division, print_function
 
-from django.conf.urls import url, include
+from django.urls import include, path
 from rest_framework import routers
 from . import views
 
@@ -11,6 +11,6 @@ router.register(r'refpoints', views.ReferencePointViewSet)
 router.register(r'references', views.ReferenceViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    path('', include(router.urls)),
 #    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
