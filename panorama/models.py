@@ -18,20 +18,13 @@ from .utils import makedirs, path_exists
 EARTH_RADIUS = 6371009
 
 
-class Point(models.Model):
-    """Geographical point, with altitude."""
-    latitude = models.FloatField(verbose_name=_("latitude"), help_text=_("In degrees"),
-                                 validators=[MinValueValidator(-90),
-                                             MaxValueValidator(90)])
-    longitude = models.FloatField(verbose_name=_("longitude"), help_text=_("In degrees"),
-                                 validators=[MinValueValidator(-180),
-                                             MaxValueValidator(180)])
-    ground_altitude = models.FloatField(verbose_name=_("altitude at ground level"),
-                                        help_text=_("In meters"),
-                                        validators=[MinValueValidator(0.)])
-    height_above_ground = models.FloatField(verbose_name=_("height above ground"),
-                                            help_text=_("In meters"),
-                                            default=0.)
+class PointMixin(object):
+    """Hack to workaround the fact that an abstract django model cannot be
+    instantiated (since Django 3.2).
+
+    The PointMixin defines all operations on points, and is used both by
+    Point (regular Python class) and AbstractPoint (Django abstract model).
+    """
 
     @property
     def altitude(self):
@@ -105,12 +98,47 @@ class Point(models.Model):
         sin_elev = max(min(sin_elev, 1), -1)
         return degrees(asin(sin_elev))
 
+
+class Point(PointMixin):
+    """Hack to workaround the fact that an abstract django model cannot be
+    instantiated (since Django 3.2).
+
+    This simple Python class duplicates the same fields as the AbstractPoint model.
+
+    Code that needs to manipulate points without saving them to the
+    database should use this Point class.  Otherwise, use the
+    ReferencePoint or Panorama classes (they inherit from AbstractPoint).
+    """
+
+    def __init__(self, latitude, longitude, ground_altitude, height_above_ground=0.):
+        self.latitude = float(latitude)
+        self.longitude = float(longitude)
+        self.ground_altitude = float(ground_altitude)
+        self.height_above_ground = float(height_above_ground)
+
+
+class AbstractPoint(models.Model, PointMixin):
+    """Geographical point with altitude.  Abstract model that defines common
+    fields and operations for other Django models.
+    """
+    latitude = models.FloatField(verbose_name=_("latitude"), help_text=_("In degrees"),
+                                 validators=[MinValueValidator(-90),
+                                             MaxValueValidator(90)])
+    longitude = models.FloatField(verbose_name=_("longitude"), help_text=_("In degrees"),
+                                 validators=[MinValueValidator(-180),
+                                             MaxValueValidator(180)])
+    ground_altitude = models.FloatField(verbose_name=_("altitude at ground level"),
+                                        help_text=_("In meters"),
+                                        validators=[MinValueValidator(0.)])
+    height_above_ground = models.FloatField(verbose_name=_("height above ground"),
+                                            help_text=_("In meters"),
+                                            default=0.)
+
     class Meta:
         abstract = True
 
 
-class ReferencePoint(Point):
-    """Reference point, to be used"""
+class ReferencePoint(AbstractPoint):
     name = models.CharField(verbose_name=_("name"), max_length=255,
                             help_text=_("Name of the point"))
 

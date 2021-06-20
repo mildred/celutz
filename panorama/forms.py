@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Point, ReferencePoint, Panorama
+from .models import ReferencePoint, Panorama
 
 
 class SelectReferencePointForm(forms.Form):
@@ -18,7 +18,7 @@ class CustomPointForm(forms.ModelForm):
     prefix = 'custompoint'
 
     class Meta:
-        model = Point
+        model = ReferencePoint
         fields = ['latitude', 'longitude', 'ground_altitude', 'height_above_ground']
 
 class PanoramaForm(forms.ModelForm):
