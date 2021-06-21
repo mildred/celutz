@@ -151,7 +151,8 @@ LOCATE_POINT_MAX_DISTANCE = 50000
 #}
 
 # Celery configuration
-CELERY_BROKER_URL = 'django://'
+CELERY_BROKER_URL = 'redis://'
+CELERY_RESULT_BACKEND = 'redis://'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
 
