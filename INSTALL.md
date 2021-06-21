@@ -4,7 +4,7 @@ Installing celutz
 System requirements
 -------------------
 
-- Python version 2 (at least 2.6) or version 3 (at least 3.2)
+- Python version 3 (at least 3.6)
 - At least 10 GB of disk space.  You should provision 100 MB for each panorama:
   panoramic pictures can be pretty big to start with, and celutz generates
   a lot of tiles during the initial upload.
@@ -25,11 +25,12 @@ Celutz is a fairly standard Django application: refer to the Django
 documentation for deployment methods.  The initial installation for development
 should look like this:
 
-    # Debian jessie with python3, adapt to your OS
-    apt install build-essential python3-dev libjpeg-dev libtiff5-dev zlib1g-dev libopenjp2-7-dev
+    apt install build-essential python3-dev libjpeg-dev libtiff5-dev zlib1g-dev libopenjp2-7-dev redis
     virtualenv -p /usr/bin/python3 ~/mycelutzvenv
     . ~/mycelutzvenv/bin/activate
     pip install -r requirements.txt
+
+Redis is used as a message broker between Django and Celery workers, used for tile generation (see below).
 
 Configuration
 -------------
@@ -73,7 +74,10 @@ Just run the builtin Django server:
 
 Alternatively, you can use gunicorn exactly like in production.
 
-You also need to launch a celery worker (see below).
+You also need to launch a celery worker (see below).  Redis is needed to
+server as a message broker between Django and Celery workers.  By default
+on Debian, the Redis server is available on localhost without authentication,
+which means that no specific configuration is required.
 
 Production
 ----------
@@ -98,24 +102,22 @@ There is a script, `update_prod.sh`, that handles updating an existing
 production installation.  It install new dependencies and collect static
 files.
 
-Tile generation
----------------
+Tile generation with Celery
+---------------------------
 
 Tile generation uses Celery, because it is quite a heavy task CPU-wise.
 
 To launch a celery worker, run this in your virtualenv:
 
-    celery -c 1 -A celutz.celery worker --loglevel=info
+    celery -A celutz.celery worker --loglevel=info -c 1
 
 This tells celery to handle at most one task at a time: `-c 1`.  Indeed,
 generating tiles for a single panorama can take quite a lot of RAM.
 If you have enough RAM (2GB+) and multiple CPU, you can increase this
 parameter to generate tiles for multiple panoramas in parallel.
 
-The default parameters use the Django database as a message queue, to ask
-a celery woker to generate tiles for a panorama.  This is far from efficient,
-but since there are very few messages, it is not worth the trouble to configure
-a real message queue such as RabbitMQ.
+By default, we configure Celery to use Redis as a message queue.  This is
+of course configurable if you have specific requirements.
 
 Importing reference points
 --------------------------
