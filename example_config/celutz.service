@@ -1,0 +1,18 @@
+[Unit]
+Description=Celutz Main Service
+After=network.target
+
+[Service]
+Type=simple
+User=celutz
+Group=nogroup
+WorkingDirectory=/srv/celutz/celutz
+Environment=PYTHONUNBUFFERED=TRUE
+ExecStart=/srv/celutz/venv3.9/bin/gunicorn --enable-stdio-inheritance --capture-output -b unix:/srv/celutz/celutz/gunicorn.sock --workers 4 celutz.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -96,13 +96,6 @@ You probably also need to configure your webserver to allow to send very large
 files in a POST request.  An upper limit of 200 MB should be enough, even for
 very large pictures in raw format.
 
-Updating a production installation
-----------------------------------
-
-There is a script, `update_prod.sh`, that handles updating an existing
-production installation.  It install new dependencies and collect static
-files.
-
 Tile generation with Celery
 ---------------------------
 
@@ -119,6 +112,27 @@ parameter to generate tiles for multiple panoramas in parallel.
 
 By default, we configure Celery to use Redis as a message queue.  This is
 of course configurable if you have specific requirements.
+
+Example production configuration with Nginx and Systemd
+-------------------------------------------------------
+
+Example systemd service files, to be installed in `/etc/systemd/system`:
+
+- `example_config/celutz.service`: main Django app running with gunicorn
+- `example_config/celutz-worker.service`: celery worker, used to generate tiles
+
+You probably need to adapt paths, users, etc.
+
+The following Nginx configuration can be used as a template:
+
+- `example_config/nginx.conf`
+
+Updating a production installation
+----------------------------------
+
+There is a script, `update_prod.sh`, that handles updating an existing
+production installation.  It install new dependencies and collect static
+files.
 
 Importing reference points
 --------------------------

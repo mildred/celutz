@@ -1,0 +1,13 @@
+[Unit]
+Description=Celutz Background Worker
+After=network.target
+
+[Service]
+Type=simple
+User=celutz
+Group=nogroup
+WorkingDirectory=/srv/celutz/celutz
+ExecStart=/srv/celutz/venv3.9/bin/celery -A celutz.celery worker --loglevel=info -c 1
+
+[Install]
+WantedBy=multi-user.target
