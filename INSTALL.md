@@ -4,7 +4,7 @@ Installing celutz
 System requirements
 -------------------
 
-- Python version 3 (at least 3.6)
+- Python version 3 (at least 3.7)
 - At least 10 GB of disk space.  You should provision 100 MB for each panorama:
   panoramic pictures can be pretty big to start with, and celutz generates
   a lot of tiles during the initial upload.
@@ -25,9 +25,10 @@ Celutz is a fairly standard Django application: refer to the Django
 documentation for deployment methods.  The initial installation for development
 should look like this:
 
-    apt install build-essential python3-dev libjpeg-dev libtiff5-dev zlib1g-dev libopenjp2-7-dev redis
-    virtualenv -p /usr/bin/python3 ~/mycelutzvenv
+    apt install build-essential python3-venv python3-dev libjpeg-dev libtiff5-dev zlib1g-dev libopenjp2-7-dev redis
+    python3 -m venv ~/mycelutzvenv
     . ~/mycelutzvenv/bin/activate
+    pip install --upgrade pip
     pip install -r requirements.txt
 
 Redis is used as a message broker between Django and Celery workers, used for tile generation (see below).
