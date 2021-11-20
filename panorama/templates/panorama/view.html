@@ -146,7 +146,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i>  {% trans "Controls" %}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                  <label>{% trans "Zoom:" %} <input type="range" min="0" max="2" value="2" id="zoom_ctrl"/></label>
+                  <label>{% trans "Zoom:" %} <div id ="zoom_ctrl_div"><button id="zoom_ctrl_sup" onClick="event.stopPropagation();increase_zoom_btn()">-</button><input type="range" min="0" max="2" value="2" id="zoom_ctrl"/><button id="zoom_ctrl_inf" onClick="event.stopPropagation();reduce_zoom_btn()">+</button></div></label>
                   <label>{% trans "Bearing:" %} <input type="number" min="0" max="360" step="10" value="0" autofocus="" id="angle_ctrl"/></label>
                   <label>{% trans "Elevation:" %} <input type="number" min="-90" max="90" step="1" value="0" autofocus="" id="elvtn_ctrl"/></label>
             </li>
@@ -201,4 +201,3 @@ style="padding-left:0px"
     <a href="#" title="Hide/show map"><i id="expandmap" class="fa fa-compress" aria-hidden="true"></i></a>
     <div id="mapid"></div>
 {% endblock pano %}
-
