@@ -86,7 +86,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.getenv("CELUTZ_DB_NAME", os.path.join(BASE_DIR, 'db.sqlite3')),
     }
 }
 
@@ -127,7 +127,7 @@ ALTITUDE_PROVIDERS = [altitude.providers.GeoportailProvider,
 ALTITUDE_PROVIDER_TIMEOUT = 3.
 
 # For uploaded panorama
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.getenv("CELUTZ_MEDIA_DIR", os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
 
 # Relative to MEDIA_ROOT and MEDIA_URL
