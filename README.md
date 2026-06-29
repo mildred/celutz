@@ -1,5 +1,11 @@
 This is a friendly fork of https://code.ffdn.org/ffdn/celutz with modifications to add a Dockerfile. This is the easiest way to eet up locally becaujse of the obsolete dependencies.
 
+To run locally :
+
+    podman build -t celutz .
+    podman run --rm -ti -v ./data:/data --net=host celutz
+    podman run --rm -ti -v ./data:/data --net=host celutz worker
+
 -----
 
 Celutz
